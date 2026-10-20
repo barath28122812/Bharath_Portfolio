@@ -1,0 +1,4893 @@
+/* ==========================================================================
+   Inter — self-hosted variable font (matches bharathanand.co.uk)
+   --------------------------------------------------------------------------
+   The site is a single typeface: Inter. It is served from /public/fonts as a
+   variable woff2 (weight 100-900 in one file) and preloaded from index.html,
+   so there is no render-blocking third-party stylesheet request and no
+   layout shift from a late font swap. Latin + Latin-Extended are the only
+   subsets shipped, which is all a UK English portfolio needs.
+   ========================================================================== */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/inter-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
+    U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+    U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/inter-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+:root {
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Helvetica, Arial, sans-serif;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.6;
+  color: #111;
+}
+
+/* Prevent decorative elements (e.g. the corner stars that overlap the page
+   edges) from ever creating an unwanted horizontal scrollbar. This clips the
+   tiny overhang at the viewport edge while keeping everything else intact. */
+html,
+body {
+  overflow-x: clip;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-sans);
+}
+
+/* Work page capability ticker */
+.work-marquee {
+  display: flex;
+  align-items: center;
+}
+.work-marquee-track {
+  display: flex;
+  align-items: center;
+  gap: clamp(28px, 4vw, 58px);
+  width: max-content;
+  padding-left: clamp(28px, 4vw, 58px);
+  animation: work-marquee 32s linear infinite;
+  will-change: transform;
+}
+.work-marquee:hover .work-marquee-track {
+  animation-play-state: paused;
+}
+@keyframes work-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .work-marquee-track {
+    animation: none;
+  }
+}
+
+.projects-home-marquee,
+.project-list-marquee {
+  animation: project-marquee 60s linear infinite;
+  will-change: transform;
+}
+
+.projects-home-marquee:hover,
+.project-list-marquee:hover,
+.projects-home-marquee-wrap:hover .projects-home-marquee {
+  animation-play-state: paused;
+}
+
+@keyframes project-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-list-marquee {
+    animation: none;
+  }
+}
+
+/* Home Projects + "My works" carousels.
+   Phones keep the auto-scrolling card strips (a seamless translateX(-50%)
+   marquee) instead of a static swipe row, so the same auto-move applies to
+   both. The home track uses a leading pad of 12px and a 12px inter-copy
+   gap, so the loop only stays tight when its trailing pad is 0
+   (gap == padLeft + padRight); any trailing pad jumps the strip each cycle.
+   The "My works" track has symmetric per-copy padding and no track gap, so
+   it is seamless as-is. */
+@media (max-width: 599.98px) {
+  .projects-home-marquee-wrap {
+    overflow: hidden !important;
+    overscroll-behavior-x: none;
+    touch-action: pan-y;
+  }
+
+  .projects-home-marquee-wrap .projects-home-marquee {
+    animation: project-marquee 30s linear infinite !important;
+    will-change: transform;
+    padding-right: 0 !important;
+  }
+}
+
+/* Marquee card strips — small-phone tuning (320px–390px): keep the cards a
+   touch narrower than 74vw so the moving strip reads as motion (the next
+   card clearly peeks) and trim the section spacing. */
+@media (min-width: 320px) and (max-width: 390px) {
+  .projects-home-marquee-wrap {
+    padding-bottom: 18px !important;
+  }
+
+  .projects-home-marquee .project-card-slide,
+  .more-work-marquee .more-work-item > a {
+    width: 74vw !important;
+    min-width: 74vw !important;
+    max-width: 74vw !important;
+  }
+
+  .projects-home-marquee .project-card-slide {
+    height: 286px !important;
+  }
+
+  .more-work-marquee .more-work-copy {
+    gap: 16px !important;
+    padding: 0 16px !important;
+  }
+}
+
+/* ====== SERVICES "SERVICES / what i offer" ticker ======
+   Clip the wide marquee track inside the title bar like the Projects
+   carousel (overflow:hidden wrapper). framer.css uses a clip-fallback
+   variable that can fall back to `visible`, which lets the track spill
+   past the border lines. Force a hard clip here. */
+.framer-LRfZ0 .framer-16wkbmu,
+.framer-LRfZ0 .framer-1d2h9jk .framer-1232xio {
+  overflow: hidden !important;
+}
+
+/* Framer page background (was inline <style data-framer-html-style> in page.html) */
+:root body,
+html body {
+  background: var(--token-8f8b32ea-2243-4c94-90d7-9dbc1e52ffc2, rgb(255, 255, 255));
+}
+
+/* Auto-moving tickers (START A PROJECT bar + framer SERVICE tickers) are
+   driven by usePortfolioAnimations' JS ticker, which clones enough sets to
+   fill the viewport and wraps by exactly one set. Keep the layout here and
+   NO CSS animation so it can never fight the JS transform (a CSS animation
+   overrides the inline transform and breaks the -50% seam when >2 sets
+   exist, making the marquee appear to "finish" and jump). */
+[data-framer-name='Ticker'] ul,
+#dean-projects ul,
+#dean-projects .framer-1yk6okp ul {
+  display: flex !important;
+  flex-direction: row;
+  width: max-content !important;
+  min-width: max-content;
+}
+
+/* --- Hero title alignment: "PRODUCT" must hug the portrait from the right ---
+   (DESIGNER already matches the design; matches live aboutdean.framer.website).
+   Desktop only — on tablet/mobile the words switch to the centered stack. */
+@media (min-width: 1200px) {
+  .framer-h7jmht-container .framer-1ud93i0 {
+    align-items: flex-end;
+  }
+  .framer-h7jmht-container .framer-1ud93i0 h1 {
+    text-align: right;
+  }
+}
+
+/* Guarantee fixed-size social icons in the footer/CTA "Socials" buttons */
+.framer-r8ZIl.framer-v-uo3c7n .framer-1hlss9v {
+  flex: none;
+  width: 20px;
+  height: 20px;
+}
+
+/* --- Boy face: static frame, no float/bob (matches aboutdean.framer.website) --- */
+.vp-boy-face {
+  animation: none;
+}
+
+/* --- Button hover animations --- */
+
+/* CTA pill buttons: "I Want to Chat", "View all projects" */
+.framer-76p5jv {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+.framer-76p5jv:hover {
+  transform: translateY(-3px) scale(1.03);
+}
+
+/* Footer/CTA "Socials" pills (icon + label) */
+.framer-r8ZIl.framer-v-uo3c7n {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 0.35s ease, box-shadow 0.35s ease;
+}
+.framer-r8ZIl.framer-v-uo3c7n:hover {
+  transform: translateY(-3px);
+  background-color: #000 !important;
+  box-shadow: 0 10px 25px -8px rgba(0, 0, 0, 0.35);
+}
+.framer-r8ZIl.framer-v-uo3c7n:hover .framer-text {
+  color: #fff !important;
+}
+
+/* Round social icon buttons (nav) */
+.framer-r8ZIl.framer-13suufa:not(.framer-v-uo3c7n) {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 0.35s ease, box-shadow 0.35s ease;
+}
+.framer-r8ZIl.framer-13suufa:not(.framer-v-uo3c7n):hover {
+  transform: translateY(-3px) scale(1.08);
+  background-color: #000 !important;
+  box-shadow: 0 10px 25px -8px rgba(0, 0, 0, 0.35);
+}
+.framer-r8ZIl.framer-13suufa:not(.framer-v-uo3c7n):hover .framer-1hlss9v,
+.framer-r8ZIl.framer-v-uo3c7n:hover .framer-1hlss9v {
+  background-color: #fff !important;
+}
+
+/* Navbar right-side social icon pill buttons */
+.nav-social-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: min(32px, 3vw);
+  height: min(32px, 3vw);
+  min-width: 0;
+  min-height: 0;
+  border-radius: 100px;
+  border: 1px solid rgb(255, 255, 255);
+  color: #000;
+  text-decoration: none;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 0.35s ease, box-shadow 0.35s ease, color 0.35s ease;
+  flex-shrink: 1;
+}
+.nav-social-icon-btn svg {
+  width: 1.6em;
+  height: 1.6em;
+  max-width: 100%;
+  max-height: 100%;
+  flex: none;
+}
+.nav-social-icon-btn:hover {
+  transform: translateY(-3px) scale(1.08);
+  background-color: #000;
+  color: #fff;
+  box-shadow: 0 10px 25px -8px rgba(0, 0, 0, 0.35);
+}
+@media (max-width: 1100px) {
+  .nav-social-icon-btn {
+    width: 26px;
+    height: 26px;
+  }
+}
+
+/* --- Footer "START A PROJECT" Ticker constrained to the page lines (1140px) --- */
+.framer-1rfnqck {
+  max-width: 100%;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Framer nav button icon elements */
+.framer-Luw1d {
+  -webkit-mask: url("data:image/svg+xml,<svg viewBox='0 0 24 24' fill='%23000000' xmlns='http://www.w3.org/2000/svg'><rect x='4' y='4' width='7.2' height='7.2' rx='2.2'/><rect x='12.8' y='4' width='7.2' height='7.2' rx='2.2'/><rect x='4' y='12.8' width='7.2' height='7.2' rx='2.2'/><rect x='12.8' y='12.8' width='7.2' height='7.2' rx='2.2'/></svg>") alpha no-repeat center/contain;
+  mask: url("data:image/svg+xml,<svg viewBox='0 0 24 24' fill='%23000000' xmlns='http://www.w3.org/2000/svg'><rect x='4' y='4' width='7.2' height='7.2' rx='2.2'/><rect x='12.8' y='4' width='7.2' height='7.2' rx='2.2'/><rect x='4' y='12.8' width='7.2' height='7.2' rx='2.2'/><rect x='12.8' y='12.8' width='7.2' height='7.2' rx='2.2'/></svg>") alpha no-repeat center/contain;
+  background-color: var(--1hmr9s8, #000);
+}
+
+/* --- Custom cursor: instant dot + trailing ring --- */
+.vp-cursor-ring {
+  background-color: rgba(255, 255, 255, 0);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.35s ease,
+    border-color 0.35s ease, opacity 0.35s ease;
+}
+.vp-cursor-ring.vp-cursor-hover {
+  transform: scale(2);
+  background-color: rgb(255, 255, 255);
+  border-color: rgb(255, 255, 255);
+  opacity: 0.3;
+}
+/* Circle that sits inside "View" text (bigger, filled) */
+.vp-cursor-ring.vp-cursor-view {
+  transform: scale(2.8);
+  background-color: rgb(255, 255, 255);
+  border-color: rgb(255, 255, 255);
+  opacity: 0.3;
+}
+/* --- Chat widget: typing indicator dots --- */
+.vp-typing-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--token-2c4d0fad-06de-414f-b048-811f13183390, rgb(87, 87, 87));
+  display: inline-block;
+  animation: vp-typing 1.2s ease-in-out infinite;
+}
+.vp-typing-dot:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.vp-typing-dot:nth-child(3) {
+  animation-delay: 0.3s;
+}
+@keyframes vp-typing {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  30% {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  body.vp-custom-cursor * {
+    cursor: none !important;
+  }
+  body.vp-custom-cursor input,
+  body.vp-custom-cursor textarea,
+  body.vp-custom-cursor select,
+  body.vp-custom-cursor [contenteditable='true'] {
+    cursor: auto !important;
+  }
+}
+
+/* --- Home nav link: hover animation --- */
+/* framer-v-x0lgeu is the "Active" (Home) nav text link */
+.framer-v-x0lgeu {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+}
+.framer-v-x0lgeu:hover {
+  transform: translateY(-3px) scale(1.08);
+  opacity: 0.85;
+}
+/* Teal color on the letter spans inside Home when hovered */
+.framer-v-x0lgeu:hover span {
+  color: var(--token-6a6d1eb8-2687-4444-ba52-f31754121a4e, rgb(2, 212, 245)) !important;
+}
+
+/* --- Nav center icon: smooth transition when icon changes --- */
+.framer-1i96c6o svg {
+  transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.framer-1i96c6o:hover svg {
+  transform: scale(1.12);
+}
+
+/* Guarantee the centre nav icon is perfectly centred in its circle */
+.nav-center-mark .framer-1i96c6o {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100%;
+  height: 100%;
+}
+.nav-center-mark .framer-1i96c6o svg {
+  display: block !important;
+  flex: none;
+  margin: auto !important;
+  position: relative;
+}
+
+/* Red centre navigation badge with a smooth, circular dotted orbit. */
+.nav-center-mark { position: relative; }
+.nav-center-mark .framer-1id1qzj {
+  aspect-ratio: 1;
+  height: var(--framer-aspect-ratio-supported, 40px) !important;
+  width: 40px !important;
+  z-index: 2;
+  flex-flow: row;
+  flex: none;
+  place-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 0;
+  display: flex;
+  position: relative;
+  overflow: visible;
+}
+.nav-center-mark .framer-1i96c6o { position: relative; z-index: 1; }
+.nav-center-mark .framer-1f4mxxz { display: none; }
+.nav-dotted-orbit {
+  position: absolute;
+  z-index: 0;
+  top: 50%;
+  left: 50%;
+  width: 58px;
+  height: 58px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  animation: nav-dots-orbit 7s linear infinite;
+}
+.nav-dotted-orbit svg { width: 100%; height: 100%; overflow: visible; }
+.nav-dotted-orbit circle {
+  fill: none;
+  stroke: #fe2026;
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  stroke-dasharray: 1 9.2;
+}
+@keyframes nav-dots-orbit { to { transform: translate(-50%, -50%) rotate(360deg); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-dotted-orbit { animation: none; }
+}
+
+/* Petpedia content container. It now sits inside the shared full-page
+   side-lines frame (see .crunch-side-lines below), so it only needs the
+   matching max-width and does not draw its own borders. */
+.petpedia-page-frame {
+  width: 100% !important;
+  max-width: 100%;
+  margin: 0 auto;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* ==========================================================================
+   Global Page Side Lines & 4-Pointed Star (✦) Decorations
+   --------------------------------------------------------------------------
+   Single source of truth for the full-page left/right vertical guide lines.
+   All pages render these through the shared `.crunch-side-lines` element so
+   they stay consistent at every breakpoint and zoom level. The frame always
+   tracks the 1140px content frame (min 100% on smaller screens), so the side
+   lines sit flush against the page content edges rather than straying far out
+   to the extreme viewport edges. Lines are always shown on every screen size.
+   ========================================================================== */
+.crunch-side-lines,
+.page-side-lines {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(100%, 1140px);
+  max-width: 1140px;
+  pointer-events: none;
+  z-index: 5;
+  background-image:
+    linear-gradient(rgba(224, 224, 224, 0.63), rgba(224, 224, 224, 0.63)),
+    linear-gradient(rgba(224, 224, 224, 0.63), rgba(224, 224, 224, 0.63));
+  background-size: 1px 100%, 1px 100%;
+  background-position: 0 0, 100% 0;
+  background-repeat: no-repeat;
+}
+
+.crunch-side-lines::before,
+.crunch-side-lines::after,
+.page-side-lines::before,
+.page-side-lines::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 18px;
+  height: 2px;
+  background: #FE2026;
+  border-radius: 2px;
+}
+.crunch-side-lines::before,
+.page-side-lines::before { left: 0; }
+.crunch-side-lines::after,
+.page-side-lines::after { right: 0; }
+
+.star-join-point,
+.crunch-side-lines-star,
+.side-line-star,
+.ab-side-star {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23111111'%3E%3Cpath d='M12 0 C12 6.627 6.627 12 0 12 C6.627 12 12 17.373 12 24 C12 17.373 17.373 12 24 12 C17.373 12 12 6.627 12 0 Z'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.crunch-side-lines-star-left,
+.side-line-star-left,
+.ab-side-star-left {
+  left: 0;
+  bottom: 0px;
+  transform: translate(-50%, 50%);
+}
+
+.crunch-side-lines-star-right,
+.side-line-star-right,
+.ab-side-star-right {
+  right: 0;
+  bottom: 0px;
+  transform: translate(50%, 50%);
+}
+
+.crunch-side-lines-star-bottom,
+.side-line-star-bottom,
+.ab-side-star-bottom {
+  bottom: 0px;
+}
+
+.crunch-side-lines-star-top,
+.side-line-star-top,
+.ab-side-star-top {
+  top: 0px;
+}
+
+/* Horizontal section divider lines with center 4-pointed star */
+.ab-divider,
+.section-divider-star-line {
+  position: relative;
+  width: 100%;
+  height: 1px;
+  background: #E5E7EB;
+  margin: 0;
+  border: none;
+  overflow: visible;
+  display: block;
+}
+
+.ab-divider::after,
+.section-divider-star-line::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 14px;
+  height: 14px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23111111'%3E%3Cpath d='M12 0 C12 6.627 6.627 12 0 12 C6.627 12 12 17.373 12 24 C12 17.373 17.373 12 24 12 C17.373 12 12 6.627 12 0 Z'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #fff;
+  box-shadow: 0 0 0 4px #fff;
+}
+
+/* ==========================================================================
+   Responsive frame & gutter ladder — ALL breakpoint sizes
+   --------------------------------------------------------------------------
+   Applies on every page so content always stays flush inside the 1140px
+   left/right guide lines at any viewport width:
+     1600+  (large desktop)  1199   (desktop)     1024   (laptop/tablet L)
+      900   (small tablet)    768   (tablet P)     700   (large phone)
+      640   (phone)           560   (small phone)  480   (mobile)
+      400   (compact)         375   (iPhone SE)    360   (small Android)
+   ========================================================================== */
+
+/* 1) Side-line corner stars scale down on small screens (stays visible,
+      never overlaps content or creates scrollbars). */
+@media (max-width: 768px) {
+  .crunch-side-lines-star,
+  .side-line-star,
+  .star-join-point,
+  .ab-side-star {
+    width: 12px;
+    height: 12px;
+  }
+}
+@media (max-width: 480px) {
+  .crunch-side-lines-star,
+  .side-line-star,
+  .star-join-point,
+  .ab-side-star {
+    width: 10px;
+    height: 10px;
+  }
+}
+
+/* 2) Responsive gutter (--crunch-pad) for all pages that use it. The base
+      24px + the per-page 640/400 steps already exist; this fills in every
+      intermediate size so the gutter follows the frame on all screens. */
+@media (max-width: 1140px) {
+  .ateats-page,
+  .beuta-page,
+  .crunch-page,
+  .xr-page,
+  .atbots-page { --crunch-pad: 28px !important; }
+}
+@media (max-width: 1024px) {
+  .ateats-page,
+  .beuta-page,
+  .crunch-page,
+  .xr-page,
+  .atbots-page { --crunch-pad: 24px !important; }
+}
+@media (max-width: 900px) {
+  .ateats-page,
+  .beuta-page,
+  .crunch-page,
+  .xr-page,
+  .atbots-page { --crunch-pad: 22px !important; }
+}
+@media (max-width: 768px) {
+  .ateats-page,
+  .beuta-page,
+  .crunch-page,
+  .xr-page,
+  .atbots-page { --crunch-pad: 20px !important; }
+}
+@media (max-width: 700px) {
+  .ateats-page,
+  .beuta-page,
+  .crunch-page,
+  .xr-page,
+  .atbots-page { --crunch-pad: 18px !important; }
+}
+@media (max-width: 560px) {
+  .ateats-page,
+  .beuta-page,
+  .crunch-page,
+  .xr-page,
+  .atbots-page { --crunch-pad: 16px !important; }
+}
+@media (max-width: 480px) {
+  .ateats-page,
+  .beuta-page,
+  .crunch-page,
+  .xr-page,
+  .atbots-page { --crunch-pad: 15px !important; }
+}
+@media (max-width: 400px) {
+  .ateats-page,
+  .beuta-page,
+  .crunch-page,
+  .xr-page,
+  .atbots-page { --crunch-pad: 14px !important; }
+}
+@media (max-width: 375px) {
+  .ateats-page,
+  .beuta-page,
+  .crunch-page,
+  .xr-page,
+  .atbots-page { --crunch-pad: 13px !important; }
+}
+@media (max-width: 360px) {
+  .ateats-page,
+  .beuta-page,
+  .crunch-page,
+  .xr-page,
+  .atbots-page { --crunch-pad: 12px !important; }
+}
+
+/* ==========================================================================
+   Global Mobile Gap Reduction
+   Reduces excessive gaps/padding on mobile across all pages
+   ========================================================================== */
+
+@media (max-width: 809.98px) {
+  /* Hero section - minimal vertical padding and compact header */
+  .framer-1e1vhhu,
+  .framer-LRfZ0 > main > section:first-child {
+    padding-top: 12px !important;
+    padding-bottom: 8px !important;
+  }
+
+  /* Hero header - remove 64px top desktop padding */
+  .home-page .framer-1r3iyda {
+    padding: 20px 0 12px !important;
+    gap: 10px !important;
+  }
+
+  /* Section vertical spacing - compact clean gaps */
+  .framer-LRfZ0 main > *,
+  .framer-3jfDI main > * {
+    margin-bottom: 8px !important;
+  }
+
+  /* Reset Framer's desktop margin-top: 110px on all main sections */
+  .framer-LRfZ0 .framer-1e1vhhu {
+    margin-top: 0 !important;
+    margin-bottom: 8px !important;
+  }
+
+  /* About section mobile margins & badge positioning above character */
+  .home-page .framer-14q0wb {
+    margin-top: 8px !important;
+    margin-bottom: 8px !important;
+  }
+
+  .home-page .framer-14q0wb .framer-hrku8u {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    position: relative !important;
+    padding: 12px 12px 14px !important;
+  }
+
+  .home-page .framer-14q0wb .framer-1toikl6 {
+    position: relative !important;
+    top: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    transform: none !important;
+    order: -1 !important;
+    margin: 0 auto 12px !important;
+    width: auto !important;
+    max-width: max-content !important;
+    align-self: center !important;
+    padding: 7px 15px !important;
+    background-color: var(--token-fb315f8f-abaa-4742-a977-7745bac80b10, #f2f2f2) !important;
+    border-radius: 90px !important;
+    z-index: 2 !important;
+  }
+
+  .home-page .framer-14q0wb .framer-1dfrbc1 {
+    width: auto !important;
+    white-space: nowrap !important;
+  }
+
+  .home-page .framer-14q0wb .framer-1dfrbc1 h4 {
+    margin: 0 !important;
+    font-size: 13.5px !important;
+    line-height: 1.2 !important;
+  }
+
+  /* Services ticker - eliminate 48px/96px mobile vertical padding */
+  .home-page .framer-hhz42d .framer-16wkbmu {
+    padding: 14px 0 !important;
+  }
+
+  .home-page .framer-hhz42d {
+    gap: 8px !important;
+    margin-top: 8px !important;
+    margin-bottom: 8px !important;
+  }
+
+  /* Process section - eliminate 110px top margin and 128px title padding */
+  .framer-LRfZ0 .framer-1isaao7 {
+    margin-top: 8px !important;
+    margin-bottom: 8px !important;
+    padding-top: 0 !important;
+  }
+
+  .home-page .framer-17qyqbf {
+    padding: 20px 16px 10px !important;
+    gap: 8px !important;
+  }
+
+  /* Testimonials wrapper - eliminate 110px top margin */
+  .framer-LRfZ0 .framer-159qakh {
+    margin-top: 8px !important;
+    margin-bottom: 8px !important;
+    padding-top: 0 !important;
+  }
+
+  /* Empty spacer between Testimonials and Footer - hide on mobile */
+  .home-page .framer-15qpk7a {
+    display: none !important;
+  }
+
+  /* Projects marquee - minimal padding */
+  .projects-home-marquee-wrap {
+    padding-top: 8px !important;
+    padding-bottom: 10px !important;
+  }
+
+  /* Card gaps in grids - minimal */
+  .work-grid-layout,
+  .freelance-halves-grid,
+  .latest-insights-grid,
+  .stay-connected-grid {
+    gap: 8px !important;
+  }
+
+  /* Work hero - minimal gap */
+  .work-hero-inner {
+    gap: 8px !important;
+    padding: 12px 12px !important;
+  }
+
+  /* Freelance featured card */
+  .freelance-featured-card {
+    gap: 8px !important;
+    padding: 12px 12px !important;
+  }
+
+  /* General section padding - minimal */
+  section[style*="padding"] {
+    padding-top: 16px !important;
+    padding-bottom: 12px !important;
+  }
+
+  /* Footer mobile - minimal padding and gaps */
+  .framer-NKgCP.framer-v-tof8wg,
+  .framer-NKgCP.framer-v-7kk9q5 {
+    padding-top: 16px !important;
+    padding-bottom: 12px !important;
+  }
+
+  .framer-NKgCP .framer-1rfnqck {
+    padding: 8px 0 !important;
+  }
+
+  .framer-NKgCP .framer-1232xio ul {
+    gap: 16px !important;
+  }
+
+  .framer-NKgCP .framer-xft4v1 > div {
+    gap: 12px !important;
+  }
+
+  .framer-NKgCP .framer-owzuq6,
+  .framer-NKgCP .framer-5y5119 {
+    padding: 8px !important;
+  }
+
+  .framer-NKgCP .framer-7m8v7g-container > div {
+    padding: 8px 4px !important;
+  }
+
+  .framer-NKgCP .framer-j6c6bc {
+    padding: 8px !important;
+  }
+
+  .framer-NKgCP .framer-1u1w4v3 {
+    gap: 6px !important;
+    padding-top: 6px !important;
+  }
+
+  .framer-NKgCP .framer-r8ZIl.framer-v-uo3c7n {
+    gap: 4px !important;
+  }
+}
+
+/* Compact the home ABOUT ME section on small phones (320–390px). The exported
+   Framer layout keeps desktop gutters, a fixed-width "Let Me Introduce Myself"
+   badge and a full-width Client Reviews stat card, so at these widths the grid
+   looks uneven, text overlaps and content spills past the frame edge. */
+@media (max-width: 390px) {
+  /* Pull the section closer to Projects and stop any sideways spill. */
+  .home-page .framer-14q0wb {
+    margin-top: 10px !important;
+    overflow-x: clip;
+  }
+
+  /* Let the flex/grid children shrink instead of forcing their content width. */
+  .home-page .framer-14q0wb .framer-3hswv,
+  .home-page .framer-14q0wb .framer-163ehaw,
+  .home-page .framer-14q0wb .framer-uhkwvd,
+  .home-page .framer-14q0wb .framer-49y84c {
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+
+  /* ABOUT ME title: cut the desktop top padding. */
+  .home-page .framer-14q0wb .framer-1jv5lcx {
+    padding: 28px 12px 12px !important;
+  }
+
+  /* ABOUT ME heading: scale it down so both words always fit on one line at
+     320–390px. The sv70jv preset forces a 58px floor, which lets "ABOUT ME"
+     spill past the frame edge and get clipped by the section's overflow. */
+  .home-page .framer-14q0wb .framer-1jv5lcx h2 {
+    --framer-font-size: clamp(42px, calc((100vw - 56px) / 5.4), 56px) !important;
+    font-size: clamp(42px, calc((100vw - 56px) / 5.4), 56px) !important;
+    white-space: nowrap !important;
+  }
+
+  /* Image wrapper: tighter gutters. */
+  .home-page .framer-14q0wb .framer-hrku8u {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    padding: 12px 12px 14px !important;
+    position: relative !important;
+  }
+
+  /* "Let Me Introduce Myself" badge: placed cleanly above the 3D character to avoid collision */
+  .home-page .framer-14q0wb .framer-1toikl6 {
+    position: relative !important;
+    top: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    transform: none !important;
+    order: -1 !important;
+    margin: 0 auto 10px !important;
+    width: auto !important;
+    max-width: max-content !important;
+    align-self: center !important;
+    padding: 7px 15px !important;
+    background-color: var(--token-fb315f8f-abaa-4742-a977-7745bac80b10, #f2f2f2) !important;
+    border-radius: 90px !important;
+    z-index: 2 !important;
+  }
+
+  .home-page .framer-14q0wb .framer-1dfrbc1 {
+    width: auto !important;
+    white-space: nowrap !important;
+  }
+
+  .home-page .framer-14q0wb .framer-1dfrbc1 h4 {
+    margin: 0 !important;
+    font-size: 13px !important;
+    line-height: 1.2 !important;
+  }
+
+  /* Stats: clean, equal 2-column grid — no full-width outlier card. */
+  .home-page .framer-14q0wb .framer-73m4c5,
+  .home-page .framer-14q0wb .framer-49y84c {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .home-page .framer-14q0wb .framer-73m4c5 .framer-1w508at-container {
+    grid-column: auto !important;
+    place-self: stretch !important;
+    width: 100% !important;
+    max-width: none !important;
+  }
+
+  .home-page .framer-14q0wb .framer-vydmt {
+    width: 100% !important;
+    min-width: 0 !important;
+    padding: 14px 8px !important;
+  }
+
+  .home-page .framer-14q0wb .framer-vydmt .framer-1rtddwc-container > div > span {
+    font-size: 22px !important;
+  }
+
+  /* Labels: small enough to wrap cleanly inside the narrow half-width cards. */
+  .home-page .framer-14q0wb .framer-vydmt > p.framer-text,
+  .home-page .framer-14q0wb .framer-vydmt > .framer-5h7okl > p.framer-text {
+    --framer-font-size: 12px !important;
+    font-size: 12px !important;
+    line-height: 1.25 !important;
+    word-break: break-word !important;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Even tighter on small phones - near zero gaps */
+  .framer-LRfZ0 main > *,
+  .framer-3jfDI main > * {
+    margin-bottom: 8px !important;
+  }
+
+  .home-page .framer-1r3iyda {
+    padding: 16px 0 10px !important;
+    gap: 8px !important;
+  }
+
+  .home-page .framer-16xpnlx-container {
+    width: 90px !important;
+    height: 120px !important;
+  }
+
+  .home-page .framer-bqe6hw {
+    gap: 8px !important;
+  }
+
+  .home-page .framer-b25uum p {
+    font-size: 13.5px !important;
+    line-height: 1.45 !important;
+    padding: 0 4px !important;
+  }
+
+  .projects-home-marquee-wrap {
+    padding-top: 6px !important;
+    padding-bottom: 8px !important;
+  }
+
+  .work-grid-layout,
+  .freelance-halves-grid,
+  .latest-insights-grid,
+  .stay-connected-grid {
+    gap: 6px !important;
+  }
+
+  .work-hero-inner {
+    gap: 6px !important;
+    padding: 8px 8px !important;
+  }
+
+  .freelance-featured-card {
+    gap: 6px !important;
+    padding: 8px 8px !important;
+  }
+
+  section[style*="padding"] {
+    padding-top: 12px !important;
+    padding-bottom: 8px !important;
+  }
+
+  /* Footer mobile - near zero gaps */
+  .framer-NKgCP.framer-v-tof8wg,
+  .framer-NKgCP.framer-v-7kk9q5 {
+    padding-top: 12px !important;
+    padding-bottom: 8px !important;
+  }
+
+  .framer-NKgCP .framer-1rfnqck {
+    padding: 6px 0 !important;
+  }
+
+  .framer-NKgCP .framer-1232xio ul {
+    gap: 12px !important;
+  }
+
+  .framer-NKgCP .framer-xft4v1 > div {
+    gap: 8px !important;
+  }
+
+  .framer-NKgCP .framer-owzuq6,
+  .framer-NKgCP .framer-5y5119 {
+    padding: 6px !important;
+  }
+
+  .framer-NKgCP .framer-7m8v7g-container > div {
+    padding: 6px 4px !important;
+  }
+
+  .framer-NKgCP .framer-j6c6bc {
+    padding: 6px !important;
+  }
+
+  .framer-NKgCP .framer-1u1w4v3 {
+    gap: 4px !important;
+    padding-top: 4px !important;
+  }
+
+  .framer-NKgCP .framer-r8ZIl.framer-v-uo3c7n {
+    gap: 3px !important;
+  }
+}
+
+/* Navbar mobile spacing fixes - minimal */
+@media (max-width: 809.98px) {
+  .framer-G6c65.framer-v-1v126tf,
+  .framer-G6c65.framer-v-7kk9q5 {
+    padding: 0 8px !important;
+  }
+
+  .framer-G6c65.framer-v-1v126tf .framer-1mea593,
+  .framer-G6c65.framer-v-7kk9q5 .framer-1mea593 {
+    gap: 4px !important;
+    padding: 0 0 4px !important;
+  }
+
+  .framer-G6c65.framer-v-1v126tf .framer-1d01ydm,
+  .framer-G6c65.framer-v-7kk9q5 .framer-1d01ydm {
+    padding: 0 0 2px 8px !important;
+  }
+
+  .framer-G6c65.framer-v-1v126tf .framer-1mfvgyc,
+  .framer-G6c65.framer-v-7kk9q5 .framer-1mfvgyc {
+    padding: 0 8px 2px 0 !important;
+  }
+
+  .framer-G6c65.framer-v-1v126tf .framer-o9kej6,
+  .framer-G6c65.framer-v-7kk9q5 .framer-o9kej6 {
+    gap: 4px !important;
+  }
+
+  .framer-G6c65.framer-v-1v126tf .framer-18wnfum-container,
+  .framer-G6c65.framer-v-7kk9q5 .framer-18wnfum-container {
+    margin-top: 0 !important;
+  }
+
+  .nav-social-icon-btn {
+    width: 22px !important;
+    height: 22px !important;
+    min-width: 22px !important;
+    min-height: 22px !important;
+  }
+
+  .framer-1vviajj {
+    width: 28px !important;
+    height: 28px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .framer-G6c65.framer-v-1v126tf,
+  .framer-G6c65.framer-v-7kk9q5 {
+    padding: 0 6px !important;
+  }
+
+  .nav-social-icon-btn {
+    width: 20px !important;
+    height: 20px !important;
+    min-width: 20px !important;
+    min-height: 20px !important;
+  }
+}
+
+/* 3) atBooks hardcoded `padding: 0 40px` containers (inline styles and the
+      .ab-found-grid-wrapper / .ab-design-mockup-wrapper classes) — shrink the
+      gutter at every size so they stay inside the lines. */
+@media (max-width: 1140px) {
+  .atbooks-page [style*="0 40px"],
+  .atbooks-page .ab-found-grid-wrapper,
+  .atbooks-page .ab-design-mockup-wrapper {
+    padding-left: 32px !important;
+    padding-right: 32px !important;
+  }
+}
+@media (max-width: 1024px) {
+  .atbooks-page [style*="0 40px"],
+  .atbooks-page .ab-found-grid-wrapper,
+  .atbooks-page .ab-design-mockup-wrapper {
+    padding-left: 28px !important;
+    padding-right: 28px !important;
+  }
+}
+@media (max-width: 900px) {
+  .atbooks-page [style*="0 40px"],
+  .atbooks-page .ab-found-grid-wrapper,
+  .atbooks-page .ab-design-mockup-wrapper {
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+  }
+}
+@media (max-width: 768px) {
+  .atbooks-page [style*="0 40px"],
+  .atbooks-page .ab-found-grid-wrapper,
+  .atbooks-page .ab-design-mockup-wrapper {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+}
+@media (max-width: 640px) {
+  .atbooks-page [style*="0 40px"],
+  .atbooks-page .ab-found-grid-wrapper,
+  .atbooks-page .ab-design-mockup-wrapper {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+}
+@media (max-width: 480px) {
+  .atbooks-page [style*="0 40px"],
+  .atbooks-page .ab-found-grid-wrapper,
+  .atbooks-page .ab-design-mockup-wrapper {
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
+}
+@media (max-width: 400px) {
+  .atbooks-page [style*="0 40px"],
+  .atbooks-page .ab-found-grid-wrapper,
+  .atbooks-page .ab-design-mockup-wrapper {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+}
+@media (max-width: 360px) {
+  .atbooks-page [style*="0 40px"],
+  .atbooks-page .ab-found-grid-wrapper,
+  .atbooks-page .ab-design-mockup-wrapper {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+}
+
+/* 4) Safety net: never let decorative/section content push a horizontal
+      scrollbar on any page — clips at the element instead of the viewport. */
+.ateats-page,
+.beuta-page,
+.crunch-page,
+.xr-page,
+.atbots-page,
+.eas-page,
+.atbooks-page,
+.about-main,
+.work-main,
+.petpedia-page-frame,
+.petpedia-page {
+  overflow-x: clip;
+}
+
+/* ==========================================================================
+   WorkPage & SomeFreelanceDesign Responsive Styles
+   ========================================================================== */
+.work-hero-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  min-height: clamp(260px, 25vw, 310px);
+  padding: clamp(34px, 5vw, 68px) clamp(24px, 5vw, 56px);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.work-grid-layout {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+  margin-top: 40px;
+  padding: 0 24px;
+  box-sizing: border-box;
+}
+
+.freelance-featured-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  border-radius: 24px;
+  padding: clamp(28px, 4vw, 48px);
+  overflow: hidden;
+  text-decoration: none;
+  min-height: 220px;
+  box-sizing: border-box;
+}
+
+.freelance-halves-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.latest-insights-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  margin-top: 40px;
+  padding: 0 24px;
+}
+
+.stay-connected-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 40px;
+  align-items: center;
+  margin-top: 32px;
+  padding: 0 24px;
+}
+
+.freelance-card-mockup-wrapper {
+  margin-top: 24px;
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+
+.freelance-card-mockup-wrapper:hover {
+  transform: translateY(-3px);
+}
+
+.freelance-card-mockup-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+@media (max-width: 768px) {
+  .work-hero-inner {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 24px;
+    padding: 32px 20px;
+  }
+
+  .work-grid-layout,
+  .freelance-halves-grid,
+  .latest-insights-grid,
+  .stay-connected-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+
+  .freelance-featured-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    padding: 28px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .work-grid-layout,
+  .latest-insights-grid,
+  .stay-connected-grid {
+    padding: 0 16px !important;
+  }
+}
+
+/* Work hero on small phones (320–390px): the visual wrapper is given an inline
+   `flex: 0 1 430px`. Once the hero stacks into a column, that 430px becomes a
+   height basis (ignoring the `height` clamp) and the 300px min width overflows
+   the narrow content column. Pin the wrapper to the available width, and stack
+   the speech bubble above the character artwork so the "Take a Look at My
+   Portfolio" label never sits on top of the image. */
+@media (max-width: 390px) {
+  .work-hero-inner {
+    gap: 18px !important;
+  }
+
+  .work-hero-visual {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 0 0 auto !important;
+    height: auto !important;
+    display: flex !important;
+    flex-direction: column-reverse !important;
+    align-items: stretch !important;
+    gap: 14px !important;
+  }
+
+  /* Character artwork: back into the flow, bottom-right, away from the bubble. */
+  .work-hero-visual > img {
+    position: static !important;
+    width: 56% !important;
+    max-height: none !important;
+    align-self: flex-end !important;
+    margin-right: 6% !important;
+  }
+
+  /* Speech bubble: sits above the character, keeps its tail pointing down. */
+  .work-hero-bubble {
+    position: relative !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: fit-content !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    padding: 10px 16px !important;
+    font-size: 13px !important;
+    align-self: flex-start !important;
+  }
+}
+
+/* Latest Insights cards on small phones (320–390px): the meta row keeps the
+   title/date on the left and the "View Post" button on the right, but the
+   desktop row lets them collide once the card narrows. Let the text column
+   shrink/wrap, keep the button on one line and let it drop below when there
+   isn't enough room. */
+@media (max-width: 390px) {
+  .latest-insight-meta {
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    gap: 10px 12px !important;
+    padding: 12px 2px 16px !important;
+  }
+
+  .latest-insight-text {
+    min-width: 0 !important;
+    flex: 1 1 auto !important;
+  }
+
+  .latest-insight-text h5 {
+    font-size: 17px !important;
+    line-height: 1.25 !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  .latest-insight-text p {
+    font-size: 13px !important;
+  }
+
+  .latest-insight-cta {
+    flex: 0 0 auto !important;
+    white-space: nowrap !important;
+    font-size: 12px !important;
+    padding: 6px 12px !important;
+  }
+}
+
+/* "My works" carousel (MoreWorkMarquee) on small phones (320–390px): the
+   heading is oversized, the fixed 300px card is wider than the viewport (so a
+   whole card never fits) and the track keeps its desktop side gutter. Shrink
+   the heading, size each card to the viewport so one card + a sliver of the
+   next shows, and tighten the track spacing. */
+@media (max-width: 390px) {
+  section[aria-label='My works'] {
+    padding: 40px 0 24px !important;
+  }
+
+  .more-work-title {
+    font-size: 34px !important;
+    padding: 0 16px !important;
+  }
+
+  .more-work-copy {
+    gap: 14px !important;
+    padding: 0 16px !important;
+  }
+
+  .more-work-item {
+    flex: 0 0 auto !important;
+  }
+
+  .more-work-item > a {
+    width: 80vw !important;
+    min-width: 80vw !important;
+  }
+
+  .more-work-item .project-card-title {
+    font-size: 19px !important;
+  }
+
+  .more-work-item .project-card-category {
+    font-size: 12px !important;
+  }
+}
+
+/* Remove the decorative Framer section border lines site-wide */
+[data-border='true']::before,
+[data-border='true']::after {
+  border-width: 0 !important;
+}
+
+/* Restore the footer hairline borders (top/bottom + column/row dividers) —
+   Framer draws these with ::before/::after pseudo-elements that consume the
+   --border-* CSS variables. They are part of the Dean footer design. */
+.framer-NKgCP[data-border='true']::after,
+.framer-NKgCP [data-border='true']::after,
+.framer-zmhX8[data-border='true']::after,
+.framer-zmhX8 [data-border='true']::after {
+  border-width: var(--border-top-width, 0) var(--border-right-width, 0) var(--border-bottom-width, 0) var(--border-left-width, 0) !important;
+  border-color: var(--border-color, none) !important;
+  border-style: var(--border-style, none) !important;
+}
+
+/* ====== Site-wide typography: Inter everywhere (bharathanand.co.uk) ======
+   Body, headings, labels and every inline Framer preset all resolve to
+   Inter. Every existing font-size / line-height value is left untouched. */
+body * {
+  font-family: var(--font-sans) !important;
+}
+
+body :is(h1, h2, h3, h4, h5, h6):not(.crunch-page :is(h1, h2, h3, h4, h5, h6)):not(.atbots-page :is(h1, h2, h3, h4, h5, h6)):not(.project-card-title):not(.freelance-card-title):not(.bio-skills-title):not(.framer-styles-preset-sv70jv):not(.framer-styles-preset-w4ms7x):not(.framer-hhz42d :is(h1, h2, h3, h4, h5, h6)) {
+  font-family: var(--font-sans) !important;
+  color: #111 !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.02em !important;
+}
+
+/* ====== About — "Let Me Introduce Myself" ======
+   Keep the badge label centred inside its pill. A custom class rather
+   than .framer-styles-preset-fbjwod, which is a generated hash. */
+.about-intro-heading {
+  margin-left: 0;
+  font-weight: 600 !important;
+}
+
+/* ====== Services accordion item number + title ======
+   Sizes/weights unchanged; the family is Inter like the rest of the site. */
+.framer-hhz42d .framer-styles-preset-fbjwod,
+.framer-hhz42d .framer-styles-preset-1k71nux {
+  font-family: var(--font-sans) !important;
+  font-weight: 500 !important;
+  letter-spacing: 0em !important;
+  color: rgb(0, 0, 0) !important;
+  line-height: 1.4em !important;
+}
+
+.framer-hhz42d .framer-styles-preset-1k71nux {
+  font-size: clamp(25px, 3vw, 35px) !important;
+  text-transform: uppercase !important;
+}
+
+.framer-hhz42d .framer-styles-preset-fbjwod {
+  font-size: clamp(18px, 2.2vw, 22px) !important;
+}
+
+/* ====== Services accordion (Home page) responsive styles ====== */
+.services-section-container {
+  padding-left: 24px;
+  padding-right: 24px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.services-list-wrapper {
+  border-top: 1px solid rgba(224, 224, 224, 0.63);
+  width: 100%;
+}
+
+.services-accordion-item {
+  width: 100%;
+  border-bottom: 1px solid rgba(224, 224, 224, 0.63);
+  box-sizing: border-box;
+}
+
+.services-accordion-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 32px 16px;
+  cursor: pointer;
+  user-select: none;
+  width: 100%;
+  box-sizing: border-box;
+  background: transparent;
+  transition: background-color 0.2s ease;
+}
+
+.services-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.services-title-wrap {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
+.services-num {
+  flex-shrink: 0;
+  margin: 0;
+}
+
+.services-title {
+  margin: 0;
+  min-width: 0;
+  word-break: normal;
+  overflow-wrap: break-word;
+}
+
+.services-header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+.services-tag {
+  background-color: rgb(242, 242, 242);
+  border: 1px solid rgba(224, 224, 224, 0.63);
+  border-radius: 90px;
+  padding: 10px 16px;
+  color: rgb(87, 87, 87);
+  font-family: var(--font-sans, "Inter", sans-serif);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.6em;
+  white-space: nowrap;
+}
+
+.services-tag--mobile {
+  display: none;
+}
+
+.services-tag--desktop {
+  display: inline-block;
+}
+
+.services-toggle-btn {
+  width: 46px;
+  height: 46px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background-color: rgb(245, 245, 245);
+  border: 1px solid rgba(224, 224, 224, 0.63);
+  position: relative;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.services-toggle-btn.is-open {
+  background-color: rgb(242, 242, 242);
+  transform: rotate(45deg);
+}
+
+.services-toggle-icon-h {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 18px;
+  height: 2px;
+  border-radius: 2px;
+  background-color: rgb(0, 0, 0);
+  transform: translate(-50%, -50%);
+}
+
+.services-toggle-icon-v {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2px;
+  height: 18px;
+  border-radius: 2px;
+  background-color: rgb(0, 0, 0);
+  transform: translate(-50%, -50%);
+}
+
+.services-accordion-collapse {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s ease;
+}
+
+.services-accordion-collapse.is-open {
+  grid-template-rows: 1fr;
+}
+
+.services-collapse-inner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.services-expanded-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 32px;
+  flex-wrap: wrap;
+  padding: 0 16px 32px;
+  box-sizing: border-box;
+}
+
+.services-expanded-info {
+  flex: 1 1 280px;
+  min-width: 0;
+}
+
+.services-desc {
+  color: rgb(87, 87, 87);
+  font-family: var(--font-sans, "Inter", sans-serif);
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.6em;
+  margin: 0 0 20px;
+}
+
+.services-points-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.services-point-badge {
+  display: inline-block;
+  background-color: rgb(242, 242, 242);
+  border: 1px solid rgba(224, 224, 224, 0.63);
+  border-radius: 90px;
+  padding: 10px 16px;
+  color: rgb(87, 87, 87);
+  font-family: var(--font-sans, "Inter", sans-serif);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.6em;
+  white-space: nowrap;
+}
+
+.services-image {
+  display: block;
+  width: 200px;
+  height: auto;
+  object-fit: contain;
+  object-position: center;
+  border-radius: 24px;
+  flex-shrink: 0;
+}
+
+/* Tablet & Mobile responsive (<= 768px) */
+@media (max-width: 768px) {
+  .services-tag--desktop {
+    display: none !important;
+  }
+
+  .services-tag--mobile {
+    display: inline-flex !important;
+    align-self: flex-start;
+    font-size: 12.5px !important;
+    padding: 5px 12px !important;
+    line-height: 1.4 !important;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .services-accordion-header {
+    padding: 24px 8px !important;
+    gap: 12px !important;
+  }
+
+  .services-title-wrap {
+    gap: 12px !important;
+  }
+
+  .services-toggle-btn {
+    width: 40px !important;
+    height: 40px !important;
+  }
+
+  .services-toggle-icon-h {
+    width: 16px !important;
+  }
+
+  .services-toggle-icon-v {
+    height: 16px !important;
+  }
+
+  .services-expanded-content {
+    flex-direction: column !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    gap: 20px !important;
+    padding: 0 8px 24px !important;
+  }
+
+  .services-expanded-info {
+    width: 100% !important;
+    flex: none !important;
+  }
+
+  .services-image {
+    width: clamp(160px, 60vw, 280px) !important;
+    max-width: none !important;
+    max-height: none !important;
+    height: auto !important;
+    object-fit: contain !important;
+    margin: 0 auto !important;
+    display: block !important;
+  }
+}
+
+/* Small mobile responsive (<= 480px down to 320px) */
+@media (max-width: 480px) {
+  .services-section-container {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+
+  .services-accordion-header {
+    padding: 18px 2px !important;
+    gap: 8px !important;
+  }
+
+  .services-title-wrap {
+    gap: 8px !important;
+    align-items: baseline !important;
+  }
+
+  .framer-hhz42d .framer-styles-preset-1k71nux.services-title {
+    font-size: clamp(17px, 5.2vw, 21px) !important;
+    line-height: 1.3 !important;
+    letter-spacing: -0.01em !important;
+  }
+
+  .framer-hhz42d .framer-styles-preset-fbjwod.services-num {
+    font-size: 15px !important;
+    line-height: 1.3 !important;
+  }
+
+  .services-tag--mobile {
+    font-size: 11px !important;
+    padding: 3px 9px !important;
+    margin-top: 2px;
+  }
+
+  .services-toggle-btn {
+    width: 36px !important;
+    height: 36px !important;
+  }
+
+  .services-toggle-icon-h {
+    width: 13px !important;
+  }
+
+  .services-toggle-icon-v {
+    height: 13px !important;
+  }
+
+  .services-expanded-content {
+    gap: 16px !important;
+    padding: 0 2px 20px !important;
+  }
+
+  .services-desc {
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    margin: 0 0 14px !important;
+  }
+
+  .services-points-list {
+    gap: 6px !important;
+  }
+
+  .services-point-badge {
+    font-size: 12px !important;
+    padding: 5px 10px !important;
+    line-height: 1.4 !important;
+    white-space: normal !important;
+    word-break: break-word !important;
+  }
+
+  .services-image {
+    width: clamp(140px, 55vw, 240px) !important;
+    max-width: none !important;
+    max-height: none !important;
+    height: auto !important;
+    object-fit: contain !important;
+    margin: 0 auto !important;
+  }
+}
+
+/* Laptop / Tablet-L (769px – 1199px): services image fix
+   At this width the image was getting clipped by overflow:hidden because
+   flex-wrap caused it to wrap under the text while the grid-row height
+   wasn't tall enough. Force a single-row layout and let the image breathe. */
+@media (min-width: 769px) and (max-width: 1199px) {
+  .services-expanded-content {
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    gap: 24px !important;
+  }
+
+  .services-expanded-info {
+    flex: 1 1 0 !important;
+    min-width: 0 !important;
+  }
+
+  .services-image {
+    flex-shrink: 0 !important;
+    width: clamp(180px, 28vw, 300px) !important;
+    max-width: none !important;
+    max-height: none !important;
+    height: auto !important;
+    object-fit: contain !important;
+  }
+}
+
+/* Freelance section cards (Work page): headings keep their card's own
+   light color instead of the site-wide #111 heading override. */
+.freelance-featured-card h2,
+.freelance-halves-grid h3 {
+  color: inherit !important;
+}
+
+/* Home page section headers: large Dean-style titles for PROJECT / ABOUT ME /
+   SERVICES / PROCESS / TESTIMONIAL / CONTACT ME.
+   Sizes cut ~20% from the original 72/150 scale. */
+.framer-styles-preset-sv70jv {
+  --framer-font-size: clamp(58px, 5.6vw, 120px) !important;
+  --framer-line-height: 0.95em !important;
+  --framer-font-weight: 700 !important;
+  --framer-text-color: var(--token-e354a3cd-fc10-4572-8441-4fe955f17d9e, #000) !important;
+  font-family: var(--font-sans) !important;
+  font-size: clamp(58px, 5.6vw, 120px) !important;
+  line-height: 0.95em !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.04em !important;
+  text-transform: none !important;
+  color: #000 !important;
+}
+
+.project-card-title {
+  color: rgb(0, 0, 0) !important;
+  transition: color 300ms ease !important;
+}
+
+.project-card-title:hover,
+a:hover .project-card-title {
+  color: rgb(255, 70, 46) !important;
+}
+
+/* Project card title: orange on card hover */
+
+/* ====== Footer: Inter for all footer text ======
+   Kept explicit so the footer never falls back to the body stack. */
+.framer-NKgCP *,
+.framer-NKgCP .framer-text,
+.framer-NKgCP .framer-text * {
+  font-family: var(--font-sans) !important;
+}
+
+/* Footer ticker headline ("START A PROJECT") — 150px / weight 700, black,
+   with NO letter-spacing. The site-wide heading rule above applies
+   700 / #111 / -0.02em, so keep the weight and colour explicit. */
+.framer-NKgCP .framer-text.framer-styles-preset-yk05gx {
+  color: rgb(0, 0, 0) !important;
+  font-weight: 700 !important;
+  letter-spacing: 0em !important;
+}
+
+/* Ticker spacing: the <ul> carries an inline `gap: 24px`, which crowds the
+   arrow icon (.framer-rno0my) against the headline. Re-assert a roomier
+   gap between the two <li> items. */
+.framer-NKgCP .framer-1232xio ul {
+  gap: 56px !important;
+}
+
+/* Footer email copy block ("Click to copy" + the email button) — label
+   16px/500, email 20px/500. Re-asserted here so the button's inline style
+   is not overridden by the .framer-NKgCP * rule. */
+.framer-NKgCP .framer-j6c6bc p.framer-text,
+.framer-NKgCP .framer-j6c6bc button,
+.framer-NKgCP .framer-j6c6bc button span {
+  font-family: var(--font-sans) !important;
+}
+
+/* Keep the address inside the footer column. The copy button is a
+   nowrap flex item, so on narrow columns it used to spill past the
+   divider. Make the column a query container, scale the address to the
+   available inline size, and let it wrap only if it still cannot fit. */
+.framer-NKgCP .framer-j6c6bc {
+  container-type: inline-size;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.framer-NKgCP .framer-j6c6bc .framer-13k8iyh-container {
+  max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.framer-NKgCP .framer-j6c6bc .framer-13k8iyh-container button {
+  max-width: 100%;
+  min-width: 0;
+  font-size: clamp(10px, 6.5cqi, 20px) !important;
+  line-height: 1.25 !important;
+  white-space: normal !important;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  text-align: left !important;
+  justify-content: flex-start !important;
+}
+
+/* The visible/"Copied!" labels are inline nowrap spans inside the button.
+   They are what actually clips ".com", so they need to wrap too. The
+   measure span is absolutely positioned + hidden, so it is left alone. */
+.framer-NKgCP .framer-j6c6bc .framer-13k8iyh-container button > span:not([aria-hidden]) {
+  max-width: 100%;
+  white-space: normal !important;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.framer-NKgCP .framer-j6c6bc .framer-13k8iyh-container button > span:not([aria-hidden]) > span {
+  max-width: 100%;
+  white-space: normal !important;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.framer-NKgCP .framer-j6c6bc .framer-13k8iyh-container button > span:last-child {
+  justify-items: start;
+}
+
+/* Nav link labels (Home / About / Projects, navbar) — explicit so the
+   body * rule cannot change their look. */
+.framer-LUjGG .framer-1kbmhjr-container :is(div, span) {
+  font-family: var(--font-sans) !important;
+  font-size: 14px !important;
+  font-style: normal !important;
+  font-weight: 500 !important;
+}
+
+body p:not(.crunch-page p):not(.atbots-page p):not(.chat-response-text) {
+  color: #000000 !important;
+}
+.framer-gFNsP p{
+  color: #fff;
+}
+/* Keep the "I Want to Chat" pill text white (navbar + home hero + Projects).
+   The `body p` rule above carries more specificity (three :not() args), so
+   stack the anchor's pill classes to out-specify it; otherwise the label
+   renders black-on-cyan and disappears. */
+.framer-aVBx0.framer-gFNsP.framer-1ag5vbt .framer-text,
+.framer-gFNsP .framer-text {
+  color: #fff !important;
+}
+
+/* Process "I'm Ready to Start" CTA: the label is a <p> sitting on a black
+   pill. The `body p` rule above carries more specificity than the
+   `.framer-gFNsP .framer-text` fix, which rendered the text black-on-black
+   (invisible). These selectors are specific enough to win. */
+.framer-LRfZ0 .framer-gFNsP.process-cta-btn .framer-text,
+.framer-LRfZ0 .process-cta-pill .framer-text {
+  color: #fff !important;
+}
+
+/* "More works" marquee title (a div, not an h-tag) — explicit family so the
+   body * rule cannot change it. */
+.more-work-title {
+  font-family: var(--font-sans) !important;
+}
+
+/* Footer labels ("Socials", "Cick to copy") — the Dean reference uses the
+   #575757/#616161 gray token, not the site-wide #666. */
+.framer-NKgCP .framer-text.framer-styles-preset-19lub4s {
+  color: var(--token-2c4d0fad-06de-414f-b048-811f13183390, #616161) !important;
+}
+
+/* Footer cleanup: drop the placeholder "404" page link (all variants wrap it
+   in .framer-6jxsg9-container) and the duplicate social pills. The Socials
+   list per variant is LinkedIn, Behance, Upwork, Figma, LinkedIn, Facebook —
+   so hide the 5th..6th pills to keep a single LinkedIn, KEEP Figma, and
+   remove the Facebook entry. The "Socials" column heading stays visible. */
+.framer-NKgCP .framer-6jxsg9-container {
+  display: none !important;
+}
+
+.framer-NKgCP .framer-1u1w4v3 > *:nth-child(n + 5) {
+  display: none !important;
+}
+
+/* ====== "More works" heading (MoreWorkMarquee) — 80px / 60px / 50px per
+   breakpoint (80px at >=1200px, 60px at 810-1199px, 50px below 810px). */
+.more-work-title {
+  font-size: 50px !important;
+}
+
+@media (min-width: 810px) {
+  .more-work-title {
+    font-size: 60px !important;
+  }
+}
+
+@media (min-width: 1200px) {
+  .more-work-title {
+    font-size: 80px !important;
+  }
+}
+
+/* ====== Ateats page: every section aligned to the 1140px guide-line frame ====== */
+.ateats-page main > section {
+  width: 100%;
+  max-width: 100% !important;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ====== Remove all corner/side/divider star decorations site-wide ======
+   Hides the 4-pointed stars at the frame corners, page edges, nav join
+   points, and the centre stars on horizontal divider lines. */
+.crunch-side-lines-star,
+.side-line-star,
+.ab-side-star,
+.star-join-point,
+.crunch-side-lines::before,
+.crunch-side-lines::after,
+.page-side-lines::before,
+.page-side-lines::after,
+.ab-divider::after,
+.section-divider-star-line::after {
+  display: none !important;
+}
+
+/* Remove the vertical side-lines and horizontal divider lines as well */
+.crunch-side-lines,
+.page-side-lines,
+.ab-divider,
+.section-divider-star-line {
+  display: none !important;
+}
+
+/* Corner star accents (framer mask stars) in About/Hero/Process/etc. */
+.framer-Gf2HJ {
+  display: none !important;
+}
+
+/* Rating SVG stars inside testimonial cards (and their wrapper) */
+.framer-gPwg1,
+[data-framer-name^='Star'] {
+  display: none !important;
+}
+
+/* ====== All pages: 100% width (remove leftover 1400px caps) ====== */
+.framer-G6c65 .framer-1mea593,
+.framer-LRfZ0 .framer-c82y3h,
+.framer-LRfZ0 .framer-3hswv,
+.framer-LRfZ0 .framer-1g5799e,
+.framer-LRfZ0 .framer-y6y8ft,
+.framer-LRfZ0 .framer-rlfafm,
+.framer-NKgCP .framer-xft4v1 {
+  max-width: 100% !important;
+}
+
+/* Navbar should span the full viewport width (edge-to-edge), escaping
+   the 90%-wide site frame. Every page renders the nav inside
+   .site-frame > #main > .framer-hTG3P. Mobile/tablet already use a
+   fixed full-width bar (left:0; right:0) via framer.css, so this does
+   the same for desktop so no percentage math is needed — the bar is
+   stretched to the exact viewport width by the browser. The same top
+   padding framer.css uses on smaller screens clears the bar in flow. */
+@media (min-width: 1200px) {
+  .framer-hTG3P .framer-4zw9d1 {
+    position: fixed !important;
+    width: unset !important;
+    left: 0 !important;
+    right: 0 !important;
+  }
+
+  .framer-hTG3P .framer-1p4xbhj-container {
+    position: relative !important;
+    top: unset !important;
+  }
+
+  .framer-hTG3P.framer-emw559 {
+    padding-top: 81px !important;
+  }
+}
+
+/* ============================================================
+   Navbar — frosted glass
+   ------------------------------------------------------------
+   The bar used to be the solid #fff Framer token, which made it an
+   opaque slab sitting on top of the page. It is now translucent so
+   the backdrop-filter has something to sample: whatever scrolls
+   underneath (hero art on home, section content on the in-flow
+   pages) reads as a soft blur behind the bar.
+
+   Values mirror the live site (bharathanand.co.uk): Tailwind's
+   backdrop-blur-xl is 24px, paired there with a soft shadow. The
+   saturate() bump is the usual glass companion to blur — without it
+   the blur washes the colours under the bar toward grey.
+
+   The fill is no longer set inline in Navbar.tsx (the solid #fff
+   Framer token was removed from both nav elements), so a plain
+   declaration is enough here.
+
+   -webkit-backdrop-filter is kept for Safari, which still needs the
+   prefixed property.
+   ============================================================ */
+.framer-G6c65.framer-v6lusn,
+.framer-G6c65.framer-v-1v126tf {
+  background: rgba(255, 255, 255, 0.62);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  backdrop-filter: blur(24px) saturate(180%);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Switch off Framer's :after border on the nav row. Scoped to
+   .framer-1mea593 so the nested data-border children (nav link
+   buttons, logo) keep their own borders. */
+.framer-G6c65 .framer-1mea593 {
+  --border-top-width: 0px !important;
+  --border-right-width: 0px !important;
+  --border-bottom-width: 0px !important;
+  --border-left-width: 0px !important;
+  --border-color: rgba(0, 0, 0, 0) !important;
+}
+
+/* The nav row draws no lines of its own. On every in-flow page the nav
+   sits inside .site-frame, whose 1px border is already the single
+   left/right hairline — the old 5%-inset pair on top of it read as two
+   lines a side. The home page is the exception: its nav is
+   position:fixed and full-bleed (framer.css:485/508 and the 1200px
+   block below), so the white bar covers the frame border and the line
+   has to be redrawn at 5% for the frame edge to stay continuous. */
+.framer-G6c65::before,
+.framer-G6c65::after {
+  content: none;
+}
+
+.framer-hTG3P .framer-G6c65::before,
+.framer-hTG3P .framer-G6c65::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(0, 0, 0, 0.28);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.framer-hTG3P .framer-G6c65::before {
+  left: 5%;
+}
+
+.framer-hTG3P .framer-G6c65::after {
+  right: 5%;
+}
+
+/* ============================================================
+   Process — the 01/02/03 step cards
+   ------------------------------------------------------------
+   The radius is restated here even though framer.css:7512 already
+   sets 30px on .framer-NYZUV — it keeps the card self-contained
+   instead of depending on a generated Framer hash that changes on
+   re-export.
+
+   Height: each card sits inside a wrapper that is height:100vh +
+   position:sticky (framer.css:3554) and the card itself is
+   height:100%, so it was filling a full viewport. max-height pulls
+   it back to a sane block; justify-content then re-centres the
+   title/paragraph, otherwise the shortened card leaves a gap at
+   the bottom because Framer aligns content to flex-start.
+
+   Card fills are set inline in the markup: 01 had white, which is
+   now `transparent` (Process.tsx); 02 is token fb315f8f (#f2f2f2),
+   03 is token 11865464 (#e3e3e3).
+
+   Shadow strength: 01 is transparent on a white page, so the
+   original 0.08 alpha was white-on-white and read as no shadow at
+   all. 02/03 hide the problem because their grey fills give the
+   shadow something to sit against. The values below are tuned to be
+   visible on white.
+
+   Shadow colour is grey rather than black. Card 03 is #e3e3e3, so
+   a pure black shadow on a light grey fill reads as a dirty smudge
+   rather than depth. rgb(112,112,112) is roughly half the
+   luminance of the card, which separates the edge without the
+   grey-casting that heavier blacks give.
+
+   All nine .framer-NYZUV nodes carry the class, but only three are
+   shown per breakpoint — the rest sit inside .ssr-variant
+   wrappers behind hidden-* classes, so one rule covers every
+   breakpoint without duplicating it.
+   ============================================================ */
+.process-step-card {
+  border-radius: 30px;
+  box-shadow: 0 10px 30px rgba(112, 112, 112, 0.35);
+  max-height: 72vh;
+  justify-content: center;
+  transition: box-shadow 300ms ease;
+}
+
+.process-step-card:hover {
+  box-shadow: 0 16px 40px rgba(89, 89, 89, 0.45);
+}
+
+/* The white outer card no longer has a fill, so its shadow would read as
+   a grey ring floating around the grey card nested inside it. Both the
+   fill and the shadow go — only the nested grey cards keep the lift. */
+.process-step-card.process-step-outer,
+.process-step-card.process-step-outer:hover {
+  box-shadow: none;
+}
+
+/* ====== Testimonial — arrow button sizing ======
+   The arrow button is width:min-content with padding:24px
+   (framer.css:8465), so the 68px wrapper in framer.css:7835 is just
+   the icon plus 48px of padding. Narrowing that wrapper alone would
+   not shrink anything — the button would overflow it, since the
+   wrapper is overflow:visible. The padding is the real lever.
+
+   Both arrows get the same treatment now (.framer-v-t6thi2 = "Right",
+   .framer-v-s6myfi = "Left") so the two controls are the same size,
+   and each 68px wrapper is pulled to 52px to match. */
+.testimonial-avatar-controls-row {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 24px !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+}
+
+.testimonial-avatar-controls-row .framer-1as0ovt,
+.testimonial-avatar-controls-row .framer-1mdx4d2 {
+  width: auto !important;
+  min-width: 0 !important;
+  height: auto !important;
+  align-self: center !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex: 0 0 auto !important;
+}
+
+.testimonial-avatar-controls-row .framer-1vb24d8-container,
+.testimonial-avatar-controls-row .framer-15g7vf7-container {
+  width: auto !important;
+  height: auto !important;
+}
+
+#dean-testimonial .testimonial-arrow {
+  width: 40px !important;
+  height: 40px !important;
+  min-width: 40px !important;
+  min-height: 40px !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 !important;
+  background-color: #fff !important;
+  color: #000 !important;
+  border: 1px solid rgba(0, 0, 0, 0.12) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+  cursor: pointer !important;
+  outline: none !important;
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease !important;
+}
+
+#dean-testimonial .testimonial-arrow svg {
+  stroke: #000 !important;
+  transition: stroke 0.2s ease !important;
+}
+
+#dean-testimonial .testimonial-arrow:hover {
+  background-color: #000 !important;
+  transform: scale(1.08) !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2) !important;
+}
+
+#dean-testimonial .testimonial-arrow:hover svg {
+  stroke: #fff !important;
+}
+
+#dean-testimonial .testimonial-arrow:active {
+  transform: scale(0.95) !important;
+}
+
+#dean-testimonial .testimonial-arrow:focus-visible {
+  outline: 2px solid rgb(0, 0, 0) !important;
+  outline-offset: 2px !important;
+}
+
+/* The section itself is the keyboard target for ArrowLeft/ArrowRight, and
+   it is a full-width block, so its ring is drawn inside the card. */
+#dean-testimonial:focus-visible {
+  outline: 2px solid rgba(0, 0, 0, 0.45);
+  outline-offset: -2px;
+}
+
+/* ====== Testimonial — card height hugs its content =====
+   .testimonial-card ships with a fixed height of 687px
+   (framer.css:7763), and both inner sections — the quote block
+   (.framer-54v01o) and the profile row (.framer-765p44) — are
+   `flex: 1 0 0`, so they split that fixed height down the middle no
+   matter how much text there is. A two-line quote only needs a
+   fraction of the top half, and the profile row aligns to the top
+   of its box, so the card kept a large blank strip under the
+   name/role. Longer quotes pushed that strip around instead of the
+   card growing.
+
+   Dropping the fixed height and letting the three levels size to
+   their content removes the strip: the card is now exactly as tall
+   as the padding + stars + quote + profile row need. */
+#dean-testimonial .testimonial-card {
+  height: auto;
+  min-height: 0;
+}
+
+#dean-testimonial {
+  position: relative !important;
+  top: auto !important;
+  height: auto !important;
+  min-height: 0;
+}
+
+#dean-testimonial .framer-oe3n1z-container {
+  position: sticky !important;
+  top: 16px !important;
+  height: auto !important;
+  min-height: 0;
+}
+
+@media (min-width: 810px) {
+  #dean-testimonial {
+    padding-bottom: 64px !important;
+  }
+}
+
+#dean-testimonial .testimonial-card {
+  height: auto !important;
+  min-height: 0 !important;
+}
+
+#dean-testimonial .testimonial-card .framer-54v01o,
+#dean-testimonial .testimonial-card .framer-765p44,
+#dean-testimonial .testimonial-card .framer-1f026m8 {
+  flex: none;
+  height: auto;
+}
+
+#dean-testimonial .testimonial-single-slide .testimonial-card {
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0;
+}
+
+.testimonial-panels .testimonial-contact-card {
+  box-sizing: border-box;
+  height: 687px;
+  min-height: 687px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 32px 16px;
+  border-radius: 30px;
+  background: #e3e3e3;
+  box-shadow: 0 10px 30px rgba(112, 112, 112, 0.28);
+}
+
+.testimonial-panels .testimonial-contact-card h3 {
+  margin: 0 0 12px;
+  font-size: clamp(26px, 4vw, 42px);
+  line-height: 1.1;
+  text-align: left;
+}
+
+.testimonial-panels .testimonial-contact-card p {
+  margin: 0;
+  color: #575757;
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+.testimonial-panels .testimonial-contact-details {
+  display: grid;
+  gap: 20px;
+}
+
+.testimonial-panels .testimonial-contact-details > div {
+  display: grid;
+  gap: 6px;
+}
+
+.testimonial-panels .testimonial-contact-details strong,
+.testimonial-panels .testimonial-contact-socials strong {
+  font-size: 14px;
+}
+
+.testimonial-panels .testimonial-contact-card a {
+  color: #575757;
+  text-decoration: none;
+}
+
+.testimonial-panels .testimonial-contact-card a:hover {
+  color: #000;
+  text-decoration: underline;
+}
+
+.testimonial-panels .testimonial-contact-socials > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.testimonial-panels .testimonial-contact-socials a {
+  padding: 8px 14px;
+  border: 1px solid rgba(87, 87, 87, 0.2);
+  border-radius: 999px;
+  background: #f2f2f2;
+}
+
+.testimonial-panels .testimonial-contact-booking {
+  display: grid;
+  gap: 16px;
+}
+
+.testimonial-panels .testimonial-contact-booking button {
+  min-height: 48px;
+  padding: 12px 22px;
+  border: 0;
+  border-radius: 999px;
+  background: #000;
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+#dean-testimonial .testimonial-single-slide .testimonial-card {
+  animation: testimonial-slide-in 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#dean-testimonial .testimonial-single-slide {
+  position: sticky !important;
+  top: 16px;
+  z-index: 1;
+  height: auto !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #dean-testimonial .testimonial-card { animation: none; }
+}
+
+@media (max-width: 809.98px) {
+  #dean-testimonial .testimonial-card {
+    height: auto !important;
+    min-height: 495px !important;
+  }
+  .testimonial-panels .testimonial-contact-card {
+    height: auto !important;
+    min-height: 495px !important;
+  }
+  #dean-testimonial .testimonial-card .framer-54v01o,
+  #dean-testimonial .testimonial-card .framer-765p44,
+  #dean-testimonial .testimonial-card .framer-1f026m8 {
+    flex: 0 0 auto;
+    height: auto;
+  }
+  #dean-testimonial .testimonial-single-slide { top: 8px; }
+}
+
+@keyframes testimonial-slide-in {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.framer-LRfZ0 .framer-otgn3n {
+  border-radius: 30px;
+  overflow: hidden;
+}
+
+.framer-LRfZ0 .framer-otgn3n .contact-title-card {
+  margin-top: -10px !important;
+}
+
+/* ScrollStack motion for the existing contact details and booking panels. */
+.framer-LRfZ0 .contact-scroll-stack .framer-7113hc {
+  overflow: visible !important;
+}
+
+.framer-LRfZ0 .contact-scroll-stack .framer-1k6owpl,
+.framer-LRfZ0 .contact-scroll-stack .framer-1qrxjjb {
+  transform-origin: top center;
+  will-change: transform;
+  transition: transform 0.1s linear, box-shadow 0.1s linear;
+}
+
+.framer-LRfZ0 .contact-scroll-stack .framer-1k6owpl {
+  transform: scale(calc(1 - var(--contact-scroll-progress, 0) * 0.035));
+  z-index: 1;
+}
+
+.framer-LRfZ0 .contact-scroll-stack .framer-1qrxjjb {
+  position: sticky;
+  top: 112px;
+  z-index: 2;
+  transform: scale(calc(0.965 + var(--contact-scroll-progress, 0) * 0.035));
+}
+
+@media (max-width: 809.98px) {
+  .framer-LRfZ0 .contact-scroll-stack .framer-1qrxjjb { top: 80px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .framer-LRfZ0 .contact-scroll-stack .framer-1k6owpl,
+  .framer-LRfZ0 .contact-scroll-stack .framer-1qrxjjb { transition: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #dean-testimonial .testimonial-arrow .framer-s6d22,
+  #dean-testimonial .testimonial-arrow .framer-ngnzo {
+    transition: none;
+  }
+}
+
+/* Announced by screen readers on slide change, invisible on screen. */
+.testimonial-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Home testimonial: two sequential pinned cards with scroll-linked reveals. */
+.framer-LRfZ0 .framer-g725wh {
+  width: 100%;
+}
+
+.testimonial-scroll-layout {
+  display: block;
+  width: 100%;
+  padding: clamp(64px, 8vw, 112px) clamp(24px, 5vw, 64px) 32px;
+  box-sizing: border-box;
+}
+
+.testimonial-scroll-layout > .framer-1yc1p7v {
+  position: relative;
+  top: auto;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  margin-bottom: 28px;
+}
+
+.testimonial-scroll-layout .framer-11m0pnm {
+  white-space: nowrap !important;
+  word-break: keep-all !important;
+  word-wrap: normal !important;
+  overflow-wrap: normal !important;
+  max-width: 100% !important;
+}
+
+.framer-RYqUR .testimonial-scroll-layout .testimonial-heading,
+.framer-RYqUR .testimonial-heading,
+.testimonial-scroll-layout .testimonial-heading,
+.testimonial-heading {
+  font-size: clamp(30px, 3.6vw, 52px) !important;
+  --framer-font-size: clamp(30px, 3.6vw, 52px) !important;
+  line-height: 1.1 !important;
+  --framer-line-height: 1.1em !important;
+  letter-spacing: -0.01em !important;
+  white-space: nowrap !important;
+  word-break: keep-all !important;
+  word-wrap: normal !important;
+  overflow-wrap: normal !important;
+  text-wrap: nowrap !important;
+  max-width: 100% !important;
+}
+
+.testimonial-panels {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.testimonial-scroll-step {
+  position: sticky;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  min-height: 100vh;
+  padding: 8vh 0 12vh;
+  box-sizing: border-box;
+}
+
+.testimonial-scroll-step + .testimonial-scroll-step {
+  margin-top: 0;
+  z-index: 2;
+}
+
+/* The final step holds the "Let's Work Together" contact card. Its natural
+   height is only the card itself, so keep the step auto-sized instead of
+   reserving a full 100vh. The 100vh step used to leave a large empty gap
+   between the contact card and the footer's "START A PROJECT" section. */
+.testimonial-scroll-step:last-child {
+  height: auto !important;
+  min-height: 0 !important;
+  padding: 8px 0 16px;
+  margin-bottom: 0;
+}
+
+.testimonial-carousel-step {
+  z-index: 1;
+}
+
+#dean-testimonial {
+  position: relative !important;
+  top: auto !important;
+  align-self: stretch;
+  width: min(100%, 960px);
+  max-width: 960px;
+  height: auto !important;
+  min-height: 0;
+  padding: 0 !important;
+  overflow: visible;
+  background: transparent;
+}
+
+.testimonial-carousel-step #dean-testimonial {
+  transform-origin: top center;
+  transition: transform 0.08s linear;
+  will-change: transform;
+  z-index: 1;
+}
+
+#dean-testimonial .testimonial-single-slide {
+  position: relative !important;
+  top: auto !important;
+  height: auto !important;
+  min-height: 0;
+}
+
+#dean-testimonial .testimonial-card {
+  width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  padding: 28px;
+  border-radius: 28px;
+  background: #fff;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.09);
+  box-sizing: border-box;
+}
+
+#dean-testimonial .testimonial-card .framer-54v01o,
+#dean-testimonial .testimonial-card .framer-765p44 {
+  width: 100%;
+  flex: none;
+  height: auto;
+}
+
+#dean-testimonial .testimonial-card .framer-1f026m8 {
+  height: auto;
+  padding: 12px 12px 24px !important;
+}
+
+#dean-testimonial .testimonial-card .framer-oe3n1z-container {
+  position: relative !important;
+  top: auto !important;
+  height: auto !important;
+  min-height: 0;
+}
+
+.testimonial-panels .testimonial-contact-card {
+  min-height: 0 !important;
+  padding: 32px;
+  border-radius: 28px;
+  background: #fff;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.09);
+}
+
+.testimonial-scroll-step > .testimonial-contact-card {
+  position: relative;
+  top: auto;
+  align-self: flex-start;
+  width: min(100%, 960px);
+  max-width: 960px;
+  margin: 0 auto;
+  transition: transform 0.08s linear, opacity 0.08s linear;
+  will-change: transform, opacity;
+  z-index: 2;
+}
+
+@media (max-width: 809.98px) {
+  /* Allow sticky children to escape the clipping context */
+  .framer-LRfZ0 .framer-159qakh {
+    overflow: visible !important;
+  }
+
+  .testimonial-scroll-layout {
+    display: block;
+    overflow: visible !important;
+    padding: 20px 16px 16px !important;
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  .testimonial-scroll-layout > .framer-1yc1p7v {
+    position: relative;
+    top: auto;
+    padding: 0;
+    margin-bottom: 12px !important;
+  }
+
+  .framer-RYqUR .testimonial-scroll-layout .testimonial-heading,
+  .testimonial-heading,
+  .testimonial-scroll-layout h2.framer-styles-preset-sv70jv {
+    font-size: clamp(26px, 7vw, 40px) !important;
+    --framer-font-size: clamp(26px, 7vw, 40px) !important;
+    line-height: 1.1 !important;
+    --framer-line-height: 1.1em !important;
+    letter-spacing: -0.01em !important;
+    white-space: nowrap !important;
+    word-break: keep-all !important;
+    word-wrap: normal !important;
+    overflow-wrap: normal !important;
+    text-wrap: nowrap !important;
+    max-width: 100%;
+  }
+
+  .testimonial-panels {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    position: relative;
+    overflow: visible !important;
+  }
+
+  /* Full-viewport sticky panel for testimonial card */
+  .testimonial-scroll-step {
+    position: sticky !important;
+    top: 70px !important;
+    height: calc(100vh - 70px) !important;
+    min-height: 500px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 10px 16px 20px !important;
+    box-sizing: border-box !important;
+    overflow: visible !important;
+  }
+
+  /* Contact card step — let it flow naturally below the sticky testimonial */
+  .testimonial-scroll-step:last-child {
+    position: relative !important;
+    height: auto !important;
+    min-height: 0 !important;
+    padding: 8px 16px 16px !important;
+  }
+
+  .testimonial-scroll-step + .testimonial-scroll-step {
+    margin-top: 0 !important;
+    z-index: 2 !important;
+  }
+
+  .testimonial-carousel-step {
+    z-index: 1 !important;
+  }
+
+  /* Reset framer.css's fixed 495px height on the slide container */
+  .framer-LRfZ0 .framer-oe3n1z-container {
+    height: auto !important;
+    position: relative !important;
+  }
+
+  #dean-testimonial {
+    position: relative !important;
+    top: auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    will-change: transform;
+    transition: transform 0.15s ease-out;
+  }
+
+  .testimonial-scroll-step > .testimonial-contact-card {
+    position: relative !important;
+    top: auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    will-change: transform, opacity;
+    transition: transform 0.15s ease-out, opacity 0.15s ease-out;
+  }
+
+  #dean-testimonial .testimonial-card,
+  .testimonial-panels .testimonial-contact-card {
+    min-height: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 20px 16px !important;
+    border-radius: 24px !important;
+    box-sizing: border-box !important;
+  }
+
+  #dean-testimonial .testimonial-card .framer-1f026m8 {
+    padding: 8px 4px 16px !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .testimonial-carousel-step #dean-testimonial,
+  .testimonial-scroll-step > .testimonial-contact-card {
+    transition: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #dean-testimonial .testimonial-card {
+    animation: none !important;
+  }
+}
+
+/* ====== Testimonial — name & description full width, centred =====
+   The two RichText wrappers were width:auto + white-space:pre, so
+   each one shrank to its own text and the text sat left-aligned
+   inside it (the preset sets --framer-text-alignment:start). The
+   avatar above is centred, so the name and the role read as offset
+   to the left rather than stacked under the face.
+
+   white-space:pre also meant a long name or role could not wrap,
+   and .framer-qjom22 is overflow:hidden, so it was clipped instead
+   of breaking onto a second line.
+
+   Full width + normal wrapping + centred alignment puts the name and
+   the role in the same optical column as the avatar, and lets long
+   copy wrap inside the card instead of being cut off. */
+#dean-testimonial .framer-12ijio0,
+#dean-testimonial .framer-13y9t31 {
+  width: 100%;
+  white-space: normal;
+}
+
+#dean-testimonial .framer-12ijio0 .framer-styles-preset-fbjwod,
+#dean-testimonial .framer-13y9t31 .framer-styles-preset-mtjcdx {
+  --framer-text-alignment: center;
+}
+
+/* ====== Testimonial — remove the dead space inside the card =====
+   The card ships 64px of vertical padding and the quote block another
+   128px on tablet, while the stars→quote gap is 24px. Stacked together
+   that leaves a wide blank band above and below the quote for text that
+   only needs a couple of lines. Vertical padding is cut back to 0 and
+   the quote block hugs the text. */
+#dean-testimonial .testimonial-card .framer-1f026m8 {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  gap: 14px !important;
+}
+
+/* ====== Contact — title block fill + radius ======
+   .framer-ibz03m had no background and no border-radius, so it sat
+   flush against the page. Values match the existing card language in
+   this file: 30px is the radius already used by .process-step-card
+   (index.css:1210), and #f2f2f2 is one of the three greys used by
+   the Process and Testimonial cards.
+
+   The other five section Titles intentionally have no fill, so this
+   is scoped to the Contact section only. */
+#dean-form .contact-title-card {
+  background-color: #f2f2f2;
+  border-radius: 30px;
+}
+
+/* ====== Contact — "Let's Work Together" top spacing ======
+   .framer-ibz03m is padding:24px on all four sides, so the heading
+   started 24px below the top edge of the card. Only the top is pulled
+   in here — the left/right/bottom padding stays 24px so the title and
+   the paragraph below it keep their original box.
+
+   Scoped by class: the `#dean-form` id used by the rule above no
+   longer exists in the markup, so a class selector is what actually
+   matches. */
+.contact-title-card {
+  padding-top: 12px;
+}
+
+/* CONTACT ME heading — same fill as the "Let's Work Together" card
+   above it. .framer-1leaztu already had a white background and a 1px
+   bottom border (framer.css:4110); this only swaps the fill.
+
+   Scoped by class, not #dean-form, because this Title div is a
+   sibling BEFORE the <section id="dean-form">, so it sits outside
+   that id. .framer-1leaztu appears only in Contact.tsx. */
+.contact-heading-card {
+  background-color: #625d5d;
+  border-radius: 30px;
+}
+
+/* Hero (aboutdean reference): keep the 1400px content cap + centered layout */
+.framer-LRfZ0 .framer-kx9kx9 {
+  max-width: 1400px !important;
+}
+
+
+/* ============================================================
+   Home page images — proper height/width on every screen
+   ------------------------------------------------------------
+   All home page images fill their frames (cover, centered) and
+   keep the same proportions at every Framer breakpoint so the
+   page looks identical on desktop, tablet and mobile.
+   ============================================================ */
+.framer-LRfZ0 img {
+  display: block;
+  max-width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Hero avatar face crop — reference sizes per breakpoint */
+.framer-LRfZ0 .framer-16xpnlx-container {
+  width: 122px;
+  height: 147px;
+}
+@media (min-width: 810px) and (max-width: 1199.98px) {
+  .framer-LRfZ0 .framer-16xpnlx-container {
+    width: 97px;
+    height: 124px;
+  }
+}
+@media (max-width: 809.98px) {
+  .framer-LRfZ0 .framer-16xpnlx-container {
+    width: 119px;
+    height: 124px;
+  }
+}
+
+/* About image — keep the same square-ish aspect on every screen */
+.framer-LRfZ0 .framer-jyj42a-container {
+  width: 100%;
+  max-width: 536px;
+  aspect-ratio: 1.01505;
+  height: auto;
+}
+@media (min-width: 810px) and (max-width: 1199.98px) {
+  .framer-LRfZ0 .framer-jyj42a-container {
+    width: 100%;
+    max-width: 536px;
+    aspect-ratio: 1.01505;
+    height: auto;
+  }
+}
+@media (max-width: 809.98px) {
+  .framer-LRfZ0 .framer-jyj42a-container {
+    width: 100%;
+    max-width: 536px;
+    aspect-ratio: 1.01505;
+    height: auto;
+  }
+}
+
+/* Testimonial / Footer image frames fill their section at every size */
+.framer-LRfZ0 .framer-1dq2pny-container,
+.framer-LRfZ0 .framer-2p3qta-container {
+  position: absolute;
+  inset: 0;
+}
+.framer-LRfZ0 .framer-1dq2pny-container img,
+.framer-LRfZ0 .framer-2p3qta-container img,
+.framer-Sd3Nw .framer-br4hzc-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 30px;
+}
+
+/* The Process testimonial portrait is a tall 1021x1540 shot dropped into a
+   landscape (1.17) card. `cover` crops the overflow evenly and keeps the
+   subject centred; the explicit size overrides stop the `contain`-style
+   letterbox strip and let the image fill the card edge to edge. */
+.framer-LRfZ0 .framer-1dq2pny-container img.process-video-frame {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  max-height: none !important;
+  object-fit: cover !important;
+  object-position: 50% 50% !important;
+  display: block;
+  margin: 0;
+}
+
+/* Full-bleed: Framer insets the frame 24px on every side
+   (`.framer-1nqrfay { inset: 24px }`), so the portrait sits inside a
+   padded box instead of filling the column. Drop the inset and let the
+   image run edge to edge, keeping the 30px radius on the frame only. */
+.framer-LRfZ0 .framer-y6y8ft > .framer-802wdp .framer-1nqrfay {
+  inset: 0 !important;
+}
+
+.framer-LRfZ0 .framer-y6y8ft > .framer-802wdp .framer-1dq2pny-container,
+.framer-LRfZ0 .framer-y6y8ft > .framer-802wdp .framer-1dq2pny-container img.process-video-frame {
+  border-radius: 30px;
+}
+
+/* ============================================================
+   Process — portrait column must read as sitting BESIDE the
+   PROCESS heading, not floating ~360px below it
+   ------------------------------------------------------------
+   `.framer-y6y8ft` is already a row: the step list on the left
+   (`.framer-12yzgjq`) and the portrait column on the right
+   (`.framer-802wdp`). Both start at the same y, but Framer centres
+   the right column vertically (100px padding + align-items:center)
+   and adds a 184px margin on the frame, so the portrait lands far
+   below the heading. The heading sits 128px down the left column,
+   so the frame gets the same 128px offset and the vertical
+   centring is dropped.
+
+   The frame is sized from the column width via its 1.175 aspect
+   ratio instead of Framer's hard-coded 456px, with a max-height
+   so it always fits the 100vh sticky column.
+   Hidden entirely below 810px (`.hidden-1ae2x0g`).
+   ============================================================ */
+@media (min-width: 810px) {
+  .framer-LRfZ0 .framer-y6y8ft > .framer-802wdp {
+    padding-top: 0 !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+  }
+
+  .framer-LRfZ0 .framer-y6y8ft > .framer-802wdp .framer-k1uxva,
+  .framer-LRfZ0 .framer-y6y8ft > .framer-802wdp .framer-1xic8yg {
+    align-items: flex-start !important;
+  }
+
+  .framer-LRfZ0 .framer-y6y8ft > .framer-802wdp .framer-1xic8yg {
+    width: 100%;
+    height: auto !important;
+    aspect-ratio: 1.17544;
+    max-height: calc(100vh - 128px);
+    margin-top: 128px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .framer-LRfZ0 .framer-jyj42a-container {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* ============================================================
+   Global page frame — every page, navbar to footer
+   ------------------------------------------------------------
+   All site content sits inside a single 90%-wide box framed by
+   hairline black lines on all four sides. Every section carries a
+   top hairline, and a black 4-point star sits at every junction
+   where that line meets the left/right vertical frame lines.
+   All lines and stars render at 80% opacity.
+   ============================================================ */
+.site-frame {
+  position: relative;
+  width: 90%;
+  margin: 0 auto;
+  box-sizing: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.184);
+  background: #fff;
+  min-height: 100vh;
+}
+
+/* Horizontal hairline across the top of every section */
+.site-frame main > * {
+  border-top: 1px solid rgba(0, 0, 0, 0.2) !important;
+}
+
+.site-frame main > .framer-si04yb {
+  border-top: 1px solid rgba(213, 42, 42, 0) !important;
+}
+
+/* The testimonial/videos block is a full-bleed sticky showcase. The global
+   section hairline lands in the empty space directly above the testimonial
+   image, so drop the top border for this wrapper only. */
+.site-frame main > .framer-rlfafm {
+  border-top: 1px solid rgba(213, 42, 42, 0) !important;
+}
+/* Corner joining stars (outer frame) */
+.frame-star {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  z-index: 10000;
+  pointer-events: none;
+  opacity: 0.6;
+}
+.frame-star::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 0l2.6 9.4L24 12l-9.4 2.6L12 24l-2.6-9.4L0 12l9.4-2.6z' fill='%23000'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.frame-star-tl { top: -7px; left: -7px; }
+.frame-star-tr { top: -7px; right: -7px; }
+.frame-star-bl { bottom: -7px; left: -7px; }
+.frame-star-br { bottom: -7px; right: -7px; }
+
+/* Junction stars layer — a black star symbol where each section
+   top line meets the left and right vertical frame lines. */
+.frame-junction-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10000;
+}
+.frame-junction-star {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  opacity: 0.6;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 0l2.6 9.4L24 12l-9.4 2.6L12 24l-2.6-9.4L0 12l9.4-2.6z' fill='%23000'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.frame-junction-star-left {
+  left: -7px;
+}
+.frame-junction-star-right {
+  right: -7px;
+}
+
+@media (max-width: 900px) {
+  .site-frame {
+    width: 90%;
+  }
+}
+@media (max-width: 600px) {
+  .site-frame {
+    width: 90%;
+  }
+  .frame-star {
+    width: 10px;
+    height: 10px;
+  }
+  .frame-star-tl { top: -5px; left: -5px; }
+  .frame-star-tr { top: -5px; right: -5px; }
+  .frame-star-bl { bottom: -5px; left: -5px; }
+  .frame-star-br { bottom: -5px; right: -5px; }
+  .frame-junction-star {
+    width: 10px;
+    height: 10px;
+  }
+  .frame-junction-star-left { left: -5px; }
+  .frame-junction-star-right { right: -5px; }
+}
+
+
+
+
+/* ==========================================================================
+   HOME PAGE — "KUTTI" COMPACT OVERRIDES
+   --------------------------------------------------------------------------
+   Makes the homepage smaller and tighter, matching the compact bento-grid
+   feel of the Dean reference site (aboutdean.framer.website).
+   Only applies to the home page via .framer-LRfZ0 scoping.
+   ========================================================================== */
+
+/* ── Outer section wrappers: tighten horizontal gutter 64px → 32px ── */
+.framer-LRfZ0 .framer-1e1vhhu,
+.framer-LRfZ0 .framer-14q0wb,
+.framer-LRfZ0 .framer-1isaao7,
+.framer-LRfZ0 .framer-159qakh {
+  padding: 0 32px !important;
+  gap: 12px !important;
+}
+
+/* ── Hero column (inner card border box): cut vertical padding in half ── */
+.framer-LRfZ0 .framer-kx9kx9 {
+  padding: 36px 0 !important;
+  gap: 16px !important;
+}
+
+/* ── Hero header (the bordered card itself): shrink top/bottom padding ── */
+.framer-LRfZ0 .framer-1r3iyda {
+  padding: 10px 0 16px !important;
+  gap: 10px !important;
+}
+
+/* ── H1 title "PRODUCT / DESIGNER": exact w4ms7x preset, 96px ── */
+.framer-wrafP .framer-styles-preset-w4ms7x:not(.rich-text-wrapper),
+.framer-wrafP .framer-styles-preset-w4ms7x.rich-text-wrapper h1 {
+  --framer-font-family: var(--font-sans) !important;
+  --framer-font-family-bold: var(--font-sans) !important;
+  --framer-font-open-type-features: normal !important;
+  --framer-font-size: 86px !important;
+  --framer-font-style: normal !important;
+  --framer-font-style-bold: normal !important;
+  --framer-font-variation-axes: normal !important;
+  --framer-font-weight: 600 !important;
+  --framer-font-weight-bold: 900 !important;
+  --framer-letter-spacing: 0em !important;
+  --framer-line-height: .9em !important;
+  --framer-paragraph-spacing: 0px !important;
+  --framer-text-alignment: center !important;
+  --framer-text-color: var(--token-e354a3cd-fc10-4572-8441-4fe955f17d9e, #000) !important;
+  --framer-text-decoration: none !important;
+  --framer-text-stroke-color: initial !important;
+  --framer-text-stroke-width: initial !important;
+  --framer-text-transform: none !important;
+  margin-top: 35px !important;
+}
+
+/* ── Hero avatar: compact from 122×147 → 96×116 ── */
+.framer-LRfZ0 .framer-16xpnlx-container {
+  width: 96px !important;
+  height: 116px !important;
+}
+
+/* ── Hero subtitle paragraph: tighter ── */
+.framer-LRfZ0 .framer-b25uum {
+  max-width: 480px !important;
+  margin-top: 15px !important;
+}
+
+/* ── Hero "I Want to Chat" button: less vertical room above it ── */
+.framer-LRfZ0 .framer-we4gw4-container {
+  margin-top: 0 !important;
+}
+
+/* ── Projects section header: cut the big top padding ── */
+/* The MUI sx prop sets pt: 100px on xs and 64px on lg — override both */
+.framer-LRfZ0 .framer-si04yb > div > div:first-child {
+  padding-top: 36px !important;
+  padding-bottom: 16px !important;
+}
+
+/* ── Tablet overrides (810px – 1199px) ── */
+@media (min-width: 810px) and (max-width: 1199.98px) {
+  .framer-LRfZ0 .framer-1e1vhhu,
+  .framer-LRfZ0 .framer-14q0wb,
+  .framer-LRfZ0 .framer-1isaao7,
+  .framer-LRfZ0 .framer-159qakh {
+    padding: 0 20px !important;
+  }
+
+  .framer-LRfZ0 .framer-kx9kx9 {
+    padding: 28px 0 48px !important;
+  }
+
+  /* Tablet: PRO Package/DESIGNER stack vertically around the portrait,
+     centered (uses the dedicated "Ceneter close" variant). */
+  .framer-LRfZ0 .framer-bqe6hw {
+    flex-direction: column !important;
+    align-content: center !important;
+    align-items: center !important;
+    gap: 16px !important;
+  }
+
+  .framer-LRfZ0 .framer-h7jmht-container,
+  .framer-LRfZ0 .framer-nggnv-container {
+    flex: none !important;
+    width: 100% !important;
+  }
+
+  .framer-wrafP .framer-styles-preset-w4ms7x:not(.rich-text-wrapper),
+  .framer-wrafP .framer-styles-preset-w4ms7x.rich-text-wrapper h1 {
+    --framer-font-size: 56px !important;
+  }
+
+  .framer-LRfZ0 .framer-16xpnlx-container {
+    width: 100px !important;
+    height: 120px !important;
+  }
+}
+
+/* ── Mobile overrides (≤ 809px) ── */
+@media (max-width: 809.98px) {
+  .framer-LRfZ0 .framer-1e1vhhu,
+  .framer-LRfZ0 .framer-14q0wb,
+  .framer-LRfZ0 .framer-1isaao7,
+  .framer-LRfZ0 .framer-159qakh {
+    padding: 0 12px !important;
+  }
+
+  .framer-LRfZ0 .framer-kx9kx9 {
+    padding: 24px 0 36px !important;
+  }
+
+  .framer-LRfZ0 .framer-1r3iyda {
+    padding: 24px 0 12px !important;
+    position: relative !important;
+    overflow: visible !important;
+  }
+
+  /* "Hi, I'm Bharath Anand" pill — centered ON the top border line */
+  .framer-LRfZ0 .framer-1m89qvr {
+    position: absolute !important;
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%) !important;
+    top: -18px !important;
+    width: max-content !important;
+    max-width: calc(100vw - 32px) !important;
+    white-space: nowrap !important;
+    z-index: 2 !important;
+    background: #fff !important;
+  }
+
+  /* Horizontal crossing line behind the pill — centered with pill */
+  .framer-LRfZ0 .framer-1r3iyda::before {
+    content: '' !important;
+    position: absolute !important;
+    top: -18px !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 0 !important;
+    border-top: 1px solid var(--token-5d23e02d-37c1-4334-b3aa-070b54ae1264, rgba(224, 224, 224, 0.63)) !important;
+    transform: translateY(50%) !important;
+    z-index: 1 !important;
+    pointer-events: none !important;
+  }
+
+  /* Mobile: tighter, cohesive PRODUCT → portrait → DESIGNER stack */
+  .framer-LRfZ0 .framer-bqe6hw {
+    gap: 12px !important;
+  }
+
+  .framer-wrafP .framer-styles-preset-w4ms7x:not(.rich-text-wrapper),
+  .framer-wrafP .framer-styles-preset-w4ms7x.rich-text-wrapper h1 {
+    --framer-font-size: 34px !important;
+  }
+
+  .framer-LRfZ0 .framer-16xpnlx-container {
+    width: 88px !important;
+    height: 100px !important;
+  }
+}
+
+/* Hi I'm Bharath Anand pill: border styling (all screens) */
+.framer-LRfZ0 .framer-1m89qvr {
+  border: none !important;
+  border-bottom: 1px solid var(--token-5d23e02d-37c1-4334-b3aa-070b54ae1264, rgba(224, 224, 224, 0.63)) !important;
+}
+/* Desktop-only: push pill higher (-58px) */
+@media (min-width: 810px) {
+  .framer-LRfZ0 .framer-1m89qvr {
+    top: -58px !important;
+  }
+}
+
+
+/* PRODUCT + avatar + DESIGNER row: small gap below the "Hi, I'm Bharath
+   Anand" pill (which sits at top: -58px) so the name and the headline
+   stay close but no longer collide. */
+.framer-LRfZ0 .framer-bqe6hw {
+  min-height: 10px !important;
+  margin-top: 4px !important;
+  padding-top: 0 !important;
+}
+
+/* Hide the top border line behind the Hi I'm Bharath Anand pill (desktop only) */
+@media (min-width: 810px) {
+  .framer-LRfZ0 .framer-1r3iyda[data-border='true']::after {
+    border-top-width: 0 !important;
+  }
+}
+
+/* Hero section (PRODUCT / Hero avatar / DESIGNER): remove bottom border */
+.framer-LRfZ0 .framer-1e1vhhu {
+  border-bottom: none !important;
+}
+
+/* Navbar: Projects and About same line height */
+.framer-G6c65 .framer-kpq8s6-container,
+.framer-G6c65 .framer-r31ivx-container {
+  display: flex;
+  align-items: center;
+}
+
+/* Navbar About text: add 10px top */
+.framer-G6c65 .framer-r31ivx-container {
+  margin-top: 10px;
+}
+
+/* Section h2 headings (ABOUT ME, SERVICES, PROCESS, TESTIMONIAL, CONTACT ME) */
+.framer-RYqUR .framer-styles-preset-sv70jv:not(.rich-text-wrapper),
+.framer-RYqUR .framer-styles-preset-sv70jv.rich-text-wrapper h2 {
+  --framer-font-size: clamp(44px, 3.8vw, 72px) !important;
+}
+@media (max-width: 1199px) and (min-width: 810px) {
+  .framer-RYqUR .framer-styles-preset-sv70jv:not(.rich-text-wrapper),
+  .framer-RYqUR .framer-styles-preset-sv70jv.rich-text-wrapper h2 {
+    --framer-font-size: clamp(36px, 4vw, 50px) !important;
+  }
+}
+@media (max-width: 809px) {
+  .framer-RYqUR .framer-styles-preset-sv70jv:not(.rich-text-wrapper),
+  .framer-RYqUR .framer-styles-preset-sv70jv.rich-text-wrapper h2 {
+    --framer-font-size: clamp(30px, 7.5vw, 42px) !important;
+  }
+}
+
+/* ==========================================================================
+   LAPTOP SCREENS (1200px – 1600px) — SMALLER HEADINGS
+   --------------------------------------------------------------------------
+   On laptop-sized windows the big display headings feel oversized, so they
+   are scaled down. Applies only to this width band; larger desktop monitors
+   (>= 1680px) keep the full size.
+   ========================================================================== */
+@media (min-width: 1200px) and (max-width: 1600px) {
+  /* Hero avatar: slightly larger on laptops */
+  .framer-LRfZ0 .framer-16xpnlx-container {
+    width: 106px !important;
+    height: 128px !important;
+  }
+
+  /* Section h2 headings: ABOUT ME, SERVICES, PROCESS, TESTIMONIAL, CONTACT ME (70px → 42px) */
+  .framer-RYqUR .framer-styles-preset-sv70jv:not(.rich-text-wrapper),
+  .framer-RYqUR .framer-styles-preset-sv70jv.rich-text-wrapper h2 {
+    --framer-font-size: 42px !important;
+  }
+
+  /* Work page hero: "Projects" (125px → 88px) */
+  #work-page-title {
+    font-size: 88px !important;
+  }
+
+  /* Project page hero titles */
+  .at-title,
+  .ab-title {
+    font-size: 56px !important;
+    font-family:  var(--font-sans);
+  }
+  .ss-title {
+    font-size: 56px !important;
+    font-family:  var(--font-sans);
+  }
+  .b-title {
+    font-size: 56px !important;
+    font-family:  var(--font-sans);
+  }
+  .cyos-title {
+    font-size: 56px !important;
+    font-family:  var(--font-sans);
+  }
+  .crunch-title {
+    font-size: 56px !important;
+    font-family:  var(--font-sans);
+  }
+  .petpedia-title {
+    font-size: 56px !important;
+    font-family:  var(--font-sans);
+  }
+  .eas-title {
+    font-size: 56px !important;
+    font-family:  var(--font-sans);
+  }
+  .ab-hero {
+    font-size: 42px !important;
+  }
+  .ab-hero h1 {
+    font-size: 58px !important;
+  }
+}
+
+/* ==========================================================================
+   SECTION HEADING FONT — always Inter (normal + bold)
+   --------------------------------------------------------------------------
+   The sv70jv preset on ABOUT ME / SERVICES / PROCESS / TESTIMONIAL / FAQ /
+   CONTACT ME: every weight variant is pinned to Inter at all breakpoints.
+   Sizes are untouched.
+   ========================================================================== */
+.framer-RYqUR .framer-styles-preset-sv70jv:not(.rich-text-wrapper),
+.framer-RYqUR .framer-styles-preset-sv70jv.rich-text-wrapper h2 {
+  font-family: var(--font-sans) !important;
+  font-style: normal !important;
+  font-weight: 600 !important;
+  font-variation-settings: normal !important;
+  letter-spacing: 0em !important;
+  line-height: 0.9em !important;
+  color: #000 !important;
+  text-transform: none !important;
+  text-decoration: none !important;
+  text-align: center;
+  --framer-font-family: var(--font-sans) !important;
+  --framer-font-family-bold: var(--font-sans) !important;
+  --framer-font-family-bold-italic: var(--font-sans) !important;
+  --framer-font-family-italic: var(--font-sans) !important;
+  --framer-font-open-type-features: normal !important;
+  --framer-font-style: normal !important;
+  --framer-font-style-bold: normal !important;
+  --framer-font-style-bold-italic: normal !important;
+  --framer-font-style-italic: normal !important;
+  --framer-font-variation-axes: normal !important;
+  --framer-font-weight: 600 !important;
+  --framer-font-weight-bold: 900 !important;
+  --framer-font-weight-bold-italic: 900 !important;
+  --framer-font-weight-italic: 700 !important;
+  --framer-letter-spacing: 0em !important;
+  --framer-line-height: 0.9em !important;
+  --framer-paragraph-spacing: 0px !important;
+  --framer-text-align: center;
+  --framer-text-alignment: center;
+  --framer-text-color: #000 !important;
+  --framer-text-decoration: none !important;
+  --framer-text-stroke-color: initial !important;
+  --framer-text-stroke-width: initial !important;
+  --framer-text-transform: none !important;
+}
+
+/* ==========================================================================
+   HOME HERO "PRODUCT / DESIGNER" — explicit family
+   --------------------------------------------------------------------------
+   The site-wide heading rule sets Inter on every h1/h2, which also overrides
+   the w4ms7x preset. Re-apply Inter explicitly to the hero titles.
+   ========================================================================== */
+.framer-wrafP .framer-styles-preset-w4ms7x:not(.rich-text-wrapper),
+.framer-wrafP .framer-styles-preset-w4ms7x.rich-text-wrapper h1 {
+  font-family: var(--font-sans) !important;
+}
+
+.framer-LRfZ0 .framer-73m4c5 .framer-vydmt,
+.framer-LRfZ0 .framer-49y84c .framer-vydmt {
+  align-items: center;
+  text-align: center;
+}
+
+.framer-LRfZ0 .framer-73m4c5 .framer-1rtddwc-container,
+.framer-LRfZ0 .framer-49y84c .framer-1rtddwc-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.framer-LRfZ0 .framer-73m4c5 .framer-1rtddwc-container > div,
+.framer-LRfZ0 .framer-49y84c .framer-1rtddwc-container > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-width: 100%;
+  text-align: center;
+}
+
+.framer-LRfZ0 .framer-73m4c5 .framer-1rtddwc-container > div > span,
+.framer-LRfZ0 .framer-49y84c .framer-1rtddwc-container > div > span {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+/* Keep the label after its number. The mobile "Projects Completed" card wraps
+   its label in this rich-text div, so the old `order: -1` floated the words
+   above the count. */
+.framer-LRfZ0 .framer-73m4c5 .framer-5h7okl,
+.framer-LRfZ0 .framer-49y84c .framer-5h7okl {
+  order: 0;
+  width: 100%;
+  text-align: center;
+}
+
+.framer-LRfZ0 .framer-73m4c5 .framer-5h7okl p,
+.framer-LRfZ0 .framer-49y84c .framer-5h7okl p {
+  --framer-text-alignment: center;
+  margin-left: 0;
+  margin-right: 0;
+  text-align: center;
+}
+
+/* Stat card: number and label were sitting ~32px apart because the flex
+   `gap: 16px` stacked on top of the browser's default <p> margin, with an
+   empty rich-text div wedged between them. Collapse all three so the number
+   sits directly on top of its label. */
+.framer-LRfZ0 .framer-73m4c5 .framer-vydmt,
+.framer-LRfZ0 .framer-49y84c .framer-vydmt {
+  gap: 5px;
+}
+
+.framer-LRfZ0 .framer-73m4c5 .framer-vydmt > .framer-5h7okl:empty,
+.framer-LRfZ0 .framer-49y84c .framer-vydmt > .framer-5h7okl:empty {
+  display: none;
+}
+
+.framer-LRfZ0 .framer-73m4c5 .framer-vydmt > p.framer-text,
+.framer-LRfZ0 .framer-49y84c .framer-vydmt > p.framer-text,
+.framer-LRfZ0 .framer-73m4c5 .framer-vydmt > .framer-5h7okl > p.framer-text,
+.framer-LRfZ0 .framer-49y84c .framer-vydmt > .framer-5h7okl > p.framer-text {
+  margin: 0;
+  line-height: 1.3;
+}
+
+/* "Let Me Introduce Myself" badge: pin it to the top-right corner of the
+     portrait so the words sit above the image on the right, matching the
+     reference design (aboutdean.framer.website). */
+.framer-LRfZ0 .framer-1toikl6 {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  bottom: auto;
+  left: auto;
+  align-self: auto;
+  margin: 0 !important;
+  transform: none;
+  z-index: 2;
+}
+
+/* ABOUT ME title: always a single line. */
+.framer-LRfZ0 .framer-1jv5lcx h2 {
+  white-space: nowrap;
+}
+
+/* Stats grid order follows the DOM: Projects Completed, Years of Experience,
+   Client Reviews, then the rest. Previously the Client Reviews container
+   carried `order: -1`, which floated it to the top of the list. */
+.framer-LRfZ0 .framer-73m4c5 .framer-1w508at-container {
+  order: 0;
+}
+
+@media (max-width: 1199px) {
+  .framer-LRfZ0 .framer-73m4c5 .framer-1w508at-container {
+    grid-column: 1 / -1;
+    place-self: center;
+    width: 335px;
+    max-width: 100%;
+  }
+}
+
+/* About bio social icon grid — 3 columns × 2 rows (6 icons: 3 top, 3 bottom),
+   even gap in both directions, cards scaled up to 72px. */
+.about-social-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, 72px) !important;
+  gap: 20px !important;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.about-social-grid > a {
+  justify-self: center;
+}
+
+.about-social-card {
+  width: 72px !important;
+  height: 72px !important;
+  min-width: 72px !important;
+  min-height: 72px !important;
+  border-radius: 18px !important;
+  padding: 10px !important;
+  background: #f5f4f3 !important;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05) !important;
+  transition: transform 0.2s ease, background-color 0.2s ease !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+}
+
+.about-social-card:hover {
+  background: #e5e7eb !important;
+  transform: translateY(-2px) !important;
+}
+
+.about-social-card--plain {
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+}
+
+.about-social-card--plain:hover {
+  background: transparent !important;
+  transform: none !important;
+}
+
+@media (min-width: 640px) {
+  .about-social-grid {
+    gap: 24px;
+  }
+
+  .about-social-card {
+    border-radius: 18px;
+    padding: 10px;
+  }
+}
+
+@media (min-width: 768px) {
+  .about-social-grid {
+    gap: 28px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .about-social-grid {
+    gap: 32px;
+  }
+}
+
+/* About "My Experience" — each of the 5 entries is its own card. Gray
+   background only appears on mouse hover (no resting gray). */
+.about-experience-row {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  flex-wrap: wrap;
+  padding: 24px;
+  background: #ffffff;
+  border: 1px solid rgba(224, 224, 224, 0.63);
+  border-radius: 16px;
+  box-sizing: border-box;
+  overflow: hidden;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.about-experience-row::after {
+  content: attr(data-period);
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 24px;
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(22px, 3.6vw, 42px);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #0f0f0f;
+  background: rgba(255, 255, 255, 0.86);
+  opacity: 0;
+  transform: scale(0.92);
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.about-experience-row:hover {
+  background: #ededed;
+  border-color: #d4d4d4;
+  box-shadow: 0 12px 28px -16px rgba(0, 0, 0, 0.25);
+  transform: translateY(-2px);
+}
+
+.about-experience-row[data-period]:not([data-period='']):hover::after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+@media (min-width: 640px) {
+  .about-experience-row {
+    padding: 28px 32px;
+  }
+}
+
+/* Breathing room between the Skills/Location row and the STACK card, and
+   between STACK and the social icon grid below it. */
+@media (min-width: 640px) {
+  .bio-stack-card {
+    margin-top: 32px;
+  }
+
+  .about-bio-aside {
+    margin-top: 16px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .bio-stack-card {
+    margin-top: 40px;
+  }
+
+  .about-bio-aside {
+    margin-top: 24px;
+  }
+}
+
+/* About bio: the Skills (red) + "United Kingdom" pair is a 50/50 row on the
+   reference (`w-full lg:w-1/2`), stacking below lg. Both cards keep equal
+   height via align-items: stretch on the row. */
+.bio-skills-card,
+.bio-location-card {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+@media (max-width: 1023px) {
+  .bio-skills-card,
+  .bio-location-card {
+    flex: 1 1 100%;
+  }
+}
+
+/* Reference type scale for the skills list: text-xs -> sm -> md (12/14/16). */
+@media (min-width: 640px) {
+  .bio-skills-item {
+    font-size: 14px !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .bio-skills-item {
+    font-size: 16px !important;
+  }
+}
+
+/* About bio right-hand column — the three cards (socials / Recent Works /
+   chat) stack on the reference's `gap-4 sm:gap-5 md:gap-6` = 16/20/24px.
+   The inline `gap` on the Box beats this, so it is re-asserted here and the
+   inline value dropped. */
+.about-bio-aside {
+  gap: 16px;
+}
+
+@media (min-width: 640px) {
+  .about-bio-aside {
+    gap: 20px;
+  }
+}
+
+@media (min-width: 768px) {
+  .about-bio-aside {
+    gap: 24px;
+  }
+}
+
+/* Recent Works card and the chat card below it: both are `flex-1` on the
+   reference, so they share the leftover column height evenly. Centre each
+   one's content so the gap between them reads evenly instead of leaving
+   the chat pinned to the bottom edge. */
+.recent-works-chat-card {
+  justify-content: center;
+}
+
+/* Chat response bubble sits on the blue pill, so its text (and the Behance
+   link inside it) must stay white — the site-wide `body p` rule above would
+   otherwise force the whole sentence to #666. The "Read" timestamp below the
+   bubble is forced white for the same reason. */
+body #main .recent-works-chat-card .chat-response-text,
+body #main .recent-works-chat-card .chat-response-text a,
+.recent-works-chat-card p.chat-response-text,
+.recent-works-chat-card p.chat-response-text a,
+.recent-works-chat-card .chat-response-text,
+.recent-works-chat-card .chat-response-text a,
+.chat-response-text,
+.chat-response-text a {
+  color: #ffffff !important;
+}
+
+.recent-works-chat-card .chat-timestamp {
+  color: #666 !important;
+  opacity: 1 !important;
+}
+
+/* Recent Works rows sit on plain 8/12px spacing — no dividers, no arrow. */
+.recent-works-list {
+  gap: 8px;
+}
+
+@media (min-width: 640px) {
+  .recent-works-list {
+    gap: 12px;
+  }
+}
+
+/* Each row is `gap-2 sm:gap-4` on the reference — 8px between the title
+   block and the year, opening to 16px from the sm breakpoint. */
+.recent-work-row {
+  gap: 8px;
+}
+
+@media (min-width: 640px) {
+  .recent-work-row {
+    gap: 16px;
+  }
+}
+
+/* ============================================================
+   Process portrait — full image, no crop, no letterbox bars
+   ------------------------------------------------------------
+   Framer wraps the portrait in three stacked boxes: `.framer-1xic8yg`
+   (landscape 1.175 card, fixed 456px), `.framer-1nqrfay` (absolute,
+   inset 24px) and `.framer-1dq2pny-container` (absolute, inset 0).
+   A 1021x1540 portrait inside a landscape box either crops (cover)
+   or leaves empty bars (contain). All three wrappers are put back
+   into normal flow so the frame hugs the image at its own 1021/1540
+   ratio, and the column is capped so a tall shot can never run past
+   the 100vh sticky column. Nothing is cropped and nothing is
+   letterboxed.
+   ============================================================ */
+@media (min-width: 810px) {
+  .framer-LRfZ0 .framer-y6y8ft > .framer-802wdp .framer-1xic8yg {
+    aspect-ratio: auto !important;
+    height: auto !important;
+    width: 100%;
+    max-width: min(100%, calc((100vh - 200px) * 0.663));
+    margin: 0 auto;
+    overflow: visible;
+    display: block;
+  }
+
+  .framer-LRfZ0 .framer-y6y8ft > .framer-802wdp .framer-1nqrfay,
+  .framer-LRfZ0 .framer-y6y8ft > .framer-802wdp .framer-1dq2pny-container {
+    position: static;
+    inset: auto;
+    width: 100%;
+    height: auto;
+    padding: 0;
+    border-radius: 30px;
+    z-index: 2;
+    display: block;
+    overflow: visible;
+  }
+
+  .framer-LRfZ0 .framer-y6y8ft > .framer-802wdp img.process-video-frame {
+    width: 100% !important;
+    height: auto !important;
+    max-width: none !important;
+    max-height: none !important;
+    object-fit: cover !important;
+    object-position: 50% 50% !important;
+    border-radius: 30px !important;
+    margin: 0;
+  }
+}
+
+/* ==========================================================================
+   /about — DARK SECTIONS (WHAT GOOD AT / LATEST INSIGHTS / PORTFOLIO)
+   --------------------------------------------------------------------------
+   Those three blocks carry .about-dark and go black, so every grey token
+   inside them is re-stepped for a dark ground: headings to white, body copy
+   to #b3b3b3.
+
+   Two site-wide rules outrank plain inline styles — `body p { color: #666 }`
+   and the `body :is(h1..h6)` rule that pins headings to #111 — so the
+   overrides below are all !important and are scoped under #main (specificity
+   1,1,1+) to beat them. Light cards that live inside a dark section
+   (.goodat-card) get their dark text back afterwards.
+   ========================================================================== */
+
+#main .about-dark {
+  background: #000 !important;
+  color: #fff;
+}
+
+#main .about-dark :is(h2, h3, h5) {
+  color: #fff !important;
+}
+
+#main .about-dark p {
+  color: #b3b3b3 !important;
+}
+
+/* ── Light "what I'm good at" cards keep their own dark text on the grey fill ── */
+#main .about-dark .goodat-card {
+  border-color: rgba(224, 224, 224, 0.63);
+}
+
+#main .about-dark .goodat-card :is(h3, h4) {
+  color: #000 !important;
+}
+
+#main .about-dark .goodat-card p {
+  color: #4c4c4c !important;
+}
+
+/* ── Project cards (MUI sx, so these need !important to win) ── */
+#main .about-dark .project-card-title {
+  color: #fff !important;
+}
+
+#main .about-dark .project-card-title:hover {
+  color: #ff6b00 !important;
+}
+
+#main .about-dark .project-card-category {
+  color: #b3b3b3;
+}
+
+#main .about-dark .project-card-dot {
+  background: #b3b3b3;
+}
+
+#main .about-dark .project-card-arrow {
+  background: #fff;
+}
+
+#main .about-dark .project-card-arrow-out {
+  color: #000;
+}
+
+#main .about-dark .project-card-arrow-in {
+  color: #fff;
+}
+
+/* Responsive layout guardrails shared by every route. Keep these last so they
+   can constrain the fixed canvas widths emitted by Framer and page components. */
+.site-frame,
+.site-frame * {
+  box-sizing: border-box;
+}
+
+.site-frame > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.site-frame img,
+.site-frame video,
+.site-frame iframe,
+.site-frame canvas,
+.site-frame svg {
+  max-width: 100%;
+}
+
+.site-frame :is([class*='grid'], [class*='Grid']) > * {
+  min-width: 0;
+}
+
+@media (min-width: 1440px) {
+  .site-frame {
+    width: min(90%, 1400px);
+  }
+}
+
+@media (max-width: 1024px) {
+  .site-frame {
+    width: calc(100% - 40px);
+  }
+
+  .site-frame > * {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .site-frame [class*='framer-'] {
+    min-width: 0;
+    max-width: 100% !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .site-frame {
+    width: calc(100% - 32px);
+  }
+
+  .site-frame :is([class*='grid'], [class*='Grid']) {
+    min-width: 0;
+  }
+
+}
+
+@media (max-width: 390px) {
+  .site-frame {
+    width: calc(100% - 24px);
+  }
+
+  .site-frame :is(h1, h2, h3, h4, h5, h6, p, a, span, button) {
+    overflow-wrap: anywhere;
+  }
+}
+
+@media (max-width: 375px) {
+  .site-frame {
+    width: calc(100% - 20px);
+  }
+}
+
+@media (max-width: 320px) {
+  .site-frame {
+    width: 100%;
+  }
+
+  .site-frame :is([class*='grid'], [class*='Grid']) {
+    gap: 16px;
+  }
+}
+
+/* About page: stack the three bio columns and avoid compressed text/cards at
+   a 320px viewport, where inline Framer grid styles otherwise stay in force. */
+@media (max-width: 320px) {
+  .site-frame > #main[data-framer-generated-page],
+  .site-frame > [class*='page'] {
+    position: relative;
+    min-height: 100vh;
+    width: calc(100% - 32px) !important;
+    margin-right: auto !important;
+    margin-left: auto !important;
+  }
+
+  .site-frame > #main[data-framer-generated-page] .framer-4zw9d1,
+  .site-frame > [class*='page'] .framer-4zw9d1 {
+    left: 16px !important;
+    right: 16px !important;
+  }
+
+  .site-frame > #main[data-framer-generated-page]::before,
+  .site-frame > #main[data-framer-generated-page]::after,
+  .site-frame > [class*='page']::before,
+  .site-frame > [class*='page']::after {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    content: '';
+    background: rgba(0, 0, 0, 0.24);
+    pointer-events: none;
+    z-index: 10001;
+  }
+
+  .site-frame > #main[data-framer-generated-page]::before,
+  .site-frame > [class*='page']::before {
+    left: 0;
+  }
+
+  .site-frame > #main[data-framer-generated-page]::after,
+  .site-frame > [class*='page']::after {
+    right: 0;
+  }
+
+  #main .about-social-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 72px) !important;
+    justify-content: flex-start !important;
+    gap: 16px 20px !important;
+  }
+
+  #main .about-social-grid > a {
+    width: 72px !important;
+    height: 72px !important;
+  }
+
+  #main .about-bio-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 16px !important;
+    padding-right: 12px !important;
+    padding-left: 12px !important;
+  }
+
+  #main .about-outside-grid,
+  #main .about-project-grid,
+  #main .about-insights-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 20px !important;
+    padding-right: 12px !important;
+    padding-left: 12px !important;
+  }
+
+  #main .about-experience-row {
+    flex-direction: column !important;
+    gap: 8px !important;
+  }
+
+  #main .about-experience-row > h2,
+  #main .about-experience-row > p,
+  #main .about-experience-row > div {
+    width: 100%;
+    min-width: 0 !important;
+    flex-basis: auto !important;
+  }
+
+  #main .about-experience-row > h2 {
+    font-size: 22px !important;
+  }
+
+  #main .goodat-card {
+    padding: 24px 20px !important;
+  }
+
+  #main .goodat-card .goodat-title {
+    font-size: 24px !important;
+  }
+
+  #main .bio-skills-location-row {
+    flex-direction: column !important;
+    gap: 12px !important;
+  }
+
+  #main .recent-work-row {
+    align-items: flex-start !important;
+  }
+
+  #main .recent-work-row h4,
+  #main .recent-work-row p {
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    overflow-wrap: anywhere;
+  }
+
+  #main .recent-work-row > p {
+    flex-shrink: 1 !important;
+    text-align: right;
+  }
+
+  #main .about-insights-grid article > div:last-child {
+    flex-wrap: wrap !important;
+    gap: 8px;
+  }
+}
+
+/* Home Framer canvas: replace its exported 1200/810/390px fixed widths with
+   widths that fit the site frame at every viewport breakpoint. */
+.home-page .framer-LRfZ0.framer-et5t2c {
+  width: min(100%, 1200px) !important;
+  max-width: 100% !important;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media (min-width: 810px) and (max-width: 1199.98px) {
+  .home-page .framer-LRfZ0.framer-et5t2c {
+    width: min(100%, 810px) !important;
+  }
+}
+
+@media (max-width: 809.98px) {
+  .home-page .framer-LRfZ0.framer-et5t2c {
+    width: 100% !important;
+  }
+}
+
+/* Keep the scroll testimonial card sizing after the exported Framer rules. */
+#dean-testimonial .testimonial-single-slide .testimonial-card {
+  height: auto !important;
+  min-height: 0 !important;
+  padding: 28px !important;
+  border-radius: 28px !important;
+  background: #e3e3e3 !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.09) !important;
+}
+
+#dean-testimonial .testimonial-contact-controls {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+#dean-testimonial .testimonial-contact-controls button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 10px 16px;
+  border: 1px solid rgba(0, 0, 0, 0.14);
+  border-radius: 999px;
+  background: #fff;
+  color: #111;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+#dean-testimonial .testimonial-contact-controls button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.testimonial-panels .testimonial-contact-card {
+  height: auto !important;
+  min-height: 0 !important;
+  padding: 32px !important;
+  border-radius: 28px !important;
+  background: #e3e3e3 !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.09) !important;
+}
+
+@media (max-width: 809.98px) {
+  #dean-testimonial .testimonial-single-slide .testimonial-card,
+  .testimonial-panels .testimonial-contact-card {
+    min-height: 0 !important;
+    padding: 20px !important;
+  }
+}
+
+/* Final mobile layout guardrails for every route. */
+.site-frame,
+.site-frame * {
+  box-sizing: border-box;
+}
+
+.site-frame {
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+.site-frame .framer-LRfZ0.framer-et5t2c {
+  width: min(100%, 1200px) !important;
+  max-width: 100% !important;
+  margin-inline: auto;
+}
+
+.site-frame :is(img, video, iframe, canvas, svg) {
+  max-width: 100%;
+}
+
+.site-frame > *,
+.site-frame :is(main, section, article, header, footer),
+.site-frame :is(main, section, article, header, footer) > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+@media (min-width: 810px) and (max-width: 1199.98px) {
+  .site-frame .framer-LRfZ0.framer-et5t2c {
+    width: min(100%, 810px) !important;
+  }
+}
+
+@media (max-width: 809.98px) {
+  .site-frame .framer-LRfZ0.framer-et5t2c {
+    width: 100% !important;
+  }
+
+  .site-frame :is(p, li, td, th, a, button) {
+    overflow-wrap: anywhere;
+  }
+
+  .site-frame table {
+    width: 100%;
+    table-layout: fixed;
+  }
+}
+
+@media (max-width: 600px) {
+  :where(.site-frame) :is([class*='grid'], [class*='Grid']) > * {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .site-frame :is(img, video, iframe, canvas) {
+    height: auto;
+  }
+}
+
+/* These title rows declared their desktop fixed width after the component's
+   first mobile rule, so the mobile width:auto declaration lost in the cascade.
+   Release that width on phones and tablets to prevent a 240px row clipping
+   inside the narrow 320px content column. */
+@media (max-width: 768px) {
+  .site-frame .petpersona-header-left,
+  .site-frame .petresearch-top-left,
+  .site-frame .petbiz-insights-title-row {
+    width: auto !important;
+    min-width: 0;
+    flex-shrink: 1;
+  }
+}
+
+@media (max-width: 390px) {
+  .site-frame {
+    width: 100%;
+  }
+
+  .site-frame :is(h1, h2, h3) {
+    overflow-wrap: anywhere;
+  }
+}
+
+@media (max-width: 600px) {
+  #main .bio-skills-location-row {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+
+  /* The exported home hero subtitle keeps a desktop max-content width. */
+  .site-frame .framer-LRfZ0 .framer-b25uum {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-inline: 8px;
+  }
+
+  .site-frame .framer-LRfZ0 .framer-b25uum p {
+    width: 100%;
+    white-space: normal !important;
+    overflow-wrap: anywhere;
+  }
+
+  /* Fit the Work hero title and copy inside its padded mobile container. */
+  .site-frame #work-page-title {
+    font-size: clamp(40px, 12vw, 56px) !important;
+    line-height: 0.98 !important;
+  }
+
+  .site-frame .work-hero-inner > :first-child,
+  .site-frame .work-hero-inner > :first-child p {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .site-frame .work-hero-inner {
+    align-items: stretch !important;
+  }
+}
+
+/* Compact mobile layout: keep the frame flush to the viewport and reduce
+   oversized section spacing across the 320–425px phone range. */
+@media (max-width: 425px) {
+  .site-frame {
+    width: 100%;
+  }
+
+  .ateats-page,
+  .beuta-page,
+  .crunch-page,
+  .xr-page,
+  .atbots-page,
+  .eas-page {
+    --crunch-pad: 14px !important;
+  }
+
+  .atbooks-page [style*="0 40px"],
+  .atbooks-page .ab-found-grid-wrapper,
+  .atbooks-page .ab-design-mockup-wrapper {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+
+  .framer-LRfZ0 .framer-1e1vhhu,
+  .framer-LRfZ0 .framer-14q0wb,
+  .framer-LRfZ0 .framer-1isaao7,
+  .framer-LRfZ0 .framer-159qakh {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+    gap: 8px !important;
+  }
+
+  .framer-LRfZ0 .framer-kx9kx9 {
+    padding-top: 16px !important;
+    padding-bottom: 24px !important;
+    gap: 12px !important;
+  }
+
+  .framer-LRfZ0 .framer-1r3iyda {
+    padding-top: 18px !important;
+    padding-bottom: 8px !important;
+    gap: 8px !important;
+  }
+
+  .framer-LRfZ0 .framer-si04yb > div > div:first-child {
+    padding-top: 24px !important;
+    padding-bottom: 12px !important;
+  }
+
+  .framer-LRfZ0 .framer-c82y3h {
+    padding: 56px 12px 16px !important;
+    gap: 12px !important;
+  }
+
+  .framer-LRfZ0 .framer-1fz8iv3 {
+    gap: 16px !important;
+    padding-bottom: 32px !important;
+  }
+
+  .framer-LRfZ0.framer-gsd87a,
+  .framer-LRfZ0.framer-g05yov,
+  .framer-LRfZ0.framer-p3x240 {
+    padding: 18px 12px !important;
+  }
+}
+
+@media (max-width: 360px) {
+  .ateats-page,
+  .beuta-page,
+  .crunch-page,
+  .xr-page,
+  .atbots-page,
+  .eas-page {
+    --crunch-pad: 12px !important;
+  }
+
+  .framer-LRfZ0 .framer-1e1vhhu,
+  .framer-LRfZ0 .framer-14q0wb,
+  .framer-LRfZ0 .framer-1isaao7,
+  .framer-LRfZ0 .framer-159qakh {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+  }
+}
+
+/* ============================================================
+   Process — 320px–390px phone compaction
+   ------------------------------------------------------------
+   On small phones the exported padding stays at its desktop
+   values: the three step cards carry a 64px top/bottom inset
+   each (framer.css:7508 + inline --1bwc9rq), the PROCESS title
+   row pads 64px 16px 24px, and the CTA wrapper pads 64px 16px.
+   Because the cards are only ~150px tall once the heading and
+   paragraph wrap, that ~128px of dead vertical padding per card
+   makes the whole section balloon (≈1560px at 320px) while the
+   text floats centre with huge blank bands above and below.
+
+   These rules cut the vertical insets in half-ish and tighten
+   the internal gaps so the three steps read as slender cards,
+   matching the compact bento feel the rest of the home page
+   already uses at this size. Everything is scoped to one width
+   range and never touches desktop/tablet layouts.
+
+   Why !important: the card padding is delivered as the inline
+   --1bwc9rq custom property on every card (Process.tsx), which
+   beats any non-important rule. Overriding `padding` directly
+   with !important is the only way to win the cascade.
+   ============================================================ */
+/* ====== Process section mobile scrolling card-stack animation (<= 809.98px) ====== */
+@media (max-width: 809.98px) {
+  /* Allow sticky children to escape the clipping context */
+  .framer-LRfZ0 .framer-1isaao7 {
+    overflow: visible !important;
+  }
+
+  .framer-LRfZ0 .framer-y6y8ft {
+    overflow: visible !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+
+  .framer-LRfZ0 .framer-12yzgjq {
+    overflow: visible !important;
+    width: 100% !important;
+    flex: 1 1 auto !important;
+  }
+
+  /* Each step container: full-viewport sticky panel */
+  .framer-LRfZ0 .framer-1dzukjq-container,
+  .framer-LRfZ0 .framer-p6ztjy-container,
+  .framer-LRfZ0 .framer-17uaksd-container {
+    position: sticky !important;
+    top: 70px !important;
+    height: calc(100vh - 70px) !important;
+    min-height: 440px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    box-sizing: border-box !important;
+    padding: 10px 16px 20px !important;
+    overflow: visible !important;
+  }
+
+  .framer-LRfZ0 .framer-1dzukjq-container {
+    z-index: 1 !important;
+  }
+
+  .framer-LRfZ0 .framer-p6ztjy-container {
+    z-index: 2 !important;
+  }
+
+  .framer-LRfZ0 .framer-17uaksd-container {
+    z-index: 3 !important;
+  }
+
+  .framer-LRfZ0 .framer-13ff6q9 {
+    position: relative !important;
+    top: auto !important;
+    z-index: 4 !important;
+    height: auto !important;
+    min-height: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    box-sizing: border-box !important;
+    padding: 24px 16px 24px !important;
+    margin: 0 !important;
+    background: transparent !important;
+  }
+
+  /* Step cards: no max-height clipping — fill the sticky container */
+  .framer-LRfZ0 .process-step-card {
+    max-height: none !important;
+    flex: 0 0 auto !important;
+    height: auto !important;
+    min-height: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    background-color: var(--token-11865464-7f13-41cb-ab19-077e3c0ce0d1, #e3e3e3) !important;
+    border-radius: 24px !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.14) !important;
+    box-sizing: border-box !important;
+  }
+
+  .framer-LRfZ0 .process-step-card.process-step-outer,
+  .framer-LRfZ0 .process-step-card.process-step-outer:after,
+  .framer-LRfZ0 .process-step-card.process-step-outer::after {
+    background-color: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0 !important;
+    content: none !important;
+  }
+
+  .framer-LRfZ0 .process-cta-card,
+  .framer-LRfZ0 .framer-uw7yej {
+    flex: 0 0 auto !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    background-color: #f2f2f2 !important;
+    border-radius: 24px !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.14) !important;
+    box-sizing: border-box !important;
+    padding: 24px 16px !important;
+    gap: 14px !important;
+  }
+}
+
+@media (min-width: 320px) and (max-width: 390px) {
+  /* PROCESS heading row — drop the 64px top inset */
+  .framer-LRfZ0 .framer-17qyqbf {
+    padding: 24px 16px 12px !important;
+    gap: 8px !important;
+  }
+
+  /* PROCESS heading — shrink it so the whole word fits on a single
+     line. The base preset forces 58px+ via !important, which is too
+     wide for these viewports, so override size here with !important. */
+  .framer-LRfZ0 .framer-17qyqbf .framer-styles-preset-sv70jv {
+    --framer-font-size: clamp(28px, 8.5vw, 38px) !important;
+    font-size: clamp(28px, 8.5vw, 38px) !important;
+    white-space: nowrap !important;
+  }
+
+  /* 01/02/03 step cards — compact vertical padding, tighter gaps */
+  .framer-LRfZ0 .process-step-card {
+    padding: 24px 16px !important;
+    gap: 12px !important;
+  }
+
+  .framer-LRfZ0 .process-step-card h3 {
+    font-size: clamp(20px, 5.5vw, 24px) !important;
+  }
+
+  .framer-LRfZ0 .process-step-card p {
+    font-size: 13.5px !important;
+    line-height: 1.45 !important;
+  }
+
+  /* Call to action — compact the wrapper and the card */
+  .framer-LRfZ0 .framer-13ff6q9 {
+    padding: 16px 0 20px !important;
+    gap: 8px !important;
+    height: auto !important;
+    min-height: 0 !important;
+  }
+
+  .framer-LRfZ0 .process-cta-card,
+  .framer-LRfZ0 .framer-uw7yej {
+    flex: 0 0 auto !important;
+    height: auto !important;
+    min-height: 0 !important;
+    padding: 22px 14px !important;
+    gap: 12px !important;
+    border-radius: 20px !important;
+  }
+
+  .framer-LRfZ0 .framer-uw7yej h3 {
+    font-size: clamp(20px, 5.5vw, 24px) !important;
+    margin: 0 !important;
+  }
+
+  .framer-LRfZ0 .framer-uw7yej p {
+    font-size: 13px !important;
+    line-height: 1.45 !important;
+    margin: 0 !important;
+  }
+
+  /* Overflow guard rails: allow the flex columns to shrink below
+     their intrinsic width and let long words wrap instead of
+     pushing the card past the viewport. */
+  .framer-LRfZ0 .framer-12yzgjq,
+  .framer-LRfZ0 .framer-y6y8ft {
+    min-width: 0 !important;
+  }
+
+  .framer-LRfZ0 .framer-1rjivew p,
+  .framer-LRfZ0 .framer-1xdr6yg p {
+    overflow-wrap: anywhere;
+  }
+
+  /* CTA button — never spill past the card into the gutter */
+  .framer-LRfZ0 .process-cta-btn {
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+
+  /* Testimonials section 320px–390px mobile responsiveness */
+  .testimonial-scroll-layout {
+    padding: 16px 12px 14px !important;
+  }
+
+  .testimonial-scroll-layout > .framer-1yc1p7v {
+    margin-bottom: 10px !important;
+  }
+
+  .testimonial-heading {
+    font-size: clamp(22px, 6.5vw, 28px) !important;
+    --framer-font-size: clamp(22px, 6.5vw, 28px) !important;
+    white-space: nowrap !important;
+  }
+
+  .testimonial-scroll-step {
+    top: 66px !important;
+    height: calc(100vh - 66px) !important;
+    min-height: 460px !important;
+    padding: 6px 0 16px !important;
+  }
+
+  .testimonial-scroll-step:last-child {
+    height: auto !important;
+    min-height: 0 !important;
+    padding: 8px 0 16px !important;
+  }
+
+  #dean-testimonial .testimonial-card {
+    padding: 16px 8px !important;
+    border-radius: 20px !important;
+  }
+
+  .testimonial-card .framer-ghobsa h3 {
+    font-size: clamp(15px, 4.2vw, 18px) !important;
+    line-height: 1.4 !important;
+  }
+
+  .testimonial-avatar-controls-row {
+    gap: 16px !important;
+  }
+
+  .testimonial-avatar-controls-row .framer-1as0ovt,
+  .testimonial-avatar-controls-row .framer-1mdx4d2 {
+    width: auto !important;
+    min-width: 0 !important;
+  }
+
+  #dean-testimonial .testimonial-arrow {
+    width: 36px !important;
+    height: 36px !important;
+    min-width: 36px !important;
+    min-height: 36px !important;
+  }
+
+  .framer-0b0XY .framer-qjom22 {
+    padding: 12px 0 !important;
+    gap: 8px !important;
+  }
+
+  .testimonial-panels .testimonial-contact-card {
+    padding: 20px 14px !important;
+    gap: 12px !important;
+    border-radius: 20px !important;
+  }
+
+  .testimonial-panels .testimonial-contact-card h3 {
+    font-size: 20px !important;
+    margin-bottom: 6px !important;
+  }
+
+  .testimonial-panels .testimonial-contact-card p {
+    font-size: 13px !important;
+    line-height: 1.4 !important;
+  }
+
+  .testimonial-panels .testimonial-contact-details {
+    gap: 10px !important;
+  }
+
+  .testimonial-panels .testimonial-contact-details strong {
+    font-size: 12.5px !important;
+  }
+
+  .testimonial-panels .testimonial-contact-details a {
+    font-size: 12.5px !important;
+  }
+
+  .testimonial-panels .testimonial-contact-socials a {
+    padding: 5px 9px !important;
+    font-size: 11.5px !important;
+  }
+
+  .testimonial-panels .testimonial-contact-booking {
+    gap: 10px !important;
+  }
+
+  .testimonial-panels .testimonial-contact-booking button {
+    min-height: 40px !important;
+    padding: 8px 16px !important;
+    font-size: 13px !important;
+  }
+}
+
+/* Work page — 3rd section ("Some freelance design", e.g. the Syoping
+   Solutions box) on small phones (320–390px).
+   A later @media(max-width:768px) block re-declares the card grids with
+   `gap: 20px !important`, which silently overrode the intended 6/8px mobile
+   gaps and left the stacked freelance cards with an uneven 20px gutter next
+   to the 12px featured-card spacing. Re-assert one consistent 12px gap and a
+   comfortable interior gap for the stacked featured boxes. */
+@media (max-width: 390px) {
+  .freelance-halves-grid {
+    gap: 12px !important;
+  }
+
+  .freelance-featured-card {
+    gap: 16px !important;
+    padding: 20px 16px !important;
+  }
+}
