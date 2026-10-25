@@ -52,7 +52,17 @@ function AnimatedNavLinkText({ text, active = false, activeColor }: { text: stri
               : 'var(--token-2c4d0fad-06de-414f-b048-811f13183390, rgb(97, 97, 97))'
             return (
               <div key={index} style={{ "position": 'relative', "height": '19.2px', "overflow": 'hidden', "display": 'flex', "alignItems": 'flex-start', "justifyContent": 'center' } as FramerStyle}>
-                <div style={{ "display": 'flex', "flexDirection": 'column', "alignItems": 'center', "transform": isShifted ? 'translateY(-134.4px)' : 'none' } as FramerStyle}>
+                <div
+                  className="nav-letter-track"
+                  style={{
+                    "display": 'flex',
+                    "flexDirection": 'column',
+                    "alignItems": 'center',
+                    "--base": isShifted ? '-134.4px' : '0px',
+                    "--dir": isShifted ? '1' : '-1',
+                    "--index": index,
+                  } as FramerStyle}
+                >
                   {Array.from({ length: 8 }).map((_, i) => (
                     <span key={i} style={{ "color": charColor, "height": '19.2px', "display": 'flex', "alignItems": 'center', "justifyContent": 'center', "fontFamily": '"Inter", sans-serif', "fontSize": '16px', "fontStyle": 'normal', "fontWeight": '500', "letterSpacing": '-0.02em', "lineHeight": '1.2em', "filter": 'blur(0px)' } as FramerStyle}>
                       {char}

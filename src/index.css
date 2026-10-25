@@ -387,6 +387,39 @@ html body {
   color: var(--token-6a6d1eb8-2687-4444-ba52-f31754121a4e, rgb(2, 212, 245)) !important;
 }
 
+/* --- Nav link letters: staggered vertical roll on hover / focus / click.
+   Each letter has 8 stacked copies (matching the reference site); the track
+   slides several rows so the glyph appears to roll in place. --- */
+.nav-letter-track {
+  will-change: transform;
+}
+@media (hover: hover) and (pointer: fine) {
+  .framer-LUjGG:hover .nav-letter-track,
+  .framer-LUjGG:focus-visible .nav-letter-track {
+    animation: nav-letter-roll 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: calc(var(--index, 0) * 0.028s);
+  }
+}
+.framer-LUjGG:active .nav-letter-track {
+  animation: nav-letter-roll 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(var(--index, 0) * 0.028s);
+}
+@keyframes nav-letter-roll {
+  from {
+    transform: translateY(var(--base, 0px));
+  }
+  to {
+    transform: translateY(calc(var(--base, 0px) + var(--dir, -1) * 57.6px));
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .framer-LUjGG:hover .nav-letter-track,
+  .framer-LUjGG:focus-visible .nav-letter-track,
+  .framer-LUjGG:active .nav-letter-track {
+    animation: none;
+  }
+}
+
 /* --- Nav center icon: smooth transition when icon changes --- */
 .framer-1i96c6o svg {
   transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -2008,7 +2041,7 @@ a:hover .project-card-title {
   font-weight: 500 !important;
 }
 
-body p:not(.crunch-page p):not(.atbots-page p):not(.chat-response-text) {
+body p:not(.crunch-page p):not(.atbots-page p):not(.chat-response-text):not(.framer-b25uum p) {
   color: #000000 !important;
 }
 .framer-gFNsP p{
@@ -2027,8 +2060,7 @@ body p:not(.crunch-page p):not(.atbots-page p):not(.chat-response-text) {
    pill. The `body p` rule above carries more specificity than the
    `.framer-gFNsP .framer-text` fix, which rendered the text black-on-black
    (invisible). These selectors are specific enough to win. */
-.framer-LRfZ0 .framer-gFNsP.process-cta-btn .framer-text,
-.framer-LRfZ0 .process-cta-pill .framer-text {
+.framer-LRfZ0 .process-cta-btn .process-cta-pill .framer-lebzrb .framer-text {
   color: #fff !important;
 }
 
@@ -3142,7 +3174,7 @@ body p:not(.crunch-page p):not(.atbots-page p):not(.chat-response-text) {
 .site-frame {
   position: relative;
   width: 90%;
-  margin: 0 auto;
+  margin: 6px auto;
   box-sizing: border-box;
   border: 1px solid rgba(0, 0, 0, 0.184);
   background: #fff;
@@ -3167,25 +3199,25 @@ body p:not(.crunch-page p):not(.atbots-page p):not(.chat-response-text) {
 /* Corner joining stars (outer frame) */
 .frame-star {
   position: absolute;
-  width: 14px;
-  height: 14px;
+  width: 12px;
+  height: 12px;
   z-index: 10000;
   pointer-events: none;
-  opacity: 0.6;
+  opacity: 1;
 }
 .frame-star::before {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 0l2.6 9.4L24 12l-9.4 2.6L12 24l-2.6-9.4L0 12l9.4-2.6z' fill='%23000'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 17 17'%3E%3Cpath d='M8.5 0 L9.127 1.694 C9.947 3.912 10.359 5.021 11.167 5.831 C11.979 6.641 13.088 7.053 15.306 7.873 L17 8.5 L15.306 9.127 C13.088 9.947 11.979 10.359 11.169 11.167 C10.359 11.979 9.947 13.088 9.127 15.306 L8.5 17 L7.873 15.306 C7.053 13.088 6.641 11.979 5.833 11.169 C5.021 10.359 3.912 9.947 1.694 9.127 L0 8.5 L1.694 7.873 C3.912 7.053 5.021 6.641 5.831 5.833 C6.641 5.021 7.053 3.912 7.873 1.694 Z' fill='%23000'/%3E%3C/svg%3E");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
 }
-.frame-star-tl { top: -7px; left: -7px; }
-.frame-star-tr { top: -7px; right: -7px; }
-.frame-star-bl { bottom: -7px; left: -7px; }
-.frame-star-br { bottom: -7px; right: -7px; }
+.frame-star-tl { top: -6px; left: -6px; }
+.frame-star-tr { top: -6px; right: -6px; }
+.frame-star-bl { bottom: -6px; left: -6px; }
+.frame-star-br { bottom: -6px; right: -6px; }
 
 /* Junction stars layer — a black star symbol where each section
    top line meets the left and right vertical frame lines. */
@@ -3197,19 +3229,49 @@ body p:not(.crunch-page p):not(.atbots-page p):not(.chat-response-text) {
 }
 .frame-junction-star {
   position: absolute;
-  width: 14px;
-  height: 14px;
-  opacity: 0.6;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 0l2.6 9.4L24 12l-9.4 2.6L12 24l-2.6-9.4L0 12l9.4-2.6z' fill='%23000'/%3E%3C/svg%3E");
+  width: 12px;
+  height: 12px;
+  opacity: 1;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 17 17'%3E%3Cpath d='M8.5 0 L9.127 1.694 C9.947 3.912 10.359 5.021 11.167 5.831 C11.979 6.641 13.088 7.053 15.306 7.873 L17 8.5 L15.306 9.127 C13.088 9.947 11.979 10.359 11.169 11.167 C10.359 11.979 9.947 13.088 9.127 15.306 L8.5 17 L7.873 15.306 C7.053 13.088 6.641 11.979 5.833 11.169 C5.021 10.359 3.912 9.947 1.694 9.127 L0 8.5 L1.694 7.873 C3.912 7.053 5.021 6.641 5.831 5.833 C6.641 5.021 7.053 3.912 7.873 1.694 Z' fill='%23000'/%3E%3C/svg%3E");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
 }
 .frame-junction-star-left {
-  left: -7px;
+  left: -6px;
 }
 .frame-junction-star-right {
-  right: -7px;
+  right: -6px;
+}
+
+.frame-star,
+.frame-junction-star {
+  animation: frame-star-spin 6s linear infinite;
+}
+
+.frame-star-tl,
+.frame-junction-star-right {
+  animation-delay: -1.5s;
+}
+
+.frame-star-tr,
+.frame-junction-star-left {
+  animation-delay: -3s;
+}
+
+.frame-star-bl { animation-delay: -4.5s; }
+.frame-star-br { animation-delay: -0.75s; }
+
+@keyframes frame-star-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .frame-star,
+  .frame-junction-star {
+    animation: none;
+  }
 }
 
 @media (max-width: 900px) {
@@ -3301,7 +3363,7 @@ body p:not(.crunch-page p):not(.atbots-page p):not(.chat-response-text) {
 
 /* ── Hero subtitle paragraph: tighter ── */
 .framer-LRfZ0 .framer-b25uum {
-  max-width: 480px !important;
+  max-width: 600px !important;
   margin-top: 15px !important;
 }
 
@@ -4366,7 +4428,7 @@ body #main .recent-works-chat-card .chat-response-text a,
 .site-frame {
   min-width: 0;
   max-width: 100%;
-  overflow-x: clip;
+  overflow-x: visible;
 }
 
 .site-frame .framer-LRfZ0.framer-et5t2c {

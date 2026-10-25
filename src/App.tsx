@@ -142,8 +142,8 @@ function FrameJunctionStars() {
     <div ref={layerRef} className="frame-junction-layer" aria-hidden="true">
       {points.map((y, i) => (
         <Fragment key={`${pathname}-${i}`}>
-          <span className="frame-junction-star frame-junction-star-left" style={{ top: y - 7 }} />
-          <span className="frame-junction-star frame-junction-star-right" style={{ top: y - 7 }} />
+          <span className="frame-junction-star frame-junction-star-left" style={{ top: y - 6 }} />
+          <span className="frame-junction-star frame-junction-star-right" style={{ top: y - 6 }} />
         </Fragment>
       ))}
     </div>
