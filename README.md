@@ -1,5 +1,13 @@
 # React + TypeScript + Vite
 
+## Book a Call email
+
+Booking requests are posted directly from the browser to FormSubmit and emailed
+to `bharathanand.mail@gmail.com`; the Django backend is not used. The FormSubmit
+recipient activation link must be confirmed before submissions are forwarded.
+Each email includes the visitor's name, email, selected date, and time. Do not put
+a Gmail app password in frontend code.
+
 This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
 
 Currently, two official plugins are available:

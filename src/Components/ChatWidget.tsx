@@ -111,8 +111,6 @@ function ChatWidget() {
     setError('')
   }
 
-const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:8000/api'
-
 const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault()
   const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())
@@ -131,17 +129,25 @@ const handleSubmit = async (e: React.FormEvent) => {
   setError('')
   setSubmitting(true)
   try {
-    const pad = (n: number) => String(n).padStart(2, '0')
-    const iso = `${selectedDate.getFullYear()}-${pad(selectedDate.getMonth() + 1)}-${pad(selectedDate.getDate())}`
-    const res = await fetch(`${API_URL}/bookings/`, {
+    const res = await fetch('https://formsubmit.co/ajax/865194c80d22b02b2a7e9d283505369d', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: name.trim(), email: email.trim(), date: iso, time: selectedTime }),
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({
+        name: name.trim(),
+        email: email.trim(),
+        _replyto: email.trim(),
+        date: selectedDate.toLocaleDateString([], { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }),
+        time: selectedTime,
+        _subject: `Call booking request from ${name.trim()}`,
+        _template: 'table',
+      }),
     })
-    if (!res.ok) throw new Error(`Request failed: ${res.status}`)
+    if (!res.ok) throw new Error('Email service rejected the booking.')
+    const result = await res.json() as { success?: boolean | string }
+    if (!result.success) throw new Error('Email service rejected the booking.')
     setBooked(true)
   } catch {
-    setError('Could not save your booking. Please try again.')
+    setError('Could not send your booking. Please try again.')
   } finally {
     setSubmitting(false)
   }
@@ -226,10 +232,10 @@ const handleSubmit = async (e: React.FormEvent) => {
           >
             <div>
               <div style={{ fontWeight: 700, fontSize: '0.98rem', letterSpacing: '0.2px' }}>
-                {booked ? 'Booking Confirmed' : 'Book a Call with Bharath'}
+                {booked ? 'Request Sent' : 'Book a Call with Bharath'}
               </div>
               <div style={{ fontSize: '0.72rem', opacity: 0.92, marginTop: 2 }}>
-                {booked ? 'See you soon!' : 'Pick a date, choose a time and share your details'}
+                {booked ? "We'll be in touch soon." : 'Pick a date, choose a time and share your details'}
               </div>
             </div>
             <button
@@ -275,14 +281,13 @@ const handleSubmit = async (e: React.FormEvent) => {
                   <path d="M20 6 9 17l-5-5" />
                 </svg>
               </div>
-              <div style={{ fontWeight: 700, fontSize: '1.05rem', color: TEXT }}>You're booked!</div>
+              <div style={{ fontWeight: 700, fontSize: '1.05rem', color: TEXT }}>
+                Your booking request has been sent.
+              </div>
               <p style={{ fontSize: '0.85rem', color: MUTED, margin: '10px 0 2px' }}>
-                {name ? name.split(' ')[0] : 'Hi'}, your call is confirmed for{' '}
+                {name ? name.split(' ')[0] : 'Hi'}, your request for{' '}
                 <strong style={{ color: TEXT }}>{dateLabel}</strong> at{' '}
-                <strong style={{ color: TEXT }}>{selectedTime}</strong>.
-              </p>
-              <p style={{ fontSize: '0.8rem', color: MUTED, marginTop: 4 }}>
-                A confirmation email is on its way to <strong style={{ color: TEXT }}>{email}</strong>.
+                <strong style={{ color: TEXT }}>{selectedTime}</strong> was sent to Bharath. The call is confirmed once Bharath replies.
               </p>
               <button
                 type="button"
