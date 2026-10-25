@@ -1,7 +1,9 @@
 import Box from '@mui/material/Box'
+import { useChat } from './ChatContext'
 import type { FramerStyle } from './framer'
 
 function Process() {
+  const { openChat } = useChat()
   return (
   <Box className="framer-1isaao7" data-framer-name="Process" component="section">
     <div className="framer-y6y8ft" data-border="true" data-framer-name="Process">
@@ -241,7 +243,7 @@ function Process() {
             </div>
             <div className="ssr-variant">
               <div className="framer-elrxtm-container" id="dean-elrxtm">
-                <a className="framer-aVBx0 framer-jlIPi framer-gFNsP framer-1ag5vbt framer-v-vuxkk8 framer-76p5jv process-cta-btn" data-framer-name="Blue 2" data-highlight="true" tabIndex={0} style={{ "height": '100%', "width": '100%', "borderBottomLeftRadius": '100px', "borderBottomRightRadius": '100px', "borderTopLeftRadius": '100px', "borderTopRightRadius": '100px', "boxShadow": '0.11776533306547207px 0.683038931779738px 0.48518173856754465px -0.29166666666666663px rgba(0, 124, 130, 0.07), 0.3010936508871964px 1.7463431751457392px 1.2404766089175219px -0.5833333333333333px rgba(0, 124, 130, 0.07), 0.6036265357761295px 3.501033907501551px 2.4868827221890957px -0.875px rgba(0, 124, 130, 0.08), 1.1442666516217286px 6.636746579406026px 4.714267509522861px -1.1666666666666665px rgba(0, 124, 130, 0.08), 2.2744602352540824px 13.191869364473677px 9.370555345262876px -1.4583333333333335px rgba(0, 124, 130, 0.1), 5px 29px 20.599514557387025px -1.75px rgba(0, 124, 130, 0.13)' } as FramerStyle}>
+                <a className="framer-aVBx0 framer-jlIPi framer-gFNsP framer-1ag5vbt framer-v-vuxkk8 framer-76p5jv process-cta-btn" data-framer-name="Blue 2" data-highlight="true" tabIndex={0} onClick={openChat} style={{ "height": '100%', "width": '100%', "borderBottomLeftRadius": '100px', "borderBottomRightRadius": '100px', "borderTopLeftRadius": '100px', "borderTopRightRadius": '100px', "boxShadow": '0.11776533306547207px 0.683038931779738px 0.48518173856754465px -0.29166666666666663px rgba(0, 124, 130, 0.07), 0.3010936508871964px 1.7463431751457392px 1.2404766089175219px -0.5833333333333333px rgba(0, 124, 130, 0.07), 0.6036265357761295px 3.501033907501551px 2.4868827221890957px -0.875px rgba(0, 124, 130, 0.08), 1.1442666516217286px 6.636746579406026px 4.714267509522861px -1.1666666666666665px rgba(0, 124, 130, 0.08), 2.2744602352540824px 13.191869364473677px 9.370555345262876px -1.4583333333333335px rgba(0, 124, 130, 0.1), 5px 29px 20.599514557387025px -1.75px rgba(0, 124, 130, 0.13)' } as FramerStyle}>
                   <div className="framer-vy3l00 process-cta-pill" data-framer-name="Button" style={{ "backgroundColor": 'var(--token-e354a3cd-fc10-4572-8441-4fe955f17d9e, rgb(0, 0, 0))', "borderBottomLeftRadius": '90px', "borderBottomRightRadius": '90px', "borderTopLeftRadius": '90px', "borderTopRightRadius": '90px', "transform": 'none' } as FramerStyle}>
                     <div className="framer-lebzrb" data-framer-component-type="RichTextContainer" style={{ "--extracted-r6o4lv": 'var(--token-8f8b32ea-2243-4c94-90d7-9dbc1e52ffc2, rgb(255, 255, 255))', "--framer-link-text-color": 'rgb(0, 153, 255)', "--framer-link-text-decoration": 'underline', "transform": 'none' } as FramerStyle}>
                       <p className="framer-text framer-styles-preset-ewt1ml" data-styles-preset="H8qt65VUW" dir="auto" style={{ "--framer-text-color": 'var(--extracted-r6o4lv, var(--token-8f8b32ea-2243-4c94-90d7-9dbc1e52ffc2, rgb(255, 255, 255)))' } as FramerStyle}>{"I'm Ready to Start"}</p>
