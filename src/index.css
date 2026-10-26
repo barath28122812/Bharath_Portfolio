@@ -5014,3 +5014,171 @@ body #main .recent-works-chat-card .chat-response-text a,
     padding: 20px 16px !important;
   }
 }
+
+/* Final cross-route responsive baseline. Keep this block last: the pages mix
+   generated Framer rules, inline dimensions, and page-specific styles. These
+   constraints let normal content shrink to the viewport while leaving
+   intentional horizontal carousels and sticky panels alone. */
+html,
+body,
+#root {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+}
+
+body {
+  overflow-x: clip;
+}
+
+.site-frame,
+.site-frame > *,
+.site-frame main,
+.site-frame section,
+.site-frame article,
+.site-frame header,
+.site-frame footer {
+  min-width: 0;
+}
+
+.site-frame img,
+.site-frame video,
+.site-frame iframe,
+.site-frame canvas {
+  max-width: 100%;
+}
+
+@media (max-width: 809.98px) {
+  .site-frame {
+    width: 100%;
+    max-width: 100%;
+    margin-inline: auto;
+    overflow-x: clip;
+  }
+
+  .site-frame > #main,
+  .site-frame > [class*='page'],
+  .site-frame [data-layout-template='true'],
+  .site-frame [data-framer-root],
+  .site-frame main {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  /* Fixed pixel widths on Framer children are a common source of mobile
+     overflow. Clamp only ordinary layout elements; retain media aspect ratios
+     and fixed-position navigation controls. */
+  .site-frame :is(main, section, article, header, footer) > *,
+  .site-frame :is([class*='grid'], [class*='Grid']) > *,
+  .site-frame :is([class*='row'], [class*='Row']) > * {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .site-frame :is(img, video, iframe, canvas) {
+    height: auto;
+  }
+
+  .site-frame :is(button, [role='button']) {
+    max-width: 100%;
+    white-space: normal;
+  }
+
+  /* Keep the fixed mobile navigation aligned to the viewport and prevent its
+     Framer canvas width from widening the document. */
+  .framer-G6c65.framer-v-1v126tf,
+  .framer-G6c65.framer-v-7kk9q5 {
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+  }
+
+  .work-grid-layout,
+  .latest-insights-grid,
+  .stay-connected-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+    padding-inline: clamp(12px, 4vw, 24px) !important;
+  }
+
+  .work-grid-layout,
+  .latest-insights-grid,
+  .stay-connected-grid,
+  .freelance-halves-grid {
+    gap: clamp(12px, 3vw, 20px) !important;
+  }
+
+  .freelance-featured-card {
+    flex-wrap: wrap;
+    min-width: 0;
+  }
+
+  /* About bio was keeping its three desktop columns on phones. The narrow
+     third column squeezed the story into a few letters and pushed the social
+     cards beyond the page edge. Stack the bio panels at the Framer mobile
+     breakpoint and keep the social links in a compact three-column grid. */
+  #main .about-bio-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 20px !important;
+    padding-inline: clamp(14px, 4vw, 24px) !important;
+  }
+
+  #main .about-bio-grid > * {
+    width: 100%;
+    min-width: 0;
+  }
+
+  #main .about-bio-aside {
+    width: 100%;
+    min-width: 0;
+  }
+
+  #main .about-social-grid {
+    grid-template-columns: repeat(3, minmax(0, 72px)) !important;
+    justify-content: start !important;
+    gap: clamp(12px, 4vw, 20px) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .site-frame > #main,
+  .site-frame > [class*='page'] {
+    overflow-wrap: break-word;
+  }
+
+  .site-frame :is(h1, h2, h3) {
+    max-width: 100%;
+    text-wrap: pretty;
+  }
+
+  .work-hero-inner,
+  .freelance-featured-card {
+    padding-inline: clamp(14px, 4vw, 20px) !important;
+  }
+}
+
+@media (max-width: 600px) {
+  /* Several case-study sections declare two equal columns inline and have no
+     generated mobile variant. Stack those content grids before their cards
+     become too narrow or get clipped at phone widths. */
+  .site-frame [style*='grid-template-columns: 1fr 1fr'],
+  .site-frame [style*='grid-template-columns: repeat(2, 1fr)'] {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .site-frame .beuta-page .bbs-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 12px !important;
+  }
+
+  .site-frame .beuta-page .bbs-pair {
+    min-width: 0;
+    gap: 4px;
+  }
+
+  .site-frame .beuta-page .bbs-pair button {
+    min-width: 0;
+    padding-inline: 8px;
+  }
+}
