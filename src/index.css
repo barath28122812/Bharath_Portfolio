@@ -5049,6 +5049,14 @@ body {
 }
 
 @media (max-width: 809.98px) {
+  /* The mobile navbar is edge-to-edge and the site frame already supplies
+     the single left/right hairline. Hide the desktop 5%-inset guide lines so
+     each side does not appear twice on phones. */
+  .framer-hTG3P .framer-G6c65::before,
+  .framer-hTG3P .framer-G6c65::after {
+    content: none !important;
+  }
+
   .site-frame {
     width: 100%;
     max-width: 100%;
