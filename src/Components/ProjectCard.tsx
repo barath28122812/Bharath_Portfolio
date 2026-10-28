@@ -82,7 +82,7 @@ function ProjectCard({ title, category, image, to, external, fillBox, sx }: Proj
           pt: { xs: '18px', md: '24px' },
         }}
       >
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: '12px', minWidth: 0 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: '6px', sm: '12px' }, minWidth: 0, overflow: 'hidden' }}>
           <Box
             component="h3"
             className="project-card-title"
@@ -90,13 +90,19 @@ function ProjectCard({ title, category, image, to, external, fillBox, sx }: Proj
               m: 0,
               color: 'rgb(0, 0, 0)',
               fontFamily: '"Inter", sans-serif',
-              fontSize: { xs: 22, md: 28 },
+              fontSize: { xs: 14, sm: 22, md: 28 },
               fontWeight: 600,
-              letterSpacing: 0,
-              lineHeight: 1.1,
-              whiteSpace: 'nowrap',
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
+              letterSpacing: '-0.01em',
+              lineHeight: 1.2,
+              whiteSpace: { xs: 'normal', sm: 'nowrap' },
+              overflow: { xs: 'hidden', sm: 'hidden' },
+              textOverflow: { xs: 'ellipsis', sm: 'ellipsis' },
+              display: { xs: '-webkit-box', sm: 'block' },
+              WebkitLineClamp: { xs: 2, sm: 'unset' },
+              WebkitBoxOrient: { xs: 'vertical', sm: 'unset' },
+              wordBreak: { xs: 'break-word', sm: 'normal' },
+              minWidth: 0,
+              flex: '1 1 auto',
               transition: 'color 300ms ease',
               '&:hover': {
                 color: '#ff6b00',
@@ -121,9 +127,10 @@ function ProjectCard({ title, category, image, to, external, fillBox, sx }: Proj
             sx={{
               color: 'rgb(87, 87, 87)',
               fontFamily: '"Inter", sans-serif',
-              fontSize: { xs: 12, md: 14 },
+              fontSize: { xs: 10, sm: 12, md: 14 },
               fontWeight: 500,
               whiteSpace: 'nowrap',
+              flexShrink: 0,
             }}
           >
             {category}
@@ -135,12 +142,14 @@ function ProjectCard({ title, category, image, to, external, fillBox, sx }: Proj
           sx={{
             position: 'relative',
             overflow: 'hidden',
-            width: { xs: 37, md: 49 },
-            height: { xs: 37, md: 49 },
+            width: { xs: 32, md: 49 },
+            height: { xs: 32, md: 49 },
             borderRadius: '90px',
             background: 'rgb(242, 242, 242)',
             flexShrink: 0,
             transition: 'background-color 300ms ease',
+            alignSelf: { xs: 'flex-start', sm: 'center' },
+            mt: { xs: 0.5, sm: 0 },
           }}
         >
           <Box

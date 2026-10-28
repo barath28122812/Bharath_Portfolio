@@ -153,13 +153,13 @@ h1, h2, h3, h4, h5, h6 {
 
   .projects-home-marquee .project-card-slide,
   .more-work-marquee .more-work-item > a {
-    width: 74vw !important;
-    min-width: 74vw !important;
-    max-width: 74vw !important;
+    width: 86vw !important;
+    min-width: 86vw !important;
+    max-width: 390px !important;
   }
 
   .projects-home-marquee .project-card-slide {
-    height: 286px !important;
+    height: 276px !important;
   }
 
   .more-work-marquee .more-work-copy {
@@ -971,7 +971,7 @@ html body {
    Framer layout keeps desktop gutters, a fixed-width "Let Me Introduce Myself"
    badge and a full-width Client Reviews stat card, so at these widths the grid
    looks uneven, text overlaps and content spills past the frame edge. */
-@media (max-width: 390px) {
+@media (min-width: 320px) and (max-width: 390px) {
   /* Pull the section closer to Projects and stop any sideways spill. */
   .home-page .framer-14q0wb {
     margin-top: 10px !important;
@@ -989,15 +989,15 @@ html body {
 
   /* ABOUT ME title: cut the desktop top padding. */
   .home-page .framer-14q0wb .framer-1jv5lcx {
-    padding: 28px 12px 12px !important;
+    padding: 22px 10px 10px !important;
   }
 
   /* ABOUT ME heading: scale it down so both words always fit on one line at
      320–390px. The sv70jv preset forces a 58px floor, which lets "ABOUT ME"
      spill past the frame edge and get clipped by the section's overflow. */
   .home-page .framer-14q0wb .framer-1jv5lcx h2 {
-    --framer-font-size: clamp(42px, calc((100vw - 56px) / 5.4), 56px) !important;
-    font-size: clamp(42px, calc((100vw - 56px) / 5.4), 56px) !important;
+    --framer-font-size: clamp(32px, calc((100vw - 44px) / 7), 44px) !important;
+    font-size: clamp(32px, calc((100vw - 44px) / 7), 44px) !important;
     white-space: nowrap !important;
   }
 
@@ -1006,8 +1006,9 @@ html body {
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
-    padding: 12px 12px 14px !important;
+    padding: 10px 8px 12px !important;
     position: relative !important;
+    overflow: visible !important;
   }
 
   /* "Let Me Introduce Myself" badge: placed cleanly above the 3D character to avoid collision */
@@ -1019,14 +1020,30 @@ html body {
     left: auto !important;
     transform: none !important;
     order: -1 !important;
-    margin: 0 auto 10px !important;
+    margin: 0 auto 8px !important;
     width: auto !important;
-    max-width: max-content !important;
+    max-width: none !important;
     align-self: center !important;
-    padding: 7px 15px !important;
+    padding: 6px 16px !important;
     background-color: var(--token-fb315f8f-abaa-4742-a977-7745bac80b10, #f2f2f2) !important;
     border-radius: 90px !important;
     z-index: 2 !important;
+    white-space: nowrap !important;
+    overflow: visible !important;
+  }
+
+  .home-page .framer-14q0wb .framer-1toikl6 .framer-text {
+    font-size: 11px !important;
+    white-space: nowrap !important;
+    letter-spacing: -0.01em !important;
+  }
+
+  .home-page .framer-14q0wb .framer-hrku8u .framer-jyj42a-container {
+    width: 100% !important;
+    max-width: 280px !important;
+    aspect-ratio: 1 / 1 !important;
+    height: auto !important;
+    margin: 0 auto !important;
   }
 
   .home-page .framer-14q0wb .framer-1dfrbc1 {
@@ -1174,22 +1191,28 @@ html body {
   .framer-G6c65.framer-v-1v126tf,
   .framer-G6c65.framer-v-7kk9q5 {
     padding: 0 8px !important;
+    width: 100% !important;
   }
 
   .framer-G6c65.framer-v-1v126tf .framer-1mea593,
   .framer-G6c65.framer-v-7kk9q5 .framer-1mea593 {
     gap: 4px !important;
     padding: 0 0 4px !important;
+    width: 100% !important;
   }
 
   .framer-G6c65.framer-v-1v126tf .framer-1d01ydm,
   .framer-G6c65.framer-v-7kk9q5 .framer-1d01ydm {
     padding: 0 0 2px 8px !important;
+    flex: 1 1 0 !important;
+    min-width: 0 !important;
   }
 
   .framer-G6c65.framer-v-1v126tf .framer-1mfvgyc,
   .framer-G6c65.framer-v-7kk9q5 .framer-1mfvgyc {
     padding: 0 8px 2px 0 !important;
+    flex: 1 1 0 !important;
+    min-width: 0 !important;
   }
 
   .framer-G6c65.framer-v-1v126tf .framer-o9kej6,
@@ -1212,6 +1235,64 @@ html body {
   .framer-1vviajj {
     width: 28px !important;
     height: 28px !important;
+  }
+}
+
+@media (min-width: 320px) and (max-width: 390px) {
+  .framer-G6c65.framer-v-1v126tf,
+  .framer-G6c65.framer-v-7kk9q5 {
+    padding: 0 6px !important;
+    width: 100% !important;
+  }
+
+  .framer-G6c65.framer-v-1v126tf .framer-1mea593,
+  .framer-G6c65.framer-v-7kk9q5 .framer-1mea593 {
+    gap: 2px !important;
+    padding: 0 0 4px !important;
+    width: 100% !important;
+  }
+
+  .framer-G6c65.framer-v-1v126tf .framer-1d01ydm {
+    padding: 0 0 2px 6px !important;
+    flex: 1 1 0 !important;
+    min-width: 0 !important;
+  }
+
+  .framer-G6c65.framer-v-1v126tf .framer-1mfvgyc {
+    padding: 0 6px 2px 0 !important;
+    flex: 1 1 0 !important;
+    min-width: 0 !important;
+  }
+
+  .framer-G6c65.framer-v-1v126tf .framer-kpq8s6-container {
+    flex: 1 1 0 !important;
+    min-width: 0 !important;
+    justify-content: center !important;
+  }
+
+  .framer-G6c65.framer-v-1v126tf .framer-r31ivx-container {
+    flex: 1 1 0 !important;
+    min-width: 0 !important;
+    justify-content: center !important;
+  }
+
+  .framer-G6c65.framer-v-1v126tf .framer-1vviajj {
+    width: 26px !important;
+    height: 26px !important;
+    flex: none !important;
+  }
+
+  .framer-G6c65.framer-v-1v126tf .framer-o9kej6 {
+    gap: 3px !important;
+  }
+
+  .framer-LUjGG .framer-1kbmhjr-container {
+    width: auto !important;
+  }
+
+  .framer-LUjGG.framer-6zcho9 {
+    width: auto !important;
+    min-width: 0 !important;
   }
 }
 
@@ -1478,9 +1559,19 @@ html body {
    desktop row lets them collide once the card narrows. Let the text column
    shrink/wrap, keep the button on one line and let it drop below when there
    isn't enough room. */
-@media (max-width: 390px) {
+@media (min-width: 320px) and (max-width: 390px) {
+  .about-insights-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+    padding: 0 16px !important;
+  }
+
+  .about-insights-grid img {
+    height: 220px !important;
+  }
+
   .latest-insight-meta {
-    flex-wrap: wrap !important;
+    flex-wrap: nowrap !important;
     align-items: center !important;
     gap: 10px 12px !important;
     padding: 12px 2px 16px !important;
@@ -1488,25 +1579,50 @@ html body {
 
   .latest-insight-text {
     min-width: 0 !important;
-    flex: 1 1 auto !important;
+    flex: 1 1 0% !important;
+    width: auto !important;
+    overflow: hidden !important;
   }
 
   .latest-insight-text h5 {
-    font-size: 17px !important;
+    font-size: 15px !important;
     line-height: 1.25 !important;
-    overflow-wrap: anywhere !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
   }
 
   .latest-insight-text p {
-    font-size: 13px !important;
+    font-size: 12px !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
   }
 
   .latest-insight-cta {
     flex: 0 0 auto !important;
     white-space: nowrap !important;
-    font-size: 12px !important;
+    font-size: 11px !important;
     padding: 6px 12px !important;
+    background: #000000 !important;
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: 100px !important;
+    align-self: center !important;
+    margin-top: 0 !important;
   }
+}
+
+/* Latest Insights - keep View Post button black on all screens */
+.latest-insight-cta {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border: none !important;
+  flex-shrink: 0 !important;
+}
+
+.latest-insight-cta:hover {
+  background: #1a1a1a !important;
 }
 
 /* "My works" carousel (MoreWorkMarquee) on small phones (320–390px): the
@@ -1514,19 +1630,20 @@ html body {
    whole card never fits) and the track keeps its desktop side gutter. Shrink
    the heading, size each card to the viewport so one card + a sliver of the
    next shows, and tighten the track spacing. */
-@media (max-width: 390px) {
-  section[aria-label='My works'] {
+@media (min-width: 320px) and (max-width: 390px) {
+  section[aria-label='My works'],
+  section[aria-label='My works®'] {
     padding: 40px 0 24px !important;
   }
 
   .more-work-title {
-    font-size: 34px !important;
-    padding: 0 16px !important;
+    font-size: 30px !important;
+    padding: 0 14px !important;
   }
 
   .more-work-copy {
-    gap: 14px !important;
-    padding: 0 16px !important;
+    gap: 12px !important;
+    padding: 0 14px !important;
   }
 
   .more-work-item {
@@ -1534,16 +1651,86 @@ html body {
   }
 
   .more-work-item > a {
-    width: 80vw !important;
-    min-width: 80vw !important;
+    width: 86vw !important;
+    min-width: 86vw !important;
+    max-width: 390px !important;
+  }
+
+  .project-list-marquee .project-card-title {
+    font-size: 14px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: calc(82vw - 120px) !important;
+    flex: 1 1 0% !important;
+    min-width: 0 !important;
+    display: block !important;
+  }
+
+  .project-list-marquee .project-card-category {
+    font-size: 10px !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+  }
+
+  .project-list-marquee .project-card-dot {
+    flex-shrink: 0 !important;
+    width: 4px !important;
+    height: 4px !important;
   }
 
   .more-work-item .project-card-title {
-    font-size: 19px !important;
+    font-size: 13px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: calc(86vw - 150px) !important;
+    flex: 1 1 0% !important;
+    min-width: 0 !important;
+    display: block !important;
   }
 
   .more-work-item .project-card-category {
-    font-size: 12px !important;
+    font-size: 9px !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+  }
+
+  .more-work-item .project-card-dot {
+    flex-shrink: 0 !important;
+    width: 4px !important;
+    height: 4px !important;
+  }
+
+  /* Ensure project card title stays on one line in carousel */
+  .more-work-item .project-card-title,
+  .projects-home-marquee .project-card-title {
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: unset !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    word-break: break-word !important;
+    hyphens: none !important;
+    line-height: 1.2 !important;
+  }
+
+  .project-list-marquee a > div:last-child,
+  .more-work-item a > div:last-child {
+    min-width: 0 !important;
+    gap: 6px !important;
+    overflow: hidden !important;
+    align-items: flex-start !important;
+  }
+
+  .project-list-marquee a > div:last-child > div:first-child,
+  .more-work-item a > div:last-child > div:first-child {
+    min-width: 0 !important;
+    gap: 6px !important;
+    flex: 1 1 0% !important;
+    overflow: hidden !important;
+    align-items: flex-start !important;
   }
 }
 
@@ -3504,19 +3691,24 @@ body p:not(.crunch-page p):not(.atbots-page p):not(.chat-response-text):not(.fra
     left: 50% !important;
     right: auto !important;
     transform: translateX(-50%) !important;
-    top: -18px !important;
+    top: -16px !important;
     width: max-content !important;
-    max-width: calc(100vw - 32px) !important;
+    max-width: calc(100vw - 28px) !important;
     white-space: nowrap !important;
     z-index: 2 !important;
     background: #fff !important;
+    padding: 5px 10px !important;
+  }
+
+  .framer-LRfZ0 .framer-1m89qvr .framer-text {
+    font-size: 12px !important;
   }
 
   /* Horizontal crossing line behind the pill — centered with pill */
   .framer-LRfZ0 .framer-1r3iyda::before {
     content: '' !important;
     position: absolute !important;
-    top: -18px !important;
+    top: -16px !important;
     left: 0 !important;
     right: 0 !important;
     height: 0 !important;
@@ -3528,17 +3720,21 @@ body p:not(.crunch-page p):not(.atbots-page p):not(.chat-response-text):not(.fra
 
   /* Mobile: tighter, cohesive PRODUCT → portrait → DESIGNER stack */
   .framer-LRfZ0 .framer-bqe6hw {
-    gap: 12px !important;
+    gap: 8px !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-wrap: nowrap !important;
   }
 
   .framer-wrafP .framer-styles-preset-w4ms7x:not(.rich-text-wrapper),
   .framer-wrafP .framer-styles-preset-w4ms7x.rich-text-wrapper h1 {
-    --framer-font-size: 34px !important;
+    --framer-font-size: 32px !important;
+    font-size: 32px !important;
   }
 
   .framer-LRfZ0 .framer-16xpnlx-container {
-    width: 88px !important;
-    height: 100px !important;
+    width: 80px !important;
+    height: 92px !important;
   }
 }
 
@@ -3546,6 +3742,91 @@ body p:not(.crunch-page p):not(.atbots-page p):not(.chat-response-text):not(.fra
 .framer-LRfZ0 .framer-1m89qvr {
   border: none !important;
   border-bottom: 1px solid var(--token-5d23e02d-37c1-4334-b3aa-070b54ae1264, rgba(224, 224, 224, 0.63)) !important;
+}
+
+@media (max-width: 809.98px) {
+  .framer-LRfZ0 .framer-1m89qvr {
+    position: absolute !important;
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%) !important;
+    top: -16px !important;
+    width: max-content !important;
+    max-width: calc(100vw - 24px) !important;
+    white-space: nowrap !important;
+    z-index: 2 !important;
+    background: #fff !important;
+    padding: 6px 12px !important;
+  }
+
+  .framer-LRfZ0 .framer-1m89qvr .framer-text {
+    font-size: 12px !important;
+  }
+
+  .framer-LRfZ0 .framer-1r3iyda::before {
+    content: '' !important;
+    position: absolute !important;
+    top: -16px !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 0 !important;
+    border-top: 1px solid var(--token-5d23e02d-37c1-4334-b3aa-070b54ae1264, rgba(224, 224, 224, 0.63)) !important;
+    transform: translateY(50%) !important;
+    z-index: 1 !important;
+    pointer-events: none !important;
+  }
+}
+
+@media (min-width: 320px) and (max-width: 390px) {
+  .framer-LRfZ0 .framer-1m89qvr {
+    position: absolute !important;
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%) !important;
+    top: -14px !important;
+    width: max-content !important;
+    max-width: calc(100vw - 18px) !important;
+    white-space: nowrap !important;
+    z-index: 2 !important;
+    background: #fff !important;
+    padding: 5px 10px !important;
+  }
+
+  .framer-LRfZ0 .framer-1m89qvr .framer-text {
+    font-size: 11px !important;
+  }
+
+  .framer-LRfZ0 .framer-1r3iyda::before {
+    top: -14px !important;
+  }
+
+  .framer-LRfZ0 .framer-bqe6hw {
+    margin-top: 4px !important;
+    gap: 6px !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .framer-LRfZ0 .framer-h7jmht-container,
+  .framer-LRfZ0 .framer-nggnv-container {
+    flex: 0 0 auto !important;
+  }
+
+  .framer-LRfZ0 .framer-wrafP .framer-styles-preset-w4ms7x:not(.rich-text-wrapper),
+  .framer-LRfZ0 .framer-wrafP .framer-styles-preset-w4ms7x.rich-text-wrapper h1 {
+    --framer-font-size: 28px !important;
+    font-size: 28px !important;
+    line-height: 0.9 !important;
+  }
+
+  .framer-LRfZ0 .framer-16xpnlx-container {
+    width: 70px !important;
+    height: 80px !important;
+  }
+
+  .framer-LRfZ0 .framer-11gubp3 {
+    flex: 0 0 auto !important;
+  }
 }
 /* Desktop-only: push pill higher (-58px) */
 @media (min-width: 810px) {
@@ -4255,13 +4536,216 @@ body #main .recent-works-chat-card .chat-response-text a,
 
 }
 
-@media (max-width: 390px) {
+@media (min-width: 320px) and (max-width: 390px) {
   .site-frame {
-    width: calc(100% - 24px);
+    width: calc(100% - 16px);
+  }
+
+  /* Mobile nav social dropdown - full width center */
+  .framer-G6c65 .framer-1d01ydm .framer-l22s7n {
+    position: fixed !important;
+    top: 66px !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100vw !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    transform: none !important;
+    background: #fff !important;
+    border: none !important;
+    border-bottom: 1px solid rgba(224, 224, 224, 0.63) !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 12px !important;
+    padding: 12px 16px !important;
+    box-shadow: none !important;
+    z-index: 9999 !important;
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    box-sizing: border-box !important;
+  }
+
+  .framer-G6c65 .framer-1d01ydm {
+    position: relative !important;
+    overflow: visible !important;
+  }
+
+  .framer-G6c65 .framer-1d01ydm,
+  .framer-G6c65 .framer-1mfvgyc {
+    gap: 1px !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    padding: 6px 8px !important;
+  }
+
+  .framer-G6c65 .framer-l22s7n {
+    width: 100% !important;
+    justify-content: center !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+    padding: 6px 0 !important;
+  }
+
+  .framer-G6c65 .nav-social-icon-btn {
+    width: 34px !important;
+    height: 34px !important;
+    min-width: 34px !important;
+    min-height: 34px !important;
+  }
+
+  .framer-G6c65 .nav-social-icon-btn svg {
+    width: 16px !important;
+    height: 16px !important;
+  }
+
+  .framer-G6c65 .framer-kpq8s6-container,
+  .framer-G6c65 .framer-r31ivx-container {
+    min-width: 0 !important;
+    flex: 1 1 0% !important;
+  }
+
+  .framer-G6c65 .framer-LUjGG {
+    padding: 0 4px !important;
+    min-width: 0 !important;
+  }
+
+  .framer-G6c65 .framer-1kbmhjr-container > div > div {
+    font-size: 12px !important;
+    gap: 0.01em !important;
+  }
+
+  .framer-G6c65 .framer-1kbmhjr-container span {
+    font-size: 12px !important;
+  }
+
+  .framer-G6c65 .framer-1vviajj {
+    width: 34px !important;
+    height: 34px !important;
+    min-width: 34px !important;
+    min-height: 34px !important;
+    gap: 2.5px !important;
+    box-sizing: border-box !important;
+  }
+
+  .framer-G6c65 .framer-1vviajj > span {
+    width: 12px !important;
+    height: 1.2px !important;
+    display: block !important;
   }
 
   .site-frame :is(h1, h2, h3, h4, h5, h6, p, a, span, button) {
     overflow-wrap: anywhere;
+  }
+
+  .recent-work-title {
+    font-size: 14px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: 100% !important;
+  }
+
+  .recent-work-row {
+    gap: 6px !important;
+  }
+
+  .recent-work-row > div:first-child {
+    min-width: 0 !important;
+    overflow: hidden !important;
+  }
+
+  .about-outside-grid {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+    padding: 0 16px !important;
+    margin-top: 24px !important;
+  }
+
+  .about-outside-grid h2,
+  .about-outside-grid h3 {
+    font-size: 24px !important;
+    line-height: 1.2 !important;
+  }
+
+  .about-outside-grid p {
+    font-size: 14px !important;
+    line-height: 1.6 !important;
+  }
+
+  .about-outside-grid > div {
+    gap: 20px !important;
+  }
+}
+
+@media (min-width: 320px) and (max-width: 390px) {
+  .about-outside-grid {
+    grid-template-columns: 1fr !important;
+    gap: 22px !important;
+    padding: 0 14px !important;
+    margin-top: 22px !important;
+  }
+
+  .about-outside-grid h2 {
+    font-size: 26px !important;
+  }
+
+  .about-outside-grid h3 {
+    font-size: 22px !important;
+  }
+
+  .about-outside-grid p {
+    font-size: 13.5px !important;
+    line-height: 1.6 !important;
+  }
+
+  .about-outside-grid img {
+    border-radius: 12px !important;
+  }
+
+  .about-bio-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+    padding: 0 14px !important;
+  }
+
+  .about-bio-grid h4 {
+    font-size: 22px !important;
+  }
+
+  .about-bio-grid p {
+    font-size: 14px !important;
+    line-height: 1.6 !important;
+  }
+
+  .bio-skills-location-row {
+    flex-direction: column !important;
+    gap: 12px !important;
+  }
+
+  .bio-stack-card {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+  }
+
+  .bio-stack-card img {
+    max-width: 100% !important;
+    height: 48px !important;
+  }
+
+  .about-social-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 12px !important;
+  }
+
+  .about-social-card {
+    width: 64px !important;
+    height: 64px !important;
+  }
+
+  .about-social-card img {
+    width: 64px !important;
+    height: 64px !important;
   }
 }
 
@@ -4815,6 +5299,55 @@ body #main .recent-works-chat-card .chat-response-text a,
 }
 
 @media (min-width: 320px) and (max-width: 390px) {
+  /* Process section image - responsive fix for 320px to 390px */
+  .framer-LRfZ0 .framer-y6y8ft {
+    flex-direction: column !important;
+    gap: 16px !important;
+    align-items: stretch !important;
+  }
+
+  .framer-LRfZ0 .framer-y6y8ft > .framer-802wdp {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 12px 24px !important;
+    margin-top: 0 !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .framer-LRfZ0 .framer-y6y8ft > .framer-802wdp .framer-1xic8yg {
+    width: 100% !important;
+    max-width: calc(100% - 8px) !important;
+    height: auto !important;
+    aspect-ratio: auto !important;
+    margin: 0 auto !important;
+    overflow: hidden !important;
+  }
+
+  .framer-LRfZ0 .framer-y6y8ft > .framer-802wdp .framer-1nqrfay,
+  .framer-LRfZ0 .framer-y6y8ft > .framer-802wdp .framer-1dq2pny-container {
+    position: relative !important;
+    inset: auto !important;
+    width: 100% !important;
+    height: auto !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    border-radius: 20px !important;
+    overflow: hidden !important;
+  }
+
+  .framer-LRfZ0 .framer-y6y8ft > .framer-802wdp img.process-video-frame {
+    width: 100% !important;
+    height: auto !important;
+    max-width: 100% !important;
+    max-height: 65vh !important;
+    object-fit: cover !important;
+    object-position: 50% 20% !important;
+    border-radius: 20px !important;
+    margin: 0 auto !important;
+    display: block !important;
+  }
+
   /* PROCESS heading row — drop the 64px top inset */
   .framer-LRfZ0 .framer-17qyqbf {
     padding: 24px 16px 12px !important;

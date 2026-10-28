@@ -22,10 +22,10 @@ function Projects() {
         key={`${project.title}-${index}`}
         className="project-card-slide"
         sx={{
-          width: { xs: '78vw', sm: 330, lg: 520 },
-          minWidth: { xs: '78vw', sm: 330, lg: 520 },
-          maxWidth: { xs: '78vw', sm: 330, lg: 520 },
-          height: { xs: 300, sm: 280, lg: 475 },
+          width: { xs: '82vw', sm: 330, lg: 520 },
+          minWidth: { xs: '82vw', sm: 330, lg: 520 },
+          maxWidth: { xs: '88vw', sm: 330, lg: 520 },
+          height: { xs: 290, sm: 280, lg: 475 },
           flexShrink: 0,
           boxSizing: 'border-box',
         }}

@@ -559,17 +559,17 @@ function EASTargetBoardSection() {
 function EASProcessSection() {
   const steps = [
     {
-      emoji: 'ðŸŽ™ï¸',
+      img: '/assets/research%201.png',
       title: 'User interview',
       desc: 'Conducted interviews with 7 participants aged 20-32 from diverse backgrounds to gather insights on their experiences and pain points with traditional emergency notifications, focusing on clarity, comprehension, and emotional impact.',
     },
     {
-      emoji: 'ðŸ‘¤',
+      img: '/assets/research%202.png',
       title: 'Persona',
       desc: 'Created 2 personas representing user groups with distinct nationalities and demographics based on interview data, emphasizing common needs for clarity and visual cues in emergency notifications to improve response times.',
     },
     {
-      emoji: 'ðŸ—ºï¸',
+      img: '/assets/research%203.png',
       title: 'Journey mapping',
       desc: 'Mapped the existing user journey for text-based emergency alerts and compared it with a visually enhanced journey, highlighting stages where visual cues improved comprehension, decision-making, and engagement.',
     },
@@ -627,6 +627,20 @@ function EASProcessSection() {
         @media (max-width: 800px) {
           .ep-cards-grid { grid-template-columns: 1fr; }
         }
+        @media (max-width: 700px) {
+          .ep-cards-grid {
+            width: min(390px, calc(100vw - 32px));
+            margin-left: auto;
+            margin-right: auto;
+            gap: 16px;
+          }
+        }
+        @media (max-width: 380px) {
+          .ep-cards-grid {
+            width: min(320px, calc(100vw - 24px));
+            gap: 14px;
+          }
+        }
         .ep-card {
           background: #FAFAFA;
           border: 1px solid #F1F5F9;
@@ -647,6 +661,30 @@ function EASProcessSection() {
           justify-content: center;
           font-size: 20px;
           box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+          overflow: hidden;
+        }
+        .ep-card-icon img {
+          width: 28px;
+          height: 28px;
+          display: block;
+          object-fit: contain;
+        }
+        @media (min-width: 1024px) {
+          .ep-cards-grid {
+            gap: 28px;
+          }
+          .ep-card {
+            padding: 28px;
+          }
+          .ep-card-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+          }
+          .ep-card-icon img {
+            width: 32px;
+            height: 32px;
+          }
         }
         .ep-card-title {
           font-family: 'Inter', sans-serif;
@@ -685,9 +723,11 @@ function EASProcessSection() {
 
           {/* â•â•â•â•â•â•â• 3 Bottom Cards â•â•â•â•â•â•â• */}
           <div className="ep-cards-grid">
-            {steps.map((s, idx) => (
+            {steps.map((s: any, idx) => (
               <div key={idx} className="ep-card">
-                <div className="ep-card-icon">{s.emoji}</div>
+                <div className="ep-card-icon">
+                  {s.img ? <img src={s.img} alt={s.title} loading="lazy" /> : s.emoji}
+                </div>
                 <h4 className="ep-card-title">{s.title}</h4>
                 <p className="ep-card-desc">{s.desc}</p>
               </div>

@@ -168,16 +168,16 @@ function BioSection() {
               </h4>
               <Box className="recent-works-list" style={{ display: 'flex', flexDirection: 'column', gap: 20, flex: 1, justifyContent: 'center' } as FramerStyle}>
                 {BIOSECTION.RECENTWORKS.map(work => (
-                  <Box className="recent-work-row" key={work.project} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 } as FramerStyle}>
-                    <Box style={{ flex: 1, minWidth: 0 } as FramerStyle}>
-                      <h4 className="recent-work-title" style={{ fontFamily: '"Inter", sans-serif', fontSize: 17, fontWeight: 600, color: '#4C4C4C', margin: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', transition: 'color 0.3s ease' } as FramerStyle}>
+                  <Box className="recent-work-row" key={work.project} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 6 } as FramerStyle}>
+                    <Box style={{ flex: 1, minWidth: 0, overflow: 'hidden' } as FramerStyle}>
+                      <h4 className="recent-work-title" style={{ fontFamily: '"Inter", sans-serif', fontSize: 14, fontWeight: 600, color: '#4C4C4C', margin: 0, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', transition: 'color 0.3s ease' } as FramerStyle}>
                         {work.project}
                       </h4>
-                      <p style={{ fontFamily: '"Inter", sans-serif', fontSize: 13, fontWeight: 500, color: '#4C4C4C', margin: '4px 0 0', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' } as FramerStyle}>
+                      <p style={{ fontFamily: '"Inter", sans-serif', fontSize: 11, fontWeight: 500, color: '#4C4C4C', margin: '3px 0 0', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' } as FramerStyle}>
                         {work.role}
                       </p>
                     </Box>
-                    <p style={{ fontFamily: '"Inter", sans-serif', fontSize: 14, fontWeight: 500, color: '#4C4C4C', margin: 0, flexShrink: 0, whiteSpace: 'nowrap' } as FramerStyle}>
+                    <p style={{ fontFamily: '"Inter", sans-serif', fontSize: 11, fontWeight: 500, color: '#4C4C4C', margin: 0, flexShrink: 0, whiteSpace: 'nowrap' } as FramerStyle}>
                       {work.year}
                     </p>
                   </Box>
@@ -481,8 +481,8 @@ function LatestInsightsSection() {
             <a key={card.id} href={card.URL} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: 'inherit' }}>
               <Box component="article" style={{ borderRadius: 16, overflow: 'hidden' } as FramerStyle}>
                 <img src={card.img} alt={card.title} loading="lazy" style={{ width: '100%', height: 288, objectFit: 'cover', display: 'block', borderRadius: 16 } as FramerStyle} />
-                <Box style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 2px' } as FramerStyle}>
-                  <Box>
+                <Box className="latest-insight-meta" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, padding: '14px 2px', flexWrap: 'wrap' } as FramerStyle}>
+                  <Box className="latest-insight-text" style={{ minWidth: 0, flex: '1 1 auto' } as FramerStyle}>
                     <h5 style={{ fontFamily: '"Inter", sans-serif', fontSize: 20, fontWeight: 600, margin: 0, color: '#000' } as FramerStyle}>
                       {card.title}
                     </h5>
@@ -490,7 +490,7 @@ function LatestInsightsSection() {
                       {card.date}
                     </p>
                   </Box>
-                  <span style={{ ...pill, color: '#000', background: '#fff', fontSize: 13, padding: '6px 14px' } as FramerStyle}>
+                  <span className="latest-insight-cta" style={{ ...pill, color: '#fff', background: '#000', fontSize: 13, padding: '6px 14px', flexShrink: 0 } as FramerStyle}>
                     {card.button}
                   </span>
                 </Box>

@@ -43,8 +43,9 @@ function MoreWorkMarquee({ currentPath, title = 'My works' }: MoreWorkMarqueePro
                     to={item.path}
                     external={isExternal(item.path)}
                     sx={{
-                      width: { xs: 'min(78vw, 430px)', sm: 'clamp(300px, 34vw, 430px)' },
-                      minWidth: { xs: 'min(78vw, 430px)', sm: 'clamp(300px, 34vw, 430px)' },
+                      width: { xs: 'min(82vw, 390px)', sm: 'clamp(300px, 34vw, 430px)' },
+                      minWidth: { xs: 'min(82vw, 390px)', sm: 'clamp(300px, 34vw, 430px)' },
+                      maxWidth: { xs: '390px', sm: '430px' },
                       px: 0,
                     }}
                   />

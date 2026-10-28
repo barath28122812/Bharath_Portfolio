@@ -109,9 +109,7 @@ function Navbar() {
                         <div className="framer-1i96c6o" data-framer-name="Image" style={{ "backgroundColor": pathname === '/' ? 'rgba(29, 139, 241, 0.13)' : pathname === '/about' ? 'rgb(34, 197, 94)' : '#FE2026', "borderBottomLeftRadius": '27px', "borderBottomRightRadius": '27px', "borderTopLeftRadius": '27px', "borderTopRightRadius": '27px', "display": 'flex', "alignItems": 'center', "justifyContent": 'center' } as FramerStyle}>
                           <NavCenterIcon type={pathname === '/about' ? 'about' : (pathname === '/work' || pathname === '/projects' || pathname === '/xr-design' || pathname === '/atbots' || pathname === '/beuta' || pathname === '/ateats' || pathname === '/emergency-alert' || pathname === '/crunch' || pathname === '/cyos' ? 'projects' : 'home')} />
                         </div>
-                        <div className="nav-dotted-orbit" aria-hidden="true">
-                          <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="43" style={{ stroke: pathname === '/' ? '#1D8BF1' : pathname === '/about' ? 'rgb(34, 197, 94)' : '#FE2026' }} /></svg>
-                        </div>
+                       
                       </div>
                       <div className="framer-1f4mxxz" data-framer-name="Dot" style={{ "opacity": '1', "transform": 'rotate(-90deg)' } as FramerStyle}>
                         <div className="framer-wy9hx" data-framer-name="Dot" style={{ "backgroundColor": 'var(--token-6a6d1eb8-2687-4444-ba52-f31754121a4e, rgb(209, 78, 18))', "borderBottomLeftRadius": '3px', "borderBottomRightRadius": '3px', "borderTopLeftRadius": '3px', "borderTopRightRadius": '3px' } as FramerStyle} />
@@ -161,17 +159,16 @@ function Navbar() {
         <div className="ssr-variant hidden-emw559">
           <nav className="framer-G6c65 framer-v6lusn framer-v-1v126tf" data-framer-name="Mobile" data-highlight="true" tabIndex={0} style={{ "width": '100%' } as FramerStyle}>
             <div className="framer-1mea593" data-border="true" data-framer-name="Nav" style={{ "--border-bottom-width": '0px', "--border-color": 'var(--token-5d23e02d-37c1-4334-b3aa-070b54ae1264, rgba(224, 224, 224, 0.63))', "--border-left-width": '1px', "--border-right-width": '1px', "--border-style": 'solid', "--border-top-width": '0px', "position": 'relative' } as FramerStyle}>
-              <div className="star-join-point" style={{ left: 0, bottom: 0, transform: 'translate(-50%, 50%)' }} />
-              <div className="star-join-point" style={{ right: 0, bottom: 0, transform: 'translate(50%, 50%)' }} />
               <div className="framer-1d01ydm" data-border="true" data-framer-name="Button &amp; Socials" style={{ "--border-bottom-width": '1px', "--border-color": 'var(--token-5d23e02d-37c1-4334-b3aa-070b54ae1264, rgba(224, 224, 224, 0.63))', "--border-left-width": '0px', "--border-right-width": '0px', "--border-style": 'solid', "--border-top-width": '0px' } as FramerStyle}>
                 <div className="framer-kpq8s6-container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
                   <Link className="framer-LUjGG framer-6zcho9 framer-v-qlknud framer-m8q0v6" data-framer-name="Mobile inactive" data-reset="button" to="/work" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
                     <AnimatedNavLinkText text="Projects" active={pathname === '/work' || pathname === '/projects'} />
                   </Link>
                 </div>
-                <div className="framer-1vviajj" data-border="true" data-framer-name="Handburger" data-highlight="true" tabIndex={0} style={{ "--border-bottom-width": '1px', "--border-color": 'var(--token-5d23e02d-37c1-4334-b3aa-070b54ae1264, rgba(224, 224, 224, 0.63))', "--border-left-width": '1px', "--border-right-width": '1px', "--border-style": 'solid', "--border-top-width": '1px', "borderBottomLeftRadius": '5px', "borderBottomRightRadius": '5px', "borderTopLeftRadius": '5px', "borderTopRightRadius": '5px' } as FramerStyle}>
-                  <div className="framer-alep18" data-framer-name="Line" style={{ "backgroundColor": 'var(--token-2c4d0fad-06de-414f-b048-811f13183390, rgb(97, 97, 97))', "borderBottomLeftRadius": '67px', "borderBottomRightRadius": '67px', "borderTopLeftRadius": '67px', "borderTopRightRadius": '67px', "transform": 'none' } as FramerStyle} />
-                  <div className="framer-1tyfc8z" data-framer-name="Line" style={{ "backgroundColor": 'var(--token-2c4d0fad-06de-414f-b048-811f13183390, rgb(97, 97, 97))', "borderBottomLeftRadius": '67px', "borderBottomRightRadius": '67px', "borderTopLeftRadius": '67px', "borderTopRightRadius": '67px', "transform": 'none' } as FramerStyle} />
+                <div className="framer-1vviajj" role="button" aria-label="Open menu" tabIndex={0} data-border="true" data-framer-name="Handburger" data-highlight="true" style={{ "--border-bottom-width": '1px', "--border-color": 'var(--token-5d23e02d-37c1-4334-b3aa-070b54ae1264, rgba(224, 224, 224, 0.63))', "--border-left-width": '1px', "--border-right-width": '1px', "--border-style": 'solid', "--border-top-width": '1px', "borderBottomLeftRadius": '5px', "borderBottomRightRadius": '5px', "borderTopLeftRadius": '5px', "borderTopRightRadius": '5px', "display": 'flex', "flexDirection": 'column', "alignItems": 'center', "justifyContent": 'center', "gap": '3px', "background": 'transparent', "padding": 0, "cursor": 'pointer', "boxSizing": 'border-box' } as FramerStyle}>
+                  <span className="framer-alep18" data-framer-name="Line" style={{ "backgroundColor": 'var(--token-2c4d0fad-06de-414f-b048-811f13183390, rgb(97, 97, 97))', "borderBottomLeftRadius": '67px', "borderBottomRightRadius": '67px', "borderTopLeftRadius": '67px', "borderTopRightRadius": '67px', "width": '14px', "height": '1.5px', "display": 'block' } as FramerStyle} />
+                  <span className="framer-1tyfc8z" data-framer-name="Line" style={{ "backgroundColor": 'var(--token-2c4d0fad-06de-414f-b048-811f13183390, rgb(97, 97, 97))', "borderBottomLeftRadius": '67px', "borderBottomRightRadius": '67px', "borderTopLeftRadius": '67px', "borderTopRightRadius": '67px', "width": '14px', "height": '1.5px', "display": 'block' } as FramerStyle} />
+                  <span className="framer-alep18" data-framer-name="Line" style={{ "backgroundColor": 'var(--token-2c4d0fad-06de-414f-b048-811f13183390, rgb(97, 97, 97))', "borderBottomLeftRadius": '67px', "borderBottomRightRadius": '67px', "borderTopLeftRadius": '67px', "borderTopRightRadius": '67px', "width": '14px', "height": '1.5px', "display": 'block' } as FramerStyle} />
                 </div>
               </div>
 
@@ -183,9 +180,7 @@ function Navbar() {
                         <div className="framer-1i96c6o" data-framer-name="Image" style={{ "backgroundColor": pathname === '/' ? 'rgba(29, 139, 241, 0.13)' : pathname === '/about' ? 'rgb(34, 197, 94)' : '#FE2026', "borderBottomLeftRadius": '27px', "borderBottomRightRadius": '27px', "borderTopLeftRadius": '27px', "borderTopRightRadius": '27px', "display": 'flex', "alignItems": 'center', "justifyContent": 'center' } as FramerStyle}>
                           <NavCenterIcon type={pathname === '/about' ? 'about' : (pathname === '/work' || pathname === '/projects' || pathname === '/xr-design' || pathname === '/atbots' || pathname === '/beuta' || pathname === '/ateats' || pathname === '/emergency-alert' || pathname === '/crunch' || pathname === '/cyos' ? 'projects' : 'home')} />
                         </div>
-                        <div className="nav-dotted-orbit" aria-hidden="true">
-                          <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="43" style={{ stroke: pathname === '/' ? '#1D8BF1' : pathname === '/about' ? 'rgb(34, 197, 94)' : '#FE2026' }} /></svg>
-                        </div>
+                       
                       </div>
                       <div className="framer-1f4mxxz" data-framer-name="Dot" style={{ "opacity": '1', "transform": 'rotate(-90deg)' } as FramerStyle}>
                         <div className="framer-wy9hx" data-framer-name="Dot" style={{ "backgroundColor": 'var(--token-6a6d1eb8-2687-4444-ba52-f31754121a4e, rgb(209, 78, 18))', "borderBottomLeftRadius": '3px', "borderBottomRightRadius": '3px', "borderTopLeftRadius": '3px', "borderTopRightRadius": '3px' } as FramerStyle} />

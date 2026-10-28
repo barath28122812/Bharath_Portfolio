@@ -233,7 +233,7 @@ function LatestInsights() {
                       {card.date}
                     </p>
                   </Box>
-                  <span className="latest-insight-cta" style={{ ...pill, color: '#fff', background: '#000', fontSize: 13, padding: '6px 14px' } as FramerStyle}>
+                  <span className="latest-insight-cta" style={{ ...pill, color: '#fff', background: '#000', fontSize: 13, padding: '6px 14px', flexShrink: 0 } as FramerStyle}>
                     {card.button}
                   </span>
                 </Box>

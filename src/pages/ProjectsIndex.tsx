@@ -105,8 +105,9 @@ function ProjectsIndex() {
                   image={project.image}
                   to={`/projects/${project.slug}`}
                   sx={{
-                    width: { xs: 280, sm: 360, md: 420 },
-                    minWidth: { xs: 280, sm: 360, md: 420 },
+                    width: { xs: 'min(82vw, 320px)', sm: 360, md: 420 },
+                    minWidth: { xs: 'min(82vw, 320px)', sm: 360, md: 420 },
+                    maxWidth: { xs: 320, sm: 360, md: 420 },
                   }}
                 />
               </Box>
