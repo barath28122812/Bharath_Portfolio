@@ -6050,3 +6050,281 @@ body {
     font-size: 15px !important;
   }
 }
+
+/* ===========================================================================
+   Home + About page mobile safeguards
+   Keep these rules scoped to the two page shells. The shared navbar/footer
+   components therefore receive the mobile sizing fix here without changing
+   their layout on Work, Projects, or any other route.
+   =========================================================================== */
+@media (max-width: 809.98px) {
+  .home-page-shell,
+  .about-page-shell {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    overflow-x: clip;
+  }
+
+  /* The mobile nav is viewport-wide even when its Framer template parent has
+     an exported auto width. Border-box prevents the 1px borders from adding
+     a horizontal scroll gutter. */
+  .home-page-shell .framer-4zw9d1,
+  .home-page-shell .framer-1p4xbhj-container,
+  .about-page-shell .framer-4zw9d1,
+  .about-page-shell .framer-1p4xbhj-container {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    min-width: 0 !important;
+    left: 0 !important;
+    right: auto !important;
+    margin-inline: 0 !important;
+    box-sizing: border-box;
+  }
+
+  /* The shared site-frame rule positions this wrapper 16px from each edge;
+     the page-scoped selector below deliberately wins only for Home/About. */
+  #main.home-page .home-page-shell .framer-4zw9d1,
+  #main.about-page .about-page-shell .framer-4zw9d1 {
+    left: 0 !important;
+    right: auto !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
+  }
+
+  .home-page-shell .framer-G6c65,
+  .home-page-shell .framer-1mea593,
+  .about-page-shell .framer-G6c65,
+  .about-page-shell .framer-1mea593 {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+  }
+
+  .home-page-shell main,
+  .home-page-shell section,
+  .home-page-shell article,
+  .about-page-shell main,
+  .about-page-shell section,
+  .about-page-shell article,
+  .home-page-shell footer,
+  .about-page-shell footer,
+  .home-page-shell main > *,
+  .about-page-shell main > * {
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .home-page-shell img,
+  .home-page-shell video,
+  .home-page-shell iframe,
+  .home-page-shell svg,
+  .about-page-shell img,
+  .about-page-shell video,
+  .about-page-shell iframe,
+  .about-page-shell svg {
+    max-width: 100%;
+  }
+
+  .home-page-shell h1,
+  .home-page-shell h2,
+  .home-page-shell h3,
+  .home-page-shell h4,
+  .home-page-shell h5,
+  .home-page-shell p,
+  .about-page-shell h1,
+  .about-page-shell h2,
+  .about-page-shell h3,
+  .about-page-shell h4,
+  .about-page-shell h5,
+  .about-page-shell p {
+    overflow-wrap: anywhere;
+  }
+
+  /* Keep animated/marquee tracks inside their visual viewport. The tracks
+     themselves remain available for the existing animation. */
+  .home-page-shell .projects-home-marquee,
+  .home-page-shell .framer-1fz8iv3,
+  .home-page-shell .framer-159qakh,
+  .home-page-shell .testimonial-scroll-layout,
+  .about-page-shell .framer-159qakh {
+    max-width: 100%;
+    overflow-x: clip;
+  }
+
+  /* Home hero and its responsive media never inherit a desktop flex basis. */
+  .home-page-shell .framer-1e1vhhu,
+  .home-page-shell .framer-kx9kx9,
+  .home-page-shell .framer-1r3iyda,
+  .home-page-shell .framer-bqe6hw,
+  .home-page-shell .framer-b25uum,
+  .home-page-shell .framer-11gubp3,
+  .home-page-shell .framer-16xpnlx-container {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .home-page-shell .framer-bqe6hw {
+    flex-shrink: 1;
+  }
+
+  .home-page-shell .framer-b25uum,
+  .home-page-shell .framer-b25uum p {
+    white-space: normal !important;
+    overflow-wrap: anywhere;
+  }
+
+  .home-page-shell .framer-16xpnlx-container {
+    width: 80px;
+    height: 92px;
+    flex: 0 0 auto;
+  }
+
+  /* Home project/service/testimonial cards may be animated wider than the
+     phone; their visible card content must still shrink to the page width. */
+  .home-page-shell .project-card-image,
+  .home-page-shell .testimonial-card,
+  .home-page-shell .testimonial-contact-card,
+  .home-page-shell .process-step-card,
+  .home-page-shell .process-cta-card,
+  .home-page-shell .process-cta-btn {
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .home-page-shell .process-step-card img,
+  .home-page-shell .process-step-card video,
+  .home-page-shell .process-cta-card img,
+  .home-page-shell .process-cta-card video {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* About page: preserve readable card widths while stacking all desktop
+     grids and allowing inline Framer min-widths to shrink on small phones. */
+  .about-page-shell .about-main,
+  .about-page-shell .about-main > section,
+  .about-page-shell .about-main > section > div {
+    width: 100% !important;
+    min-width: 0;
+    max-width: 100% !important;
+  }
+
+  .about-page-shell .about-bio-grid,
+  .about-page-shell .about-outside-grid,
+  .about-page-shell .about-project-grid,
+  .about-page-shell .about-insights-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+    min-width: 0;
+    gap: 20px !important;
+    padding-inline: 12px !important;
+  }
+
+  .about-page-shell .about-bio-grid > *,
+  .about-page-shell .about-outside-grid > *,
+  .about-page-shell .about-project-grid > *,
+  .about-page-shell .about-insights-grid > * {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .about-page-shell .about-social-grid {
+    grid-template-columns: repeat(3, 72px) !important;
+    justify-content: flex-start !important;
+    gap: 16px 20px !important;
+  }
+
+  .about-page-shell .about-social-grid > a {
+    width: 72px !important;
+    height: 72px !important;
+  }
+
+  .about-page-shell .bio-skills-location-row,
+  .about-page-shell .about-experience-row {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 12px !important;
+  }
+
+  .about-page-shell .bio-skills-location-row > *,
+  .about-page-shell .about-experience-row > * {
+    width: 100%;
+    min-width: 0 !important;
+    max-width: 100%;
+    flex-basis: auto !important;
+  }
+
+  .about-page-shell .bio-stack-card {
+    align-items: flex-start !important;
+    flex-wrap: wrap !important;
+  }
+
+  .about-page-shell .bio-stack-card img {
+    width: auto;
+    max-width: 100%;
+    height: 56px;
+  }
+
+  .about-page-shell .recent-work-row,
+  .about-page-shell .latest-insight-meta {
+    min-width: 0;
+    flex-wrap: wrap !important;
+  }
+
+  .about-page-shell .recent-work-row h4,
+  .about-page-shell .recent-work-row p,
+  .about-page-shell .latest-insight-text h5,
+  .about-page-shell .latest-insight-text p {
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    overflow-wrap: anywhere;
+  }
+
+  .about-page-shell .latest-insight-text {
+    min-width: 0 !important;
+    flex: 1 1 0% !important;
+  }
+
+  .about-page-shell .latest-insight-cta {
+    flex: 0 0 auto;
+    white-space: nowrap !important;
+  }
+
+  .about-page-shell .about-insights-grid article > img {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 1.5;
+    object-fit: cover;
+  }
+
+  .about-page-shell .about-outside-grid img,
+  .about-page-shell .about-bio-grid img,
+  .about-page-shell .about-main > section img {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 375px) {
+  .home-page-shell .framer-16xpnlx-container {
+    width: 70px;
+    height: 80px;
+  }
+
+  .about-page-shell .about-bio-grid,
+  .about-page-shell .about-outside-grid,
+  .about-page-shell .about-project-grid,
+  .about-page-shell .about-insights-grid {
+    padding-inline: 10px !important;
+    gap: 16px !important;
+  }
+
+  .about-page-shell .about-social-grid {
+    column-gap: 16px !important;
+  }
+}

@@ -515,7 +515,7 @@ function AboutPage() {
     >
       <Box
         component="div"
-        className="framer-hTG3P framer-emw559"
+        className="framer-hTG3P framer-emw559 about-page-shell"
         data-layout-template="true"
         style={{ minHeight: '100vh', width: 'auto', position: 'relative' } as FramerStyle}
       >
