@@ -30,3 +30,5 @@ backend/db.sqlite3
 backend/static/
 backend/media/
 *.pyc
+
+scratch/home-audit-profile/

@@ -223,7 +223,7 @@ function LatestInsights() {
           {LATESTINSIGHTS_CARD.map(card => (
             <a key={card.id} href={card.URL} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: 'inherit' }}>
               <Box component="article" style={{ borderRadius: 16, overflow: 'hidden' } as FramerStyle}>
-                <img src={card.img} alt={card.title} loading="lazy" style={{ width: '100%', height: 288, objectFit: 'cover', display: 'block', borderRadius: 16 } as FramerStyle} />
+                <img className="latest-insight-image" src={card.img} alt={card.title} loading="lazy" style={{ width: '100%', height: 288, objectFit: 'cover', display: 'block', borderRadius: 16 } as FramerStyle} />
                 <Box className="latest-insight-meta" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 2px' } as FramerStyle}>
                   <Box className="latest-insight-text">
                     <h5 style={{ fontFamily: '"Inter", sans-serif', fontSize: 20, fontWeight: 600, margin: 0, color: '#000' } as FramerStyle}>
@@ -331,6 +331,7 @@ function SomeFreelanceDesignSection() {
               {/* Right: image */}
               {featured.image && (
                 <Box
+                  className="freelance-featured-image"
                   style={{
                     flex: '0 0 clamp(200px, 32vw, 360px)',
                     height: 'clamp(140px, 20vw, 220px)',
@@ -449,7 +450,7 @@ function WorkPage() {
     >
       <Box
         component="div"
-        className="framer-hTG3P framer-emw559"
+        className="framer-hTG3P framer-emw559 work-page-shell"
         data-layout-template="true"
         style={{ minHeight: '100vh', width: 'auto', position: 'relative' } as FramerStyle}
       >

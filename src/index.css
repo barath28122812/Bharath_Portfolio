@@ -5723,3 +5723,330 @@ body {
     padding-inline: 8px;
   }
 }
+
+/* ===========================================================================
+   Work page mobile layout
+   Keep these rules scoped to the Work page shell so the shared navigation,
+   footer and card components retain their existing layout everywhere else.
+   Desktop/laptop styles are intentionally untouched.
+   ========================================================================== */
+@media (max-width: 809.98px) {
+  .work-page-shell {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    overflow-x: clip;
+  }
+
+  .work-page-shell .framer-4zw9d1,
+  .work-page-shell .framer-1p4xbhj-container,
+  .work-page-shell .framer-G6c65,
+  .work-page-shell .framer-1mea593,
+  .work-page-shell main,
+  .work-page-shell section,
+  .work-page-shell article,
+  .work-page-shell footer {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .work-page-shell .framer-G6c65.framer-v-1v126tf,
+  .work-page-shell .framer-G6c65.framer-v-7kk9q5 {
+    left: 0 !important;
+    right: 0 !important;
+    max-width: 100vw !important;
+  }
+
+  .work-page-shell .framer-4zw9d1,
+  .work-page-shell .framer-1p4xbhj-container {
+    width: calc(100% - 32px) !important;
+    max-width: calc(100% - 32px) !important;
+    margin-inline: 16px !important;
+  }
+
+  .work-page-shell .framer-1mea593,
+  .work-page-shell .framer-1d01ydm,
+  .work-page-shell .framer-o9kej6,
+  .work-page-shell .framer-1mfvgyc,
+  .work-page-shell .framer-kpq8s6-container,
+  .work-page-shell .framer-r31ivx-container {
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+
+  .work-page-shell main > * {
+    min-width: 0;
+    max-width: 100%;
+    margin-bottom: 0 !important;
+  }
+
+  .work-page-shell img,
+  .work-page-shell video,
+  .work-page-shell iframe,
+  .work-page-shell svg {
+    max-width: 100%;
+  }
+
+  /* Hero: stack the text and artwork, and remove the desktop visual's
+     minimum width/flex basis before it can widen a 320px viewport. */
+  .work-page-shell .work-hero-inner {
+    align-items: stretch !important;
+    flex-direction: column !important;
+    gap: 20px !important;
+    min-height: 0 !important;
+    padding: 24px 16px 20px !important;
+  }
+
+  .work-page-shell .work-hero-inner > :first-child,
+  .work-page-shell .work-hero-inner > :first-child p {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .work-page-shell #work-page-title {
+    font-size: clamp(38px, 13vw, 60px) !important;
+    line-height: 0.94 !important;
+  }
+
+  .work-page-shell .work-hero-visual {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    flex: 0 0 auto !important;
+    display: flex !important;
+    flex-direction: column-reverse !important;
+    align-items: stretch !important;
+    gap: 14px !important;
+  }
+
+  .work-page-shell .work-hero-visual > img {
+    position: static !important;
+    align-self: flex-end !important;
+    width: clamp(132px, 56%, 220px) !important;
+    height: auto !important;
+    max-height: none !important;
+    margin: 0 4% 0 0 !important;
+    object-fit: contain !important;
+  }
+
+  .work-page-shell .work-hero-bubble {
+    position: relative !important;
+    inset: auto !important;
+    align-self: flex-start !important;
+    width: fit-content !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    padding: 10px 16px !important;
+    font-size: 13px !important;
+    white-space: normal;
+  }
+
+  /* Project cards: one fluid column, with image aspect ratios preserved and
+     metadata allowed to shrink instead of pushing the arrow off-screen. */
+  .work-page-shell #work-grid {
+    padding-top: 20px !important;
+  }
+
+  .work-page-shell .work-grid-layout {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 20px !important;
+    margin-top: 0 !important;
+    padding-inline: 12px !important;
+  }
+
+  .work-page-shell #work-grid .project-card-image {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+  }
+
+  .work-page-shell #work-grid .project-card-title {
+    min-width: 0 !important;
+    font-size: clamp(15px, 4.5vw, 20px) !important;
+  }
+
+  .work-page-shell #work-grid .project-card-category {
+    max-width: 38% !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  .work-page-shell #work-grid .project-card-arrow {
+    flex: 0 0 32px !important;
+  }
+
+  /* Freelance cards: the feature image becomes a fluid block below the copy;
+     the original clamp(200px, ...) flex basis is too wide on small phones. */
+  .work-page-shell .freelance-featured-card {
+    width: 100% !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 20px !important;
+    min-height: 0 !important;
+    padding: 24px 16px !important;
+  }
+
+  .work-page-shell .freelance-featured-card > :first-child {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .work-page-shell .freelance-featured-image {
+    width: 100% !important;
+    max-width: 280px !important;
+    height: clamp(140px, 42vw, 190px) !important;
+    flex: 0 1 auto !important;
+    align-self: center;
+  }
+
+  .work-page-shell .freelance-featured-image img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+  }
+
+  .work-page-shell .freelance-card-title {
+    font-size: clamp(32px, 10vw, 54px) !important;
+    overflow-wrap: anywhere;
+  }
+
+  .work-page-shell .freelance-halves-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 16px !important;
+    min-width: 0;
+  }
+
+  .work-page-shell .freelance-halves-grid > * {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .work-page-shell .freelance-card-mockup-wrapper {
+    max-width: 100%;
+    margin-top: 16px;
+  }
+
+  .work-page-shell .freelance-card-mockup-img {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    object-fit: contain;
+  }
+
+  /* Insights: use a fluid aspect ratio instead of the 288px desktop height. */
+  .work-page-shell .latest-insights-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 22px !important;
+    margin-top: 24px !important;
+    padding-inline: 12px !important;
+  }
+
+  .work-page-shell .latest-insight-image {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 1.5 !important;
+    object-fit: cover !important;
+  }
+
+  .work-page-shell .latest-insight-meta {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    min-width: 0;
+    padding: 12px 2px 16px !important;
+  }
+
+  .work-page-shell .latest-insight-text {
+    flex: 1 1 0% !important;
+    min-width: 0 !important;
+    overflow: hidden;
+  }
+
+  .work-page-shell .latest-insight-text h5 {
+    min-width: 0;
+    font-size: 17px !important;
+    line-height: 1.25 !important;
+    overflow-wrap: anywhere;
+  }
+
+  .work-page-shell .latest-insight-text p {
+    font-size: 12px !important;
+  }
+
+  .work-page-shell .latest-insight-cta {
+    flex: 0 0 auto !important;
+    white-space: nowrap !important;
+    font-size: 11px !important;
+    padding: 6px 12px !important;
+  }
+
+  /* More-work carousel: the track may remain wider for animation, but each
+     card and its text must fit inside the clipped viewport. */
+  .work-page-shell .more-work-marquee-wrap {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+  }
+
+  .work-page-shell .more-work-title {
+    padding-inline: 14px !important;
+    font-size: clamp(30px, 10vw, 42px) !important;
+  }
+
+  .work-page-shell .more-work-copy {
+    gap: 16px !important;
+    padding-inline: 14px !important;
+  }
+
+  .work-page-shell .more-work-item > a {
+    width: min(86vw, 360px) !important;
+    min-width: min(86vw, 360px) !important;
+    max-width: 360px !important;
+  }
+
+  .work-page-shell .more-work-item .project-card-title {
+    min-width: 0 !important;
+    font-size: 14px !important;
+    white-space: normal !important;
+    overflow: hidden !important;
+  }
+
+  .work-page-shell .more-work-item a > div:last-child,
+  .work-page-shell .more-work-item a > div:last-child > div:first-child {
+    min-width: 0 !important;
+  }
+
+  /* Footer safeguards for the Work-page instance only. */
+  .work-page-shell .framer-NKgCP,
+  .work-page-shell .framer-1s0pz8c,
+  .work-page-shell .framer-xft4v1 {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    overflow-x: clip;
+  }
+}
+
+@media (max-width: 375px) {
+  .work-page-shell .work-hero-inner {
+    padding-inline: 12px !important;
+  }
+
+  .work-page-shell .work-grid-layout,
+  .work-page-shell .latest-insights-grid {
+    padding-inline: 10px !important;
+  }
+
+  .work-page-shell .freelance-featured-card {
+    padding-inline: 14px !important;
+  }
+
+  .work-page-shell .latest-insight-meta {
+    gap: 8px !important;
+  }
+
+  .work-page-shell .latest-insight-text h5 {
+    font-size: 15px !important;
+  }
+}
