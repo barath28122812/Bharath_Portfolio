@@ -5761,9 +5761,9 @@ body {
 
   .work-page-shell .framer-4zw9d1,
   .work-page-shell .framer-1p4xbhj-container {
-    width: calc(100% - 32px) !important;
-    max-width: calc(100% - 32px) !important;
-    margin-inline: 16px !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    margin-inline: 0 !important;
   }
 
   .work-page-shell .framer-1mea593,
