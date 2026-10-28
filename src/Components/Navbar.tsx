@@ -1,6 +1,7 @@
 import Box from '@mui/material/Box'
 import type { FramerStyle } from './framer'
 import { Link, useLocation } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 import { FaLinkedinIn, FaBehance } from 'react-icons/fa'
 import { SiUpwork } from 'react-icons/si'
 
@@ -80,6 +81,36 @@ function AnimatedNavLinkText({ text, active = false, activeColor }: { text: stri
 
 function Navbar() {
   const { pathname } = useLocation()
+  const isHomePage = pathname === '/'
+  const isAboutPage = pathname === '/about'
+  const isProjectsPage = pathname === '/projects' || pathname.startsWith('/projects/')
+  const isWorkPage = pathname === '/work'
+  const isOrbitPage = isHomePage || isAboutPage || isProjectsPage || isWorkPage
+  const isMobileMenuPage = isHomePage || isAboutPage || isProjectsPage || isWorkPage
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+
+  useEffect(() => {
+    setIsMobileMenuOpen(false)
+  }, [pathname])
+
+  useEffect(() => {
+    if (!isMobileMenuPage || !isMobileMenuOpen) return
+
+    const previousOverflow = document.body.style.overflow
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setIsMobileMenuOpen(false)
+    }
+
+    document.body.style.overflow = 'hidden'
+    document.addEventListener('keydown', closeOnEscape)
+
+    return () => {
+      document.body.style.overflow = previousOverflow
+      document.removeEventListener('keydown', closeOnEscape)
+    }
+  }, [isMobileMenuOpen, isMobileMenuPage])
+
+  const closeMobileMenu = () => setIsMobileMenuOpen(false)
 
   return (
     <Box className="framer-4zw9d1" data-framer-name="Nav" component="div">
@@ -107,8 +138,15 @@ function Navbar() {
                     <div className="framer-JPaLj framer-1om9dy5 framer-v-wmn63s nav-center-mark" data-framer-name="About">
                       <div className="framer-1id1qzj" data-framer-name="Nav" style={{ "borderBottomLeftRadius": '27px', "borderBottomRightRadius": '27px', "borderTopLeftRadius": '27px', "borderTopRightRadius": '27px' } as FramerStyle}>
                         <div className="framer-1i96c6o" data-framer-name="Image" style={{ "backgroundColor": pathname === '/' ? 'rgba(29, 139, 241, 0.13)' : pathname === '/about' ? 'rgb(34, 197, 94)' : '#FE2026', "borderBottomLeftRadius": '27px', "borderBottomRightRadius": '27px', "borderTopLeftRadius": '27px', "borderTopRightRadius": '27px', "display": 'flex', "alignItems": 'center', "justifyContent": 'center' } as FramerStyle}>
-                          <NavCenterIcon type={pathname === '/about' ? 'about' : (pathname === '/work' || pathname === '/projects' || pathname === '/xr-design' || pathname === '/atbots' || pathname === '/beuta' || pathname === '/ateats' || pathname === '/emergency-alert' || pathname === '/crunch' || pathname === '/cyos' ? 'projects' : 'home')} />
+                          <NavCenterIcon type={pathname === '/about' ? 'about' : (pathname === '/work' || isProjectsPage || pathname === '/xr-design' || pathname === '/atbots' || pathname === '/beuta' || pathname === '/ateats' || pathname === '/emergency-alert' || pathname === '/crunch' || pathname === '/cyos' ? 'projects' : 'home')} />
                         </div>
+                        {isOrbitPage && (
+                          <span className="nav-dotted-orbit page-desktop-nav-orbit" aria-hidden="true">
+                            <svg viewBox="0 0 58 58" focusable="false">
+                              <circle cx="29" cy="29" r="25" />
+                            </svg>
+                          </span>
+                        )}
                        
                       </div>
                       <div className="framer-1f4mxxz" data-framer-name="Dot" style={{ "opacity": '1', "transform": 'rotate(-90deg)' } as FramerStyle}>
@@ -165,7 +203,25 @@ function Navbar() {
                     <AnimatedNavLinkText text="Projects" active={pathname === '/work' || pathname === '/projects'} />
                   </Link>
                 </div>
-                <div className="framer-1vviajj" role="button" aria-label="Open menu" tabIndex={0} data-border="true" data-framer-name="Handburger" data-highlight="true" style={{ "--border-bottom-width": '1px', "--border-color": 'var(--token-5d23e02d-37c1-4334-b3aa-070b54ae1264, rgba(224, 224, 224, 0.63))', "--border-left-width": '1px', "--border-right-width": '1px', "--border-style": 'solid', "--border-top-width": '1px', "borderBottomLeftRadius": '5px', "borderBottomRightRadius": '5px', "borderTopLeftRadius": '5px', "borderTopRightRadius": '5px', "display": 'flex', "flexDirection": 'column', "alignItems": 'center', "justifyContent": 'center', "gap": '3px', "background": 'transparent', "padding": 0, "cursor": 'pointer', "boxSizing": 'border-box' } as FramerStyle}>
+                <div
+                  className="framer-1vviajj"
+                  role="button"
+                  tabIndex={0}
+                  aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
+                  aria-controls={isMobileMenuPage ? 'page-mobile-menu' : undefined}
+                  aria-expanded={isMobileMenuPage ? isMobileMenuOpen : undefined}
+                  data-border="true"
+                  data-framer-name="Handburger"
+                  data-highlight="true"
+                  onClick={isMobileMenuPage ? () => setIsMobileMenuOpen(open => !open) : undefined}
+                  onKeyDown={isMobileMenuPage ? event => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                      event.preventDefault()
+                      setIsMobileMenuOpen(open => !open)
+                    }
+                  } : undefined}
+                  style={{ "--border-bottom-width": '1px', "--border-color": 'var(--token-5d23e02d-37c1-4334-b3aa-070b54ae1264, rgba(224, 224, 224, 0.63))', "--border-left-width": '1px', "--border-right-width": '1px', "--border-style": 'solid', "--border-top-width": '1px', "borderBottomLeftRadius": '5px', "borderBottomRightRadius": '5px', "borderTopLeftRadius": '5px', "borderTopRightRadius": '5px', "display": 'flex', "flexDirection": 'column', "alignItems": 'center', "justifyContent": 'center', "gap": '3px', "background": 'transparent', "padding": 0, "cursor": 'pointer', "boxSizing": 'border-box' } as FramerStyle}
+                >
                   <span className="framer-alep18" data-framer-name="Line" style={{ "backgroundColor": 'var(--token-2c4d0fad-06de-414f-b048-811f13183390, rgb(97, 97, 97))', "borderBottomLeftRadius": '67px', "borderBottomRightRadius": '67px', "borderTopLeftRadius": '67px', "borderTopRightRadius": '67px', "width": '14px', "height": '1.5px', "display": 'block' } as FramerStyle} />
                   <span className="framer-1tyfc8z" data-framer-name="Line" style={{ "backgroundColor": 'var(--token-2c4d0fad-06de-414f-b048-811f13183390, rgb(97, 97, 97))', "borderBottomLeftRadius": '67px', "borderBottomRightRadius": '67px', "borderTopLeftRadius": '67px', "borderTopRightRadius": '67px', "width": '14px', "height": '1.5px', "display": 'block' } as FramerStyle} />
                   <span className="framer-alep18" data-framer-name="Line" style={{ "backgroundColor": 'var(--token-2c4d0fad-06de-414f-b048-811f13183390, rgb(97, 97, 97))', "borderBottomLeftRadius": '67px', "borderBottomRightRadius": '67px', "borderTopLeftRadius": '67px', "borderTopRightRadius": '67px', "width": '14px', "height": '1.5px', "display": 'block' } as FramerStyle} />
@@ -178,8 +234,15 @@ function Navbar() {
                     <div className="framer-JPaLj framer-1om9dy5 framer-v-wmn63s nav-center-mark" data-framer-name="About">
                       <div className="framer-1id1qzj" data-framer-name="Nav" style={{ "borderBottomLeftRadius": '27px', "borderBottomRightRadius": '27px', "borderTopLeftRadius": '27px', "borderTopRightRadius": '27px' } as FramerStyle}>
                         <div className="framer-1i96c6o" data-framer-name="Image" style={{ "backgroundColor": pathname === '/' ? 'rgba(29, 139, 241, 0.13)' : pathname === '/about' ? 'rgb(34, 197, 94)' : '#FE2026', "borderBottomLeftRadius": '27px', "borderBottomRightRadius": '27px', "borderTopLeftRadius": '27px', "borderTopRightRadius": '27px', "display": 'flex', "alignItems": 'center', "justifyContent": 'center' } as FramerStyle}>
-                          <NavCenterIcon type={pathname === '/about' ? 'about' : (pathname === '/work' || pathname === '/projects' || pathname === '/xr-design' || pathname === '/atbots' || pathname === '/beuta' || pathname === '/ateats' || pathname === '/emergency-alert' || pathname === '/crunch' || pathname === '/cyos' ? 'projects' : 'home')} />
+                          <NavCenterIcon type={pathname === '/about' ? 'about' : (pathname === '/work' || isProjectsPage || pathname === '/xr-design' || pathname === '/atbots' || pathname === '/beuta' || pathname === '/ateats' || pathname === '/emergency-alert' || pathname === '/crunch' || pathname === '/cyos' ? 'projects' : 'home')} />
                         </div>
+                        {isOrbitPage && (
+                          <span className="nav-dotted-orbit page-mobile-nav-orbit" aria-hidden="true">
+                            <svg viewBox="0 0 58 58" focusable="false">
+                              <circle cx="29" cy="29" r="25" />
+                            </svg>
+                          </span>
+                        )}
                        
                       </div>
                       <div className="framer-1f4mxxz" data-framer-name="Dot" style={{ "opacity": '1', "transform": 'rotate(-90deg)' } as FramerStyle}>
@@ -205,6 +268,41 @@ function Navbar() {
             </div>
           </nav>
         </div>
+
+        {isMobileMenuPage && (
+          <div
+            id="page-mobile-menu"
+            className={`page-mobile-menu${isMobileMenuOpen ? ' is-open' : ''}`}
+            aria-hidden={!isMobileMenuOpen}
+          >
+            <button
+              type="button"
+              className="page-mobile-menu-backdrop"
+              aria-label="Close menu"
+              tabIndex={isMobileMenuOpen ? 0 : -1}
+              onClick={closeMobileMenu}
+            />
+            <aside className="page-mobile-menu-panel" aria-label="Primary page navigation">
+              <div className="page-mobile-menu-header">
+                <span className="page-mobile-menu-label">Menu</span>
+                <button type="button" className="page-mobile-menu-close" onClick={closeMobileMenu} tabIndex={isMobileMenuOpen ? 0 : -1}>
+                  <span aria-hidden="true">×</span>
+                </button>
+              </div>
+              <nav className="page-mobile-menu-links" aria-label="Primary navigation">
+                <Link to="/" onClick={closeMobileMenu} tabIndex={isMobileMenuOpen ? 0 : -1}>
+                  Home
+                </Link>
+                <Link to="/work" onClick={closeMobileMenu} tabIndex={isMobileMenuOpen ? 0 : -1}>
+                  Projects
+                </Link>
+                <Link to="/about" onClick={closeMobileMenu} tabIndex={isMobileMenuOpen ? 0 : -1}>
+                  About
+                </Link>
+              </nav>
+            </aside>
+          </div>
+        )}
       </div>
     </Box>
   )

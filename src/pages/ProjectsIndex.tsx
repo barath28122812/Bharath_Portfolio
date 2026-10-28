@@ -3,24 +3,34 @@ import Container from '@mui/material/Container'
 import { Link as RouterLink } from 'react-router-dom'
 import { projects } from '../data/projects'
 import ProjectCard from '../Components/ProjectCard'
+import Navbar from '../Components/Navbar'
 
 const referenceProjects = projects.filter(project => project.slug !== 'crunch')
 const loopingProjects = [...referenceProjects, ...referenceProjects]
 
 function ProjectsIndex() {
   return (
-    <Box
-      component="main"
-      sx={{
-        minHeight: '100vh',
-        fontFamily: '"Inter", sans-serif',
-        background: 'var(--token-8f8b32ea-2243-4c94-90d7-9dbc1e52ffc2, rgb(255, 255, 255))',
-        color: 'var(--token-e354a3cd-fc10-4572-8441-4fe955f17d9e, rgb(0, 0, 0))',
-        py: { xs: 4, sm: 6, md: 8 },
-        position: 'relative',
-        overflow: 'hidden',
-      }}
-    >
+    <div id="main" className="projects-page">
+      <Box
+        component="div"
+        className="framer-hTG3P framer-emw559 projects-page-shell"
+        data-layout-template="true"
+        sx={{ minHeight: '100vh', width: 'auto', position: 'relative' }}
+      >
+        <Navbar />
+        <Box
+          component="main"
+          className="projects-index-main"
+          sx={{
+            minHeight: '100vh',
+            fontFamily: '"Inter", sans-serif',
+            background: 'var(--token-8f8b32ea-2243-4c94-90d7-9dbc1e52ffc2, rgb(255, 255, 255))',
+            color: 'var(--token-e354a3cd-fc10-4572-8441-4fe955f17d9e, rgb(0, 0, 0))',
+            py: { xs: 4, sm: 6, md: 8 },
+            position: 'relative',
+            overflow: 'hidden',
+          }}
+        >
       <div className="crunch-side-lines" aria-hidden="true">
         <span className="crunch-side-lines-star crunch-side-lines-star-left" />
         <span className="crunch-side-lines-star crunch-side-lines-star-right" />
@@ -128,7 +138,9 @@ function ProjectsIndex() {
           {referenceProjects.length} selected works
         </Box>
       </Container>
-    </Box>
+        </Box>
+      </Box>
+    </div>
   )
 }
 

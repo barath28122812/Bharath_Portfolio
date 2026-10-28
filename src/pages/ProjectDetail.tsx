@@ -11,6 +11,7 @@ import Typography from '@mui/material/Typography'
 import { Link as RouterLink, useParams } from 'react-router-dom'
 import { getProject } from '../data/projects'
 import NotFound from './NotFound'
+import Navbar from '../Components/Navbar'
 
 const heading: React.CSSProperties = {
   fontFamily: '"Inter", sans-serif',
@@ -40,16 +41,25 @@ function ProjectDetail() {
   ]
 
   return (
-    <Box
-      component="main"
-      sx={{
-        minHeight: '100vh',
-        background:
-          'var(--token-8f8b32ea-2243-4c94-90d7-9dbc1e52ffc2, rgb(255, 255, 255))',
-        color: 'var(--token-e354a3cd-fc10-4572-8441-4fe955f17d9e, rgb(0, 0, 0))',
-        position: 'relative',
-      }}
-    >
+    <div id="main" className="projects-page">
+      <Box
+        component="div"
+        className="framer-hTG3P framer-emw559 projects-page-shell"
+        data-layout-template="true"
+        sx={{ minHeight: '100vh', width: 'auto', position: 'relative' }}
+      >
+        <Navbar />
+        <Box
+          component="main"
+          className="project-detail-main"
+          sx={{
+            minHeight: '100vh',
+            background:
+              'var(--token-8f8b32ea-2243-4c94-90d7-9dbc1e52ffc2, rgb(255, 255, 255))',
+            color: 'var(--token-e354a3cd-fc10-4572-8441-4fe955f17d9e, rgb(0, 0, 0))',
+            position: 'relative',
+          }}
+        >
       <div className="crunch-side-lines" aria-hidden="true">
         <span className="crunch-side-lines-star crunch-side-lines-star-left" />
         <span className="crunch-side-lines-star crunch-side-lines-star-right" />
@@ -126,7 +136,9 @@ function ProjectDetail() {
           </Table>
         </TableContainer>
       </Container>
-    </Box>
+        </Box>
+      </Box>
+    </div>
   )
 }
 

@@ -6072,7 +6072,9 @@ body {
   .home-page-shell .framer-4zw9d1,
   .home-page-shell .framer-1p4xbhj-container,
   .about-page-shell .framer-4zw9d1,
-  .about-page-shell .framer-1p4xbhj-container {
+  .about-page-shell .framer-1p4xbhj-container,
+  .projects-page-shell .framer-4zw9d1,
+  .projects-page-shell .framer-1p4xbhj-container {
     width: 100vw !important;
     max-width: 100vw !important;
     min-width: 0 !important;
@@ -6085,7 +6087,8 @@ body {
   /* The shared site-frame rule positions this wrapper 16px from each edge;
      the page-scoped selector below deliberately wins only for Home/About. */
   #main.home-page .home-page-shell .framer-4zw9d1,
-  #main.about-page .about-page-shell .framer-4zw9d1 {
+  #main.about-page .about-page-shell .framer-4zw9d1,
+  #main.projects-page .projects-page-shell .framer-4zw9d1 {
     left: 0 !important;
     right: auto !important;
     width: 100vw !important;
@@ -6095,7 +6098,9 @@ body {
   .home-page-shell .framer-G6c65,
   .home-page-shell .framer-1mea593,
   .about-page-shell .framer-G6c65,
-  .about-page-shell .framer-1mea593 {
+  .about-page-shell .framer-1mea593,
+  .projects-page-shell .framer-G6c65,
+  .projects-page-shell .framer-1mea593 {
     width: 100% !important;
     min-width: 0 !important;
     max-width: 100% !important;
@@ -6326,5 +6331,354 @@ body {
 
   .about-page-shell .about-social-grid {
     column-gap: 16px !important;
+  }
+}
+
+/* ===========================================================================
+   Home/About/Projects mobile navbar menu
+   The shared Navbar is used by every route, so these rules intentionally use
+   only the requested page shells and apply below the mobile breakpoint.
+   =========================================================================== */
+@media (max-width: 809.98px) {
+  /* The two top frame stars sit above the requested mobile navbars. Keep the
+     other frame decorations and every other page's desktop/mobile decorations. */
+  .site-frame:has(#main.home-page) .frame-star-tl,
+  .site-frame:has(#main.home-page) .frame-star-tr,
+  .site-frame:has(#main.about-page) .frame-star-tl,
+  .site-frame:has(#main.about-page) .frame-star-tr,
+  .site-frame:has(#main.projects-page) .frame-star-tl,
+  .site-frame:has(#main.projects-page) .frame-star-tr,
+  .site-frame:has(.work-page-shell) .frame-star-tl,
+  .site-frame:has(.work-page-shell) .frame-star-tr {
+    display: none !important;
+    animation: none !important;
+  }
+
+  .home-page-shell .page-mobile-menu,
+  .about-page-shell .page-mobile-menu,
+  .projects-page-shell .page-mobile-menu,
+  .work-page-shell .page-mobile-menu {
+    display: none;
+  }
+
+  .home-page-shell .page-mobile-menu.is-open,
+  .about-page-shell .page-mobile-menu.is-open,
+  .projects-page-shell .page-mobile-menu.is-open,
+  .work-page-shell .page-mobile-menu.is-open {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 100000;
+    width: 100vw;
+    height: 100dvh;
+    max-width: 100vw;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .home-page-shell .page-mobile-menu-backdrop,
+  .about-page-shell .page-mobile-menu-backdrop,
+  .projects-page-shell .page-mobile-menu-backdrop,
+  .work-page-shell .page-mobile-menu-backdrop {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    background: rgba(0, 0, 0, 0.18);
+    cursor: pointer;
+  }
+
+  .home-page-shell .page-mobile-menu-panel,
+  .about-page-shell .page-mobile-menu-panel,
+  .projects-page-shell .page-mobile-menu-panel,
+  .work-page-shell .page-mobile-menu-panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    width: min(88vw, 360px);
+    height: 100%;
+    max-width: 100%;
+    min-width: 0;
+    padding: 20px 20px 28px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    background: #fff;
+    border-left: 1px solid rgba(224, 224, 224, 0.63);
+    box-shadow: -18px 0 48px rgba(0, 0, 0, 0.12);
+  }
+
+  .home-page-shell .page-mobile-menu-header,
+  .about-page-shell .page-mobile-menu-header,
+  .projects-page-shell .page-mobile-menu-header,
+  .work-page-shell .page-mobile-menu-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    min-height: 42px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(224, 224, 224, 0.63);
+  }
+
+  .home-page-shell .page-mobile-menu-label,
+  .about-page-shell .page-mobile-menu-label,
+  .projects-page-shell .page-mobile-menu-label,
+  .work-page-shell .page-mobile-menu-label {
+    color: #000;
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  .home-page-shell .page-mobile-menu-close,
+  .about-page-shell .page-mobile-menu-close,
+  .projects-page-shell .page-mobile-menu-close,
+  .work-page-shell .page-mobile-menu-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    flex: 0 0 36px;
+    padding: 0;
+    border: 1px solid rgba(224, 224, 224, 0.63);
+    border-radius: 50%;
+    color: #000;
+    background: #fff;
+    font-family: 'Inter', sans-serif;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .home-page-shell .page-mobile-menu-close:hover,
+  .home-page-shell .page-mobile-menu-close:focus-visible,
+  .about-page-shell .page-mobile-menu-close:hover,
+  .about-page-shell .page-mobile-menu-close:focus-visible,
+  .projects-page-shell .page-mobile-menu-close:hover,
+  .projects-page-shell .page-mobile-menu-close:focus-visible,
+  .work-page-shell .page-mobile-menu-close:hover,
+  .work-page-shell .page-mobile-menu-close:focus-visible {
+    color: #1d8bf1;
+    border-color: currentColor;
+    outline: none;
+  }
+
+  .home-page-shell .page-mobile-menu-links,
+  .about-page-shell .page-mobile-menu-links,
+  .projects-page-shell .page-mobile-menu-links,
+  .work-page-shell .page-mobile-menu-links {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 100%;
+    padding-top: 20px;
+  }
+
+  .home-page-shell .page-mobile-menu-links a,
+  .about-page-shell .page-mobile-menu-links a,
+  .projects-page-shell .page-mobile-menu-links a,
+  .work-page-shell .page-mobile-menu-links a {
+    display: flex;
+    align-items: center;
+    min-height: 56px;
+    width: 100%;
+    padding: 10px 4px;
+    box-sizing: border-box;
+    color: #000;
+    border-bottom: 1px solid rgba(224, 224, 224, 0.63);
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(22px, 7vw, 30px);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    text-decoration: none;
+  }
+
+  .home-page-shell .page-mobile-menu-links a:hover,
+  .home-page-shell .page-mobile-menu-links a:focus-visible,
+  .about-page-shell .page-mobile-menu-links a:hover,
+  .about-page-shell .page-mobile-menu-links a:focus-visible,
+  .projects-page-shell .page-mobile-menu-links a:hover,
+  .projects-page-shell .page-mobile-menu-links a:focus-visible,
+  .work-page-shell .page-mobile-menu-links a:hover,
+  .work-page-shell .page-mobile-menu-links a:focus-visible {
+    color: #1d8bf1;
+    outline: none;
+  }
+
+  .home-page-shell .page-mobile-menu-links a:focus-visible,
+  .home-page-shell .page-mobile-menu-close:focus-visible,
+  .home-page-shell .page-mobile-menu-backdrop:focus-visible,
+  .about-page-shell .page-mobile-menu-links a:focus-visible,
+  .about-page-shell .page-mobile-menu-close:focus-visible,
+  .about-page-shell .page-mobile-menu-backdrop:focus-visible,
+  .projects-page-shell .page-mobile-menu-links a:focus-visible,
+  .projects-page-shell .page-mobile-menu-close:focus-visible,
+  .projects-page-shell .page-mobile-menu-backdrop:focus-visible,
+  .work-page-shell .page-mobile-menu-links a:focus-visible,
+  .work-page-shell .page-mobile-menu-close:focus-visible,
+  .work-page-shell .page-mobile-menu-backdrop:focus-visible {
+    outline: 2px solid #1d8bf1;
+    outline-offset: 3px;
+  }
+
+  /* Restore the page badge's circular dotted border on phones. */
+  .home-page-shell .nav-center-mark .framer-1id1qzj {
+    position: relative;
+    overflow: visible !important;
+  }
+
+  .home-page-shell .page-mobile-nav-orbit,
+  .about-page-shell .page-mobile-nav-orbit,
+  .projects-page-shell .page-mobile-nav-orbit,
+  .work-page-shell .page-mobile-nav-orbit {
+    display: block;
+    width: 54px;
+    height: 54px;
+    animation: none !important;
+  }
+
+  .home-page-shell .page-mobile-nav-orbit circle,
+  .about-page-shell .page-mobile-nav-orbit circle,
+  .projects-page-shell .page-mobile-nav-orbit circle,
+  .work-page-shell .page-mobile-nav-orbit circle {
+    stroke: #1d8bf1;
+    stroke-width: 3;
+    stroke-dasharray: 1 8;
+  }
+
+  /* Keep the dotted orbit animated on the requested Home, About, and Work
+     mobile navbars. The Projects mobile orbit retains its existing behavior. */
+  .home-page-shell .page-mobile-nav-orbit,
+  .about-page-shell .page-mobile-nav-orbit,
+  .work-page-shell .page-mobile-nav-orbit {
+    animation: nav-dots-orbit 7s linear infinite !important;
+  }
+}
+
+@media (min-width: 810px) {
+  .home-page-shell .page-mobile-menu,
+  .about-page-shell .page-mobile-menu,
+  .projects-page-shell .page-mobile-menu,
+  .work-page-shell .page-mobile-menu {
+    display: none !important;
+  }
+
+  .home-page-shell .page-mobile-nav-orbit,
+  .about-page-shell .page-mobile-nav-orbit,
+  .projects-page-shell .page-mobile-nav-orbit,
+  .work-page-shell .page-mobile-nav-orbit {
+    display: none !important;
+  }
+}
+
+/* Keep the Home, About, Projects, and Work center orbits active in the
+   laptop/tablet navigation variant. The mobile nav markup is the visible
+   variant from 810px through 1199px; the true desktop navbar remains
+   unchanged. */
+@media (min-width: 810px) and (max-width: 1199.98px) {
+  .home-page-shell .page-mobile-nav-orbit,
+  .about-page-shell .page-mobile-nav-orbit,
+  .projects-page-shell .page-mobile-nav-orbit,
+  .work-page-shell .page-mobile-nav-orbit {
+    display: block !important;
+    width: 58px;
+    height: 58px;
+    animation: nav-dots-orbit 7s linear infinite !important;
+  }
+}
+
+/* Home About Me statistics: keep all six mobile cards in the requested
+   sequence so they form a compact 2-column by 3-row grid. The desktop and
+   laptop variants retain the generated Framer layout above. */
+@media (max-width: 809.98px) {
+  .home-page .framer-14q0wb,
+  .home-page .framer-14q0wb .framer-163ehaw {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    overflow-x: clip;
+  }
+
+  .home-page .framer-14q0wb .framer-73m4c5 {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    grid-template-rows: repeat(3, minmax(0, auto)) !important;
+    grid-auto-flow: row !important;
+    grid-auto-rows: auto !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    gap: 0 !important;
+  }
+
+  .home-page .framer-14q0wb .framer-73m4c5 .framer-1wm0lbd-container,
+  .home-page .framer-14q0wb .framer-73m4c5 .framer-1q4hfgt-container,
+  .home-page .framer-14q0wb .framer-73m4c5 .framer-1w508at-container,
+  .home-page .framer-14q0wb .framer-73m4c5 .framer-1olno0t-container,
+  .home-page .framer-14q0wb .framer-73m4c5 .framer-noistf-container,
+  .home-page .framer-14q0wb .framer-73m4c5 .framer-3gczji-container {
+    grid-column: auto !important;
+    grid-row: auto !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    place-self: stretch !important;
+    box-sizing: border-box;
+  }
+
+  .home-page .framer-14q0wb .framer-73m4c5 .framer-1wm0lbd-container {
+    order: 1 !important;
+  }
+
+  .home-page .framer-14q0wb .framer-73m4c5 .framer-1q4hfgt-container {
+    order: 2 !important;
+  }
+
+  .home-page .framer-14q0wb .framer-73m4c5 .framer-1w508at-container {
+    order: 3 !important;
+  }
+
+  .home-page .framer-14q0wb .framer-73m4c5 .framer-1olno0t-container {
+    order: 4 !important;
+  }
+
+  .home-page .framer-14q0wb .framer-73m4c5 .framer-noistf-container {
+    order: 5 !important;
+  }
+
+  .home-page .framer-14q0wb .framer-73m4c5 .framer-3gczji-container {
+    order: 6 !important;
+  }
+
+  .home-page .framer-14q0wb .framer-73m4c5 .framer-vydmt {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    min-height: 100% !important;
+    padding: 14px 8px !important;
+    box-sizing: border-box;
+  }
+
+  .home-page .framer-14q0wb .framer-73m4c5 .framer-vydmt > p.framer-text,
+  .home-page .framer-14q0wb .framer-73m4c5 .framer-vydmt > .framer-5h7okl > p.framer-text {
+    max-width: 100% !important;
+    margin: 0 !important;
+    font-size: 12px !important;
+    line-height: 1.25 !important;
+    overflow-wrap: anywhere;
+    text-align: center;
+  }
+
+  .home-page .framer-14q0wb .framer-73m4c5 .framer-vydmt .framer-1rtddwc-container > div > span {
+    font-size: 22px !important;
   }
 }
