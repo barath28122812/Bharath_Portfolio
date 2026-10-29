@@ -29,6 +29,7 @@ function ProjectCard({ title, category, image, to, external, fillBox, sx }: Proj
         flexDirection: fillBox ? 'column' : undefined,
         position: 'relative',
         boxSizing: 'border-box',
+        minWidth: 0,
         height: fillBox ? '100%' : undefined,
         py: { xs: '40px', md: '64px' },
         px: { xs: '8px', md: '24px' },
@@ -49,6 +50,7 @@ function ProjectCard({ title, category, image, to, external, fillBox, sx }: Proj
         sx={{
           position: 'relative',
           overflow: 'hidden',
+          width: '100%',
           borderRadius: { xs: '20px', md: '30px' },
           aspectRatio: fillBox ? undefined : '1.33256',
           flex: fillBox ? '1 1 0%' : undefined,
@@ -66,8 +68,15 @@ function ProjectCard({ title, category, image, to, external, fillBox, sx }: Proj
           sx={{
             display: 'block',
             width: '100%',
-            height: '100%',
+            // The mobile site-frame rules set images to height:auto. A
+            // ProjectCard image belongs to a fixed frame, so keep it
+            // pinned to that frame in every image mode.
+            height: '100% !important',
+            // fillBox cards are designed as image-led tiles. Cover fills
+            // their flex-sized frame without stretching or letterboxing;
+            // the non-fillBox cards keep the same established behavior.
             objectFit: 'cover',
+            objectPosition: 'center center',
             transition: 'transform 500ms cubic-bezier(0.16, 1, 0.3, 1)',
           }}
         />
@@ -148,8 +157,8 @@ function ProjectCard({ title, category, image, to, external, fillBox, sx }: Proj
             background: 'rgb(242, 242, 242)',
             flexShrink: 0,
             transition: 'background-color 300ms ease',
-            alignSelf: { xs: 'flex-start', sm: 'center' },
-            mt: { xs: 0.5, sm: 0 },
+            alignSelf: fillBox ? 'center' : { xs: 'flex-start', sm: 'center' },
+            mt: fillBox ? 0 : { xs: 0.5, sm: 0 },
           }}
         >
           <Box

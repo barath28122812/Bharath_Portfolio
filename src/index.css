@@ -159,7 +159,7 @@ h1, h2, h3, h4, h5, h6 {
   }
 
   .projects-home-marquee .project-card-slide {
-    height: 276px !important;
+    height: clamp(260px, 72vw, 276px) !important;
   }
 
   .more-work-marquee .more-work-copy {
@@ -537,7 +537,7 @@ html body {
 .nav-dotted-orbit svg { width: 100%; height: 100%; overflow: visible; }
 .nav-dotted-orbit circle {
   fill: none;
-  stroke: #fe2026;
+  stroke: var(--nav-orbit-color, #1d8bf1);
   stroke-width: 3.5;
   stroke-linecap: round;
   stroke-dasharray: 1 9.2;
@@ -6150,7 +6150,6 @@ body {
 
   /* Keep animated/marquee tracks inside their visual viewport. The tracks
      themselves remain available for the existing animation. */
-  .home-page-shell .projects-home-marquee,
   .home-page-shell .framer-1fz8iv3,
   .home-page-shell .framer-159qakh,
   .home-page-shell .testimonial-scroll-layout,
@@ -6531,37 +6530,26 @@ body {
     outline-offset: 3px;
   }
 
-  /* Restore the page badge's circular dotted border on phones. */
-  .home-page-shell .nav-center-mark .framer-1id1qzj {
+  /* Restore the page badge's circular dotted border on phones and keep the
+     orbit perfectly centred inside whichever centre icon is active. These
+     rules are intentionally not page-shell scoped so the ring works on every
+     route that shows an active centre icon. */
+  .nav-center-mark .framer-1id1qzj {
     position: relative;
     overflow: visible !important;
   }
 
-  .home-page-shell .page-mobile-nav-orbit,
-  .about-page-shell .page-mobile-nav-orbit,
-  .projects-page-shell .page-mobile-nav-orbit,
-  .work-page-shell .page-mobile-nav-orbit {
+  .page-mobile-nav-orbit {
     display: block;
     width: 54px;
     height: 54px;
-    animation: none !important;
+    animation: nav-dots-orbit 7s linear infinite !important;
   }
 
-  .home-page-shell .page-mobile-nav-orbit circle,
-  .about-page-shell .page-mobile-nav-orbit circle,
-  .projects-page-shell .page-mobile-nav-orbit circle,
-  .work-page-shell .page-mobile-nav-orbit circle {
-    stroke: #1d8bf1;
+  .page-mobile-nav-orbit circle {
+    stroke: var(--nav-orbit-color, #1d8bf1);
     stroke-width: 3;
     stroke-dasharray: 1 8;
-  }
-
-  /* Keep the dotted orbit animated on the requested Home, About, and Work
-     mobile navbars. The Projects mobile orbit retains its existing behavior. */
-  .home-page-shell .page-mobile-nav-orbit,
-  .about-page-shell .page-mobile-nav-orbit,
-  .work-page-shell .page-mobile-nav-orbit {
-    animation: nav-dots-orbit 7s linear infinite !important;
   }
 }
 
@@ -6573,23 +6561,16 @@ body {
     display: none !important;
   }
 
-  .home-page-shell .page-mobile-nav-orbit,
-  .about-page-shell .page-mobile-nav-orbit,
-  .projects-page-shell .page-mobile-nav-orbit,
-  .work-page-shell .page-mobile-nav-orbit {
+  .page-mobile-nav-orbit {
     display: none !important;
   }
 }
 
-/* Keep the Home, About, Projects, and Work center orbits active in the
-   laptop/tablet navigation variant. The mobile nav markup is the visible
-   variant from 810px through 1199px; the true desktop navbar remains
-   unchanged. */
+/* Keep the centre orbit active in the laptop/tablet navigation variant. The
+   mobile nav markup is the visible variant from 810px through 1199px; the
+   true desktop navbar remains unchanged. */
 @media (min-width: 810px) and (max-width: 1199.98px) {
-  .home-page-shell .page-mobile-nav-orbit,
-  .about-page-shell .page-mobile-nav-orbit,
-  .projects-page-shell .page-mobile-nav-orbit,
-  .work-page-shell .page-mobile-nav-orbit {
+  .page-mobile-nav-orbit {
     display: block !important;
     width: 58px;
     height: 58px;
@@ -6601,6 +6582,29 @@ body {
    sequence so they form a compact 2-column by 3-row grid. The desktop and
    laptop variants retain the generated Framer layout above. */
 @media (max-width: 809.98px) {
+  /* Home Projects section: remove the mobile side gutter from the section
+     wrapper so its borders and marquee span the full available width. Keep
+     the inner heading/card padding intact. */
+  .home-page .framer-si04yb {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+    overflow-x: clip;
+  }
+
+  .home-page .framer-si04yb > div {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+  }
+
+  .home-page .framer-si04yb > div:nth-child(2) {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
   .home-page .framer-14q0wb,
   .home-page .framer-14q0wb .framer-163ehaw {
     width: 100% !important;
@@ -6680,5 +6684,70 @@ body {
 
   .home-page .framer-14q0wb .framer-73m4c5 .framer-vydmt .framer-1rtddwc-container > div > span {
     font-size: 22px !important;
+  }
+}
+
+/* Home Process heading: remove the last inherited phone gap between Services
+   and PROCESS while leaving a measured separation before the first card. The
+   heading stays above the decorative arrow/corner marker as the card stack
+   begins immediately below it. */
+@media (min-width: 320px) and (max-width: 390px) {
+  #main.home-page .framer-1isaao7 {
+    margin-top: clamp(24px, 6vw, 32px) !important;
+    padding-top: 0 !important;
+  }
+
+  #main.home-page .framer-1isaao7 > .framer-y6y8ft {
+    gap: 4px !important;
+  }
+
+  #main.home-page .framer-1isaao7 .framer-17qyqbf {
+    position: relative !important;
+    z-index: 4 !important;
+    padding: clamp(12px, 3.6vw, 14px) clamp(12px, 4vw, 16px)
+      clamp(8px, 2.6vw, 10px) !important;
+    gap: 8px !important;
+  }
+
+  #main.home-page .framer-1isaao7 .framer-1dzukjq-container,
+  #main.home-page .framer-1isaao7 .framer-p6ztjy-container,
+  #main.home-page .framer-1isaao7 .framer-17uaksd-container {
+    padding: 4px clamp(12px, 4vw, 16px) 20px !important;
+  }
+}
+
+/* Give the Process section a little more separation on wider phones too;
+   tablet and desktop retain their existing section spacing. */
+@media (min-width: 390.01px) and (max-width: 809.98px) {
+  #main.home-page .framer-1isaao7 {
+    margin-top: clamp(28px, 5vw, 40px) !important;
+  }
+}
+
+/* About page — "What I do outside of work?" heading.
+   The heading container is a sibling of the activity grid, but it kept the
+   desktop 24px inset while the grid narrows its gutter on phones. Mirror the
+   grid's responsive gutter so the heading and the section content always
+   share the same left edge. Desktop and tablet keep the original padding. */
+@media (max-width: 809.98px) {
+  .about-page-shell .about-outside-heading {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    min-width: 0;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 375px) {
+  .about-page-shell .about-outside-heading {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+}
+
+@media (max-width: 320px) {
+  .about-page-shell .about-outside-heading {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
   }
 }

@@ -5,6 +5,30 @@ import { useEffect, useState } from 'react'
 import { FaLinkedinIn, FaBehance } from 'react-icons/fa'
 import { SiUpwork } from 'react-icons/si'
 
+// Routes that belong to the Projects section (project index, work index, and
+// every individual project detail page). Keeping this in one place means the
+// nav text, centre icon, and dotted orbit always agree with the current route.
+const PROJECT_ROUTES = new Set([
+  '/work',
+  '/crunch',
+  '/xr-design',
+  '/petpedia',
+  '/atbooks',
+  '/ateats',
+  '/beuta',
+  '/emergency-alert',
+  '/atbots',
+  '/cyos',
+])
+
+function isProjectsPath(pathname: string) {
+  return (
+    pathname === '/projects' ||
+    pathname.startsWith('/projects/') ||
+    PROJECT_ROUTES.has(pathname)
+  )
+}
+
 // Center button icon changes based on the active page: home / about / projects.
 function NavCenterIcon({ type }: { type: 'home' | 'about' | 'projects' }) {
 
@@ -81,12 +105,31 @@ function AnimatedNavLinkText({ text, active = false, activeColor }: { text: stri
 
 function Navbar() {
   const { pathname } = useLocation()
-  const isHomePage = pathname === '/'
-  const isAboutPage = pathname === '/about'
-  const isProjectsPage = pathname === '/projects' || pathname.startsWith('/projects/')
-  const isWorkPage = pathname === '/work'
-  const isOrbitPage = isHomePage || isAboutPage || isProjectsPage || isWorkPage
-  const isMobileMenuPage = isHomePage || isAboutPage || isProjectsPage || isWorkPage
+  const currentPath = pathname !== '/' ? pathname.replace(/\/+$/, '') : '/'
+  const isHomePage = currentPath === '/'
+  const isAboutPage = currentPath === '/about'
+  const isProjectsPage = isProjectsPath(currentPath)
+  const isOrbitPage = isHomePage || isAboutPage || isProjectsPage
+  // The slide-out menu styles are scoped to the page shells that include it,
+  // so only enable the menu button on those routes.
+  const isMobileMenuPage =
+    isHomePage ||
+    isAboutPage ||
+    currentPath === '/work' ||
+    currentPath === '/projects' ||
+    currentPath.startsWith('/projects/')
+  const centerIconType: 'home' | 'about' | 'projects' = isAboutPage
+    ? 'about'
+    : isProjectsPage
+      ? 'projects'
+      : 'home'
+  // The dotted orbit matches the active centre badge: red for Projects,
+  // green for About, and the original blue for Home.
+  const orbitColor = centerIconType === 'projects'
+    ? '#FE2026'
+    : centerIconType === 'about'
+      ? 'rgb(34, 197, 94)'
+      : '#1d8bf1'
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   useEffect(() => {
@@ -126,7 +169,7 @@ function Navbar() {
                 <div className="framer-kpq8s6-container">
                   <Link className="framer-LUjGG framer-6zcho9 framer-v-6zcho9 framer-m8q0v6" data-framer-name="Inactive" data-reset="button" to="/work" tabIndex={0}>
                     <div className="framer-Luw1d framer-1b9w5yf" style={{ "--1hmr9s8": "var(--token-2755f934-118b-4dbc-93a1-f2eb80d42f93, rgb(0, 0, 0))", "transform": 'none', "transformOrigin": '50% 50% 0px' } as FramerStyle} />
-                    <AnimatedNavLinkText text="Projects" active={pathname === '/work' || pathname === '/projects'} />
+                    <AnimatedNavLinkText text="Projects" active={isProjectsPage} />
                   </Link>
                 </div>
               </div>
@@ -137,11 +180,11 @@ function Navbar() {
                   <div className="framer-1g52r2d-container">
                     <div className="framer-JPaLj framer-1om9dy5 framer-v-wmn63s nav-center-mark" data-framer-name="About">
                       <div className="framer-1id1qzj" data-framer-name="Nav" style={{ "borderBottomLeftRadius": '27px', "borderBottomRightRadius": '27px', "borderTopLeftRadius": '27px', "borderTopRightRadius": '27px' } as FramerStyle}>
-                        <div className="framer-1i96c6o" data-framer-name="Image" style={{ "backgroundColor": pathname === '/' ? 'rgba(29, 139, 241, 0.13)' : pathname === '/about' ? 'rgb(34, 197, 94)' : '#FE2026', "borderBottomLeftRadius": '27px', "borderBottomRightRadius": '27px', "borderTopLeftRadius": '27px', "borderTopRightRadius": '27px', "display": 'flex', "alignItems": 'center', "justifyContent": 'center' } as FramerStyle}>
-                          <NavCenterIcon type={pathname === '/about' ? 'about' : (pathname === '/work' || isProjectsPage || pathname === '/xr-design' || pathname === '/atbots' || pathname === '/beuta' || pathname === '/ateats' || pathname === '/emergency-alert' || pathname === '/crunch' || pathname === '/cyos' ? 'projects' : 'home')} />
+                        <div className="framer-1i96c6o" data-framer-name="Image" style={{ "backgroundColor": isHomePage ? 'rgba(29, 139, 241, 0.13)' : isAboutPage ? 'rgb(34, 197, 94)' : '#FE2026', "borderBottomLeftRadius": '27px', "borderBottomRightRadius": '27px', "borderTopLeftRadius": '27px', "borderTopRightRadius": '27px', "display": 'flex', "alignItems": 'center', "justifyContent": 'center' } as FramerStyle}>
+                          <NavCenterIcon type={centerIconType} />
                         </div>
                         {isOrbitPage && (
-                          <span className="nav-dotted-orbit page-desktop-nav-orbit" aria-hidden="true">
+                          <span className="nav-dotted-orbit page-desktop-nav-orbit" aria-hidden="true" style={{ '--nav-orbit-color': orbitColor } as FramerStyle}>
                             <svg viewBox="0 0 58 58" focusable="false">
                               <circle cx="29" cy="29" r="25" />
                             </svg>
@@ -157,7 +200,7 @@ function Navbar() {
                 </Link>
                 <div className="framer-18wnfum-container">
                   <Link className="framer-LUjGG framer-6zcho9 framer-v-x0lgeu framer-m8q0v6" data-framer-name="Active" data-reset="button" to="/" data-framer-page-link-current="true" style={{ marginTop: "-10px" }}>
-                    <AnimatedNavLinkText text="Home" active={pathname === '/'} activeColor="#1D8BF1" />
+                    <AnimatedNavLinkText text="Home" active={isHomePage} activeColor="#1D8BF1" />
                   </Link>
                 </div>
               </div>
@@ -165,7 +208,7 @@ function Navbar() {
               <div className="framer-1mfvgyc" data-border="true" data-framer-name="Button &amp; Text" style={{ "--border-bottom-width": '1px', "--border-color": 'var(--token-5d23e02d-37c1-4334-b3aa-070b54ae1264, rgba(224, 224, 224, 0.63))', "--border-left-width": '0px', "--border-right-width": '0px', "--border-style": 'solid', "--border-top-width": '0px' } as FramerStyle}>
                 <div className="framer-r31ivx-container">
                   <Link className="framer-LUjGG framer-6zcho9 framer-v-6zcho9 framer-m8q0v6" data-framer-name="Inactive" data-reset="button" to="/about" tabIndex={0}>
-                    <AnimatedNavLinkText text="About" active={pathname === '/about'} activeColor="rgb(34, 197, 94)" />
+                    <AnimatedNavLinkText text="About" active={isAboutPage} activeColor="rgb(34, 197, 94)" />
                   </Link>
                 </div>
                 <div className="framer-l22s7n" data-framer-name="Socials" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -200,7 +243,7 @@ function Navbar() {
               <div className="framer-1d01ydm" data-border="true" data-framer-name="Button &amp; Socials" style={{ "--border-bottom-width": '1px', "--border-color": 'var(--token-5d23e02d-37c1-4334-b3aa-070b54ae1264, rgba(224, 224, 224, 0.63))', "--border-left-width": '0px', "--border-right-width": '0px', "--border-style": 'solid', "--border-top-width": '0px' } as FramerStyle}>
                 <div className="framer-kpq8s6-container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
                   <Link className="framer-LUjGG framer-6zcho9 framer-v-qlknud framer-m8q0v6" data-framer-name="Mobile inactive" data-reset="button" to="/work" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
-                    <AnimatedNavLinkText text="Projects" active={pathname === '/work' || pathname === '/projects'} />
+                    <AnimatedNavLinkText text="Projects" active={isProjectsPage} />
                   </Link>
                 </div>
                 <div
@@ -233,11 +276,11 @@ function Navbar() {
                   <div className="framer-1g52r2d-container">
                     <div className="framer-JPaLj framer-1om9dy5 framer-v-wmn63s nav-center-mark" data-framer-name="About">
                       <div className="framer-1id1qzj" data-framer-name="Nav" style={{ "borderBottomLeftRadius": '27px', "borderBottomRightRadius": '27px', "borderTopLeftRadius": '27px', "borderTopRightRadius": '27px' } as FramerStyle}>
-                        <div className="framer-1i96c6o" data-framer-name="Image" style={{ "backgroundColor": pathname === '/' ? 'rgba(29, 139, 241, 0.13)' : pathname === '/about' ? 'rgb(34, 197, 94)' : '#FE2026', "borderBottomLeftRadius": '27px', "borderBottomRightRadius": '27px', "borderTopLeftRadius": '27px', "borderTopRightRadius": '27px', "display": 'flex', "alignItems": 'center', "justifyContent": 'center' } as FramerStyle}>
-                          <NavCenterIcon type={pathname === '/about' ? 'about' : (pathname === '/work' || isProjectsPage || pathname === '/xr-design' || pathname === '/atbots' || pathname === '/beuta' || pathname === '/ateats' || pathname === '/emergency-alert' || pathname === '/crunch' || pathname === '/cyos' ? 'projects' : 'home')} />
+                        <div className="framer-1i96c6o" data-framer-name="Image" style={{ "backgroundColor": isHomePage ? 'rgba(29, 139, 241, 0.13)' : isAboutPage ? 'rgb(34, 197, 94)' : '#FE2026', "borderBottomLeftRadius": '27px', "borderBottomRightRadius": '27px', "borderTopLeftRadius": '27px', "borderTopRightRadius": '27px', "display": 'flex', "alignItems": 'center', "justifyContent": 'center' } as FramerStyle}>
+                          <NavCenterIcon type={centerIconType} />
                         </div>
                         {isOrbitPage && (
-                          <span className="nav-dotted-orbit page-mobile-nav-orbit" aria-hidden="true">
+                          <span className="nav-dotted-orbit page-mobile-nav-orbit" aria-hidden="true" style={{ '--nav-orbit-color': orbitColor } as FramerStyle}>
                             <svg viewBox="0 0 58 58" focusable="false">
                               <circle cx="29" cy="29" r="25" />
                             </svg>
@@ -253,7 +296,7 @@ function Navbar() {
                 </Link>
                 <div className="framer-18wnfum-container">
                   <Link className="framer-LUjGG framer-6zcho9 framer-v-x0lgeu framer-m8q0v6" data-framer-name="Active" data-reset="button" to="/" data-framer-page-link-current="true">
-                    <AnimatedNavLinkText text="Home" active={pathname === '/'} activeColor="#1D8BF1" />
+                    <AnimatedNavLinkText text="Home" active={isHomePage} activeColor="#1D8BF1" />
                   </Link>
                 </div>
               </div>
@@ -261,7 +304,7 @@ function Navbar() {
               <div className="framer-1mfvgyc" data-border="true" data-framer-name="Button &amp; Text" style={{ "--border-bottom-width": '1px', "--border-color": 'var(--token-5d23e02d-37c1-4334-b3aa-070b54ae1264, rgba(224, 224, 224, 0.63))', "--border-left-width": '0px', "--border-right-width": '0px', "--border-style": 'solid', "--border-top-width": '0px' } as FramerStyle}>
                 <div className="framer-r31ivx-container">
                   <Link className="framer-LUjGG framer-6zcho9 framer-v-qlknud framer-m8q0v6" data-framer-name="Mobile inactive" data-reset="button" to="/about">
-                    <AnimatedNavLinkText text="About" active={pathname === '/about'} activeColor="rgb(34, 197, 94)" />
+                    <AnimatedNavLinkText text="About" active={isAboutPage} activeColor="rgb(34, 197, 94)" />
                   </Link>
                 </div>
               </div>

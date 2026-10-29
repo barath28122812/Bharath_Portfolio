@@ -356,7 +356,7 @@ function OutsideWorkSection() {
   return (
     <Box component="section" style={{ width: '100%', padding: '40px 0 40px', background: '#fff' } as FramerStyle}>
       <Box style={fullWidthContainer}>
-        <Box style={{ ...contentPad, marginTop: 12 } as FramerStyle}>
+        <Box className="about-outside-heading" style={{ ...contentPad, marginTop: 12 } as FramerStyle}>
           <h2 style={{ ...heading, fontSize: 'clamp(30px, 4vw, 48px)', textTransform: 'none' } as FramerStyle}>
             {OUTSIDE_WORK.WHAT_I_DO}
           </h2>
@@ -585,4 +585,3 @@ function AboutPage() {
 }
 
 export default AboutPage
-

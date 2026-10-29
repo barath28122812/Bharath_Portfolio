@@ -22,10 +22,10 @@ function Projects() {
         key={`${project.title}-${index}`}
         className="project-card-slide"
         sx={{
-          width: { xs: '82vw', sm: 330, lg: 520 },
-          minWidth: { xs: '82vw', sm: 330, lg: 520 },
-          maxWidth: { xs: '88vw', sm: 330, lg: 520 },
-          height: { xs: 290, sm: 280, lg: 475 },
+          width: { xs: 'min(86vw, calc(100vw - 24px))', sm: 330, lg: 520 },
+          minWidth: { xs: 'min(86vw, calc(100vw - 24px))', sm: 330, lg: 520 },
+          maxWidth: { xs: 'calc(100vw - 24px)', sm: 330, lg: 520 },
+          height: { xs: 'clamp(260px, 72vw, 276px)', sm: 280, lg: 475 },
           flexShrink: 0,
           boxSizing: 'border-box',
         }}
@@ -38,8 +38,8 @@ function Projects() {
           external={external}
           fillBox
           sx={{
-            py: { xs: '32px', lg: '64px' },
-            px: { xs: '12px', lg: '24px' },
+            py: { xs: '20px', sm: '32px', lg: '64px' },
+            px: { xs: '10px', sm: '12px', lg: '24px' },
             borderBottom: 0,
           }}
         />
@@ -210,8 +210,8 @@ function Projects() {
           className="projects-home-marquee-wrap"
           sx={{
             position: 'relative',
-            overflowX: { xs: 'hidden', sm: 'visible' },
-            overflowY: { xs: 'hidden', sm: 'visible' },
+            overflowX: 'hidden',
+            overflowY: 'hidden',
             scrollbarWidth: 'none',
             '&::-webkit-scrollbar': { display: 'none' },
             borderTop: DIVIDER,
