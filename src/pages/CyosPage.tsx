@@ -94,8 +94,28 @@ function CyosHero() {
         .cyos-tags { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin-top:28px; }
         .cyos-tag { padding:7px 16px; border-radius:100px; background:#f3f3f3; color:#333; font-family:'Inter',sans-serif; font-size:13px; font-weight:600; }
         .cyos-hero-visual { margin-top:48px; border-radius:26px; overflow:hidden; border:1px solid #ededed; box-shadow:0 24px 64px rgba(0,0,0,0.10); }
-        .cyos-hero-img { width:100%; height:auto; display:block; }
-        .cyos-hero-float { position:absolute; display:flex; flex-direction:column; gap:8px; background:#fff; border:1px solid #ededed; border-radius:16px; padding:14px 18px; box-shadow:0 16px 40px rgba(0,0,0,0.10); font-family:'Inter',sans-serif; }
+        .cyos-hero-img { width:100%; height:auto; display:block; max-width:100%; }
+        .cyos-hero-float { position:absolute; display:flex; flex-direction:column; gap:8px; background:#fff; border:1px solid #ededed; border-radius:16px; padding:14px 18px; box-shadow:0 16px 40px rgba(0,0,0,0.10); font-family:'Inter',sans-serif; z-index:2; }
+        @media (min-width: 320px) and (max-width: 390px) {
+          .cyos-hero-visual { margin-top: 32px; border-radius: 18px; }
+          .cyos-hero-float {
+            padding: 8px 12px !important;
+            border-radius: 12px !important;
+            gap: 4px !important;
+            box-shadow: 0 10px 24px rgba(0,0,0,0.12) !important;
+            max-width: 150px !important;
+          }
+          .cyos-hero-float span {
+            font-size: 11px !important;
+            line-height: 1.3 !important;
+            white-space: normal !important;
+          }
+          .cyos-hero-float .cyos-hero-float-dot {
+            display: none !important;
+          }
+          .cyos-hero-float.left { left: 10px !important; top: 10px !important; }
+          .cyos-hero-float.right { right: 10px !important; bottom: 10px !important; text-align: right !important; align-items: flex-end !important; }
+        }
       `}</style>
       <Box style={{ ...container, textAlign: 'center' } as FramerStyle}>
         <Box style={{ ...contentPad, paddingTop: 120, paddingBottom: 60 } as FramerStyle}>
@@ -119,11 +139,11 @@ function CyosHero() {
             <div className="cyos-hero-visual">
               <img src={cyosHeroImg} alt="CYOS product customiser" loading="lazy" className="cyos-hero-img" />
             </div>
-            <div className="cyos-hero-float" style={{ left: 20, top: 60 }}>
-              <span style={{ width: 10, height: 10, borderRadius: '50%', display: 'inline-block', background: '#22c55e' }} />
+            <div className="cyos-hero-float left" style={{ left: 20, top: 60 }}>
+              <span className="cyos-hero-float-dot" style={{ width: 10, height: 10, borderRadius: '50%', display: 'inline-block', background: '#22c55e' }} />
               <span style={{ fontSize: 13, fontWeight: 600, color: '#333' }}>Live Preview</span>
             </div>
-            <div className="cyos-hero-float" style={{ right: 20, bottom: 40 }}>
+            <div className="cyos-hero-float right" style={{ right: 20, bottom: 40 }}>
               <span style={{ fontSize: 13, fontWeight: 600, color: '#333' }}>Choose → Create → Make it yours</span>
               <span style={{ fontSize: 12, color: '#888' }}>Product Configurator</span>
             </div>

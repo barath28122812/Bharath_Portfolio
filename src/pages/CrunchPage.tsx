@@ -473,6 +473,51 @@ function DesignProcessSection() {
           .step-icon-box svg { width: 30px; height: 30px; }
           .step-label { font-size: 14px; }
         }
+        @media (min-width: 320px) and (max-width: 390px) {
+          .process-steps {
+            display: grid !important;
+            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+            align-items: start !important;
+            justify-items: center !important;
+            column-gap: 16px !important;
+            row-gap: 24px !important;
+            width: 100% !important;
+            max-width: 100% !important;
+          }
+          .step-arrow {
+            display: none !important;
+          }
+          .step-item {
+            width: 100% !important;
+            max-width: 100% !important;
+            gap: 12px !important;
+          }
+          .step-item:nth-child(5) {
+            grid-column: 1 / -1 !important;
+            justify-self: center !important;
+          }
+          .step-icon-box {
+            width: 84px !important;
+            height: 84px !important;
+            border-width: 5px !important;
+            border-radius: 20px !important;
+            flex: none !important;
+          }
+          .step-icon-box svg {
+            width: 36px !important;
+            height: 36px !important;
+          }
+          .step-label {
+            font-size: 15px !important;
+            text-align: center !important;
+            white-space: nowrap !important;
+          }
+          .process-steps .step-item img {
+            width: 84px !important;
+            height: auto !important;
+            max-width: 84px !important;
+          }
+        }
       `}</style>
       <Box style={{ ...container, maxWidth: '100%' } as FramerStyle}>
         <Box style={contentPad}>

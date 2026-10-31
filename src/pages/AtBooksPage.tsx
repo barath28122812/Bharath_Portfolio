@@ -140,8 +140,8 @@ function ProblemSection() {
         .ab-logo-inner { display:flex; align-items:center; gap:20px; }
         .ab-logo-icon { width:72px; height:72px; border-radius:18px; background:linear-gradient(135deg,#2DB87E 0%,#1A9A66 100%); display:flex; align-items:center; justify-content:center; }
         .ab-logo-text { font-family:'Inter',sans-serif; font-size:clamp(40px,7vw,80px); font-weight:700; color:#111; letter-spacing:-0.02em; }
-        .ab-macbook-wrap { width:100%; max-width:880px; margin:0 auto; padding:0 24px; }
-        .ab-macbook-img { width:100%; height:auto; display:block; }
+        .ab-macbook-wrap { width:100%; max-width:880px; margin:0 auto; padding:0 24px; box-sizing:border-box; }
+        .ab-macbook-img { width:100%; height:auto; max-width:100%; display:block; margin:0 auto; }
       `}</style>
       <Box style={{ ...container } as FramerStyle}>
         <Box style={contentPad}>
@@ -243,11 +243,24 @@ function BentoStatsSection() {
             grid-column: span 1;
           }
         }
+        @media (min-width: 320px) and (max-width: 390px) {
+          .ab-bento-card.image-small,
+          .ab-bento-card.image-large {
+            height: auto !important;
+            aspect-ratio: 16 / 10;
+          }
+        }
         .ab-bento-img {
           width: 100%;
           height: 100%;
           object-fit: cover;
           display: block;
+        }
+        @media (min-width: 320px) and (max-width: 390px) {
+          .ab-bento-img {
+            height: 100% !important;
+            object-fit: cover;
+          }
         }
         .ab-bento-label {
           font-size: 15px;
@@ -1337,6 +1350,16 @@ function ChallengeAndSolutionSection() {
           .ab-found-card-desc {
             font-size: 12px;
           }
+          .ab-macbook-wrap {
+            padding: 0 16px;
+          }
+          .ab-design-mockup-wrapper {
+            padding: 0 16px;
+          }
+          .ab-design-mockup-frame {
+            padding: 16px;
+            border-radius: 18px;
+          }
         }
         .ab-found-grid {
           display: grid;
@@ -1698,9 +1721,11 @@ function DesignSection() {
         .ab-design-mockup-img {
           width: 100%;
           height: auto;
+          max-width: 100%;
           display: block;
           border-radius: 8px;
           box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+          margin: 0 auto;
         }
       `}</style>
       <div style={{ width: '100%', maxWidth: '100%', margin: '0 auto', padding: '0 40px', boxSizing: 'border-box' }}>

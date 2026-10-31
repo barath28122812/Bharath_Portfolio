@@ -494,19 +494,39 @@ function UserPersonasSection() {
         @media (max-width: 900px) {
           .pers-card { flex-direction: column; }
         }
+        @media (min-width: 320px) and (max-width: 390px) {
+          .pers-card {
+            border-radius: 16px;
+            margin-bottom: 28px;
+          }
+        }
         .pers-photo-col {
           width: 260px;
           flex-shrink: 0;
           background: #F8FAFC;
           display: flex;
+          align-items: center;
+          justify-content: center;
+          overflow: hidden;
         }
         @media (max-width: 900px) {
-          .pers-photo-col { width: 100%; height: 320px; }
+          .pers-photo-col { width: 100%; height: auto; min-height: 280px; }
+        }
+        @media (min-width: 320px) and (max-width: 390px) {
+          .pers-photo-col { min-height: 220px; max-height: 260px; }
         }
         .pers-photo-col img {
           width: 100%;
           height: 100%;
-          object-fit: cover;
+          object-fit: contain;
+          object-position: top center;
+          display: block;
+        }
+        @media (max-width: 900px) {
+          .pers-photo-col img { height: auto; max-height: 340px; }
+        }
+        @media (min-width: 320px) and (max-width: 390px) {
+          .pers-photo-col img { max-height: 260px; }
         }
         .pers-content-col {
           flex: 1;
@@ -515,6 +535,9 @@ function UserPersonasSection() {
         }
         @media (max-width: 600px) {
           .pers-content-col { padding: 24px 18px; }
+        }
+        @media (min-width: 320px) and (max-width: 390px) {
+          .pers-content-col { padding: 20px 16px; }
         }
         .pers-header {
           display: flex;

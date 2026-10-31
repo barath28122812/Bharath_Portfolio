@@ -1,40 +1,207 @@
 import Box from '@mui/material/Box'
-import type { MouseEvent as ReactMouseEvent } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import type { MouseEvent } from 'react'
 import type { FramerStyle } from './framer'
 
 const FOOTER_EMAIL = 'bharathanand.mail@gmail.com'
 
+/**
+ * Synchronous copy fallback. Runs before the async Clipboard API because it
+ * still works on iOS Safari and on non-secure (plain HTTP) origins, where
+ * navigator.clipboard is missing or rejects.
+ */
 const legacyCopy = (text: string) => {
+  const activeElement = document.activeElement instanceof HTMLElement ? document.activeElement : null
+  const selection = document.getSelection()
+  const previousRange = selection && selection.rangeCount > 0 ? selection.getRangeAt(0) : null
+
   const ta = document.createElement('textarea')
   ta.value = text
+  ta.setAttribute('readonly', '')
   ta.style.position = 'fixed'
+  ta.style.top = '0'
+  ta.style.left = '0'
+  ta.style.width = '1px'
+  ta.style.height = '1px'
+  ta.style.padding = '0'
+  ta.style.border = 'none'
   ta.style.opacity = '0'
+  ta.style.pointerEvents = 'none'
   document.body.appendChild(ta)
-  ta.select()
-  document.execCommand('copy')
+
+  let copied = false
+  try {
+    ta.focus({ preventScroll: true })
+    ta.select()
+    ta.setSelectionRange(0, text.length)
+    copied = document.execCommand('copy')
+  } catch {
+    copied = false
+  }
+
   document.body.removeChild(ta)
+
+  // Give focus back to the control the user activated, so keyboard users can
+  // keep pressing Enter and mouse users keep the focus ring.
+  if (activeElement && activeElement.isConnected) {
+    activeElement.focus({ preventScroll: true })
+  }
+
+  // Restore whatever the user had selected before the temporary textarea.
+  if (selection && previousRange) {
+    selection.removeAllRanges()
+    selection.addRange(previousRange)
+  }
+
+  return copied
+}
+
+const emailButtonStyle: FramerStyle = {
+  "fontFamily": '"Inter", sans-serif',
+  "fontWeight": '500',
+  "fontSize": '20px',
+  "lineHeight": '1em',
+  "display": 'inline-flex',
+  "position": 'relative',
+  "placeItems": 'center',
+  "placeContent": 'center',
+  "whiteSpace": 'nowrap',
+  "backgroundColor": 'var(--token-20f29520-e0af-49d2-8cc2-01444e94a3fe, rgba(0, 0, 0, 0))',
+  "color": 'var(--token-e354a3cd-fc10-4572-8441-4fe955f17d9e, rgb(0, 0, 0))',
+  "padding": '0px',
+  "cursor": 'pointer',
+  "userSelect": 'none',
+  "letterSpacing": '0em',
+  "WebkitTapHighlightColor": 'rgba(0, 0, 0, 0)',
+  "border": 'none',
+  "outline": 'none',
+  "fontStyle": 'normal',
+  "textAlign": 'left',
+  "borderRadius": '0px',
+}
+
+const emailMeasureStyle: FramerStyle = {
+  "position": 'absolute',
+  "visibility": 'hidden',
+  "whiteSpace": 'nowrap',
+  "pointerEvents": 'none',
+}
+
+const emailStackStyle: FramerStyle = {
+  "position": 'relative',
+  "display": 'grid',
+  "placeItems": 'center',
+}
+
+const emailLabelStyle: FramerStyle = {
+  "gridArea": '1 / 1',
+  "whiteSpace": 'nowrap',
+}
+
+/**
+ * "Click to copy" footer button. Kept as its own component so each of the
+ * three responsive footer variants manages its own copied/not-copied state
+ * instead of mutating sibling spans from a shared DOM handler.
+ */
+function FooterEmailButton() {
+  const [copied, setCopied] = useState(false)
+  const resetTimer = useRef<number | null>(null)
+
+  useEffect(() => {
+    return () => {
+      if (resetTimer.current !== null) window.clearTimeout(resetTimer.current)
+    }
+  }, [])
+
+  const showCopied = () => {
+    setCopied(true)
+    if (resetTimer.current !== null) window.clearTimeout(resetTimer.current)
+    resetTimer.current = window.setTimeout(() => setCopied(false), 2000)
+  }
+
+  const copyEmail = async () => {
+    // Try the synchronous path first so the copy happens inside the click's
+    // user gesture (required by iOS Safari and plain-HTTP pages).
+    if (legacyCopy(FOOTER_EMAIL)) {
+      showCopied()
+      return
+    }
+
+    if (navigator.clipboard?.writeText) {
+      try {
+        await navigator.clipboard.writeText(FOOTER_EMAIL)
+        showCopied()
+        return
+      } catch {
+        // Fall through to the manual prompt below.
+      }
+    }
+
+    // Last resort: let the user copy manually instead of silently failing.
+    window.prompt('Copy this email address:', FOOTER_EMAIL)
+  }
+
+  return (
+    <button
+      type="button"
+      className="footer-email-copy"
+      aria-label={copied ? 'Email copied to clipboard' : `Copy email address ${FOOTER_EMAIL}`}
+      title={`Click to copy ${FOOTER_EMAIL}`}
+      onClick={copyEmail}
+      style={emailButtonStyle}
+    >
+      <span aria-hidden="true" style={emailMeasureStyle}>{` ${FOOTER_EMAIL}`}</span>
+      <span style={emailStackStyle}>
+        <span aria-hidden={copied} style={{ ...emailLabelStyle, "opacity": copied ? '0' : '1' }}>{` ${FOOTER_EMAIL}`}</span>
+        <span aria-hidden={!copied} style={{ ...emailLabelStyle, "opacity": copied ? '1' : '0' }}>{"Copied!"}</span>
+      </span>
+    </button>
+  )
+}
+
+const emailBlockStyle: FramerStyle = {
+  "--border-bottom-width": '0px',
+  "--border-color": 'var(--token-5d23e02d-37c1-4334-b3aa-070b54ae1264, rgb(240, 240, 240))',
+  "--border-left-width": '0px',
+  "--border-right-width": '0px',
+  "--border-style": 'solid',
+  "--border-top-width": '0px',
+}
+
+/**
+ * Email block: the "Click to copy" label and the address both trigger the
+ * copy button, so tapping anywhere in the block copies the email.
+ */
+function FooterEmailBlock() {
+  const blockRef = useRef<HTMLDivElement>(null)
+
+  const handleClick = (event: MouseEvent<HTMLDivElement>) => {
+    // Let clicks that already land on the button bubble through normally.
+    if ((event.target as HTMLElement).closest('button')) return
+    blockRef.current?.querySelector<HTMLButtonElement>('.footer-email-copy')?.click()
+  }
+
+  return (
+    <div
+      ref={blockRef}
+      className="framer-j6c6bc footer-email-block"
+      data-border="true"
+      data-framer-name="Email"
+      style={emailBlockStyle}
+      title={`Click to copy ${FOOTER_EMAIL}`}
+      onClick={handleClick}
+    >
+      <div className="framer-1nle0sf" data-framer-component-type="RichTextContainer" style={{ "--framer-link-text-color": 'rgb(0, 153, 255)', "--framer-link-text-decoration": 'underline', "mask": 'linear-gradient(180deg, rgba(0,0,0,0) -69%, rgba(0,0,0,1) -14.000000000000002%) add', "WebkitMask": 'linear-gradient(180deg, rgba(0,0,0,0) -69%, rgba(0,0,0,1) -14.000000000000002%) add', "transform": 'none' } as FramerStyle}>
+        <p className="framer-text framer-styles-preset-19lub4s" data-styles-preset="f_sKMPKpM" dir="auto" style={{ "--framer-text-alignment": 'left' } as FramerStyle}>{"Click to copy"}</p>
+      </div>
+      <div className="framer-13k8iyh-container">
+        <FooterEmailButton />
+      </div>
+    </div>
+  )
 }
 
 function Footer() {
-  const copyEmail = (e: ReactMouseEvent<HTMLButtonElement>) => {
-    const btn = e.currentTarget
-    const pair = Array.from(btn.querySelectorAll<HTMLSpanElement>('span[style*="gridArea"]'))
-    const [emailSpan, copiedSpan] = [pair[0], pair[1]]
-    if (!emailSpan || !copiedSpan) return
-
-    if (navigator.clipboard?.writeText) {
-      navigator.clipboard.writeText(FOOTER_EMAIL).catch(() => legacyCopy(FOOTER_EMAIL))
-    } else {
-      legacyCopy(FOOTER_EMAIL)
-    }
-
-    emailSpan.style.opacity = '0'
-    copiedSpan.style.opacity = '1'
-    window.setTimeout(() => {
-      emailSpan.style.opacity = '1'
-      copiedSpan.style.opacity = '0'
-    }, 2000)
-  }
   return (
   <Box className="framer-1d34rlq" data-framer-name="Footer" component="div">
     <div className="ssr-variant hidden-1jwitme hidden-1wefnif">
@@ -930,20 +1097,7 @@ function Footer() {
                   </div>
                 </div>
               </div>
-              <div className="framer-j6c6bc" data-border="true" data-framer-name="Email" style={{ "--border-bottom-width": '0px', "--border-color": 'var(--token-5d23e02d-37c1-4334-b3aa-070b54ae1264, rgb(240, 240, 240))', "--border-left-width": '0px', "--border-right-width": '0px', "--border-style": 'solid', "--border-top-width": '0px' } as FramerStyle}>
-                <div className="framer-1nle0sf" data-framer-component-type="RichTextContainer" style={{ "--framer-link-text-color": 'rgb(0, 153, 255)', "--framer-link-text-decoration": 'underline', "mask": 'linear-gradient(180deg, rgba(0,0,0,0) -69%, rgba(0,0,0,1) -14.000000000000002%) add', "WebkitMask": 'linear-gradient(180deg, rgba(0,0,0,0) -69%, rgba(0,0,0,1) -14.000000000000002%) add', "transform": 'none' } as FramerStyle}>
-                  <p className="framer-text framer-styles-preset-19lub4s" data-styles-preset="f_sKMPKpM" dir="auto" style={{ "--framer-text-alignment": 'left' } as FramerStyle}>{"Click to copy"}</p>
-                </div>
-                <div className="framer-13k8iyh-container">
-                  <button type="button" id="HZFqOD7f_" aria-live="polite" aria-label=" bharathanand.mail@gmail.com" onClick={copyEmail} style={{ "fontFamily": '"Inter", sans-serif', "fontWeight": '500', "fontSize": '20px', "lineHeight": '1em', "display": 'inline-flex', "position": 'relative', "placeItems": 'center', "placeContent": 'center', "whiteSpace": 'nowrap', "backgroundColor": 'var(--token-20f29520-e0af-49d2-8cc2-01444e94a3fe, rgba(0, 0, 0, 0))', "color": 'var(--token-e354a3cd-fc10-4572-8441-4fe955f17d9e, rgb(0, 0, 0))', "padding": '0px', "cursor": 'pointer', "userSelect": 'none', "letterSpacing": '0em', "WebkitTapHighlightColor": 'rgba(0, 0, 0, 0)', "border": 'none', "outline": 'none', "fontStyle": 'normal', "textAlign": 'left', "borderRadius": '0px' } as FramerStyle}>
-                    <span aria-hidden="true" style={{ "position": 'absolute', "visibility": 'hidden', "whiteSpace": 'nowrap', "pointerEvents": 'none' } as FramerStyle}>{" bharathanand.mail@gmail.com"}</span>
-                    <span style={{ "position": 'relative', "display": 'grid', "placeItems": 'center' } as FramerStyle}>
-                      <span style={{ "gridArea": '1 / 1', "whiteSpace": 'nowrap', "opacity": '1' } as FramerStyle}>{" bharathanand.mail@gmail.com"}</span>
-                      <span aria-hidden="true" style={{ "gridArea": '1 / 1', "whiteSpace": 'nowrap', "opacity": '0' } as FramerStyle}>{"Copied!"}</span>
-                    </span>
-                  </button>
-                </div>
-              </div>
+              <FooterEmailBlock />
             </div>
           </div>
         </footer>
@@ -1842,20 +1996,7 @@ function Footer() {
                   </div>
                 </div>
               </div>
-              <div className="framer-j6c6bc" data-border="true" data-framer-name="Email" style={{ "--border-bottom-width": '0px', "--border-color": 'var(--token-5d23e02d-37c1-4334-b3aa-070b54ae1264, rgb(240, 240, 240))', "--border-left-width": '0px', "--border-right-width": '0px', "--border-style": 'solid', "--border-top-width": '0px' } as FramerStyle}>
-                <div className="framer-1nle0sf" data-framer-component-type="RichTextContainer" style={{ "--framer-link-text-color": 'rgb(0, 153, 255)', "--framer-link-text-decoration": 'underline', "mask": 'linear-gradient(180deg, rgba(0,0,0,0) -69%, rgba(0,0,0,1) -14.000000000000002%) add', "WebkitMask": 'linear-gradient(180deg, rgba(0,0,0,0) -69%, rgba(0,0,0,1) -14.000000000000002%) add', "transform": 'none' } as FramerStyle}>
-                  <p className="framer-text framer-styles-preset-19lub4s" data-styles-preset="f_sKMPKpM" dir="auto" style={{ "--framer-text-alignment": 'left' } as FramerStyle}>{"Click to copy"}</p>
-                </div>
-                <div className="framer-13k8iyh-container">
-                  <button type="button" id="HZFqOD7f_" aria-live="polite" aria-label=" bharathanand.mail@gmail.com" onClick={copyEmail} style={{ "fontFamily": '"Inter", sans-serif', "fontWeight": '500', "fontSize": '20px', "lineHeight": '1em', "display": 'inline-flex', "position": 'relative', "placeItems": 'center', "placeContent": 'center', "whiteSpace": 'nowrap', "backgroundColor": 'var(--token-20f29520-e0af-49d2-8cc2-01444e94a3fe, rgba(0, 0, 0, 0))', "color": 'var(--token-e354a3cd-fc10-4572-8441-4fe955f17d9e, rgb(0, 0, 0))', "padding": '0px', "cursor": 'pointer', "userSelect": 'none', "letterSpacing": '0em', "WebkitTapHighlightColor": 'rgba(0, 0, 0, 0)', "border": 'none', "outline": 'none', "fontStyle": 'normal', "textAlign": 'left', "borderRadius": '0px' } as FramerStyle}>
-                    <span aria-hidden="true" style={{ "position": 'absolute', "visibility": 'hidden', "whiteSpace": 'nowrap', "pointerEvents": 'none' } as FramerStyle}>{" bharathanand.mail@gmail.com"}</span>
-                    <span style={{ "position": 'relative', "display": 'grid', "placeItems": 'center' } as FramerStyle}>
-                      <span style={{ "gridArea": '1 / 1', "whiteSpace": 'nowrap', "opacity": '1' } as FramerStyle}>{" bharathanand.mail@gmail.com"}</span>
-                      <span aria-hidden="true" style={{ "gridArea": '1 / 1', "whiteSpace": 'nowrap', "opacity": '0' } as FramerStyle}>{"Copied!"}</span>
-                    </span>
-                  </button>
-                </div>
-              </div>
+              <FooterEmailBlock />
             </div>
           </div>
         </footer>
@@ -2754,20 +2895,7 @@ function Footer() {
                   </div>
                 </div>
               </div>
-              <div className="framer-j6c6bc" data-border="true" data-framer-name="Email" style={{ "--border-bottom-width": '0px', "--border-color": 'var(--token-5d23e02d-37c1-4334-b3aa-070b54ae1264, rgb(240, 240, 240))', "--border-left-width": '0px', "--border-right-width": '0px', "--border-style": 'solid', "--border-top-width": '0px' } as FramerStyle}>
-                <div className="framer-1nle0sf" data-framer-component-type="RichTextContainer" style={{ "--framer-link-text-color": 'rgb(0, 153, 255)', "--framer-link-text-decoration": 'underline', "mask": 'linear-gradient(180deg, rgba(0,0,0,0) -69%, rgba(0,0,0,1) -14.000000000000002%) add', "WebkitMask": 'linear-gradient(180deg, rgba(0,0,0,0) -69%, rgba(0,0,0,1) -14.000000000000002%) add', "transform": 'none' } as FramerStyle}>
-                  <p className="framer-text framer-styles-preset-19lub4s" data-styles-preset="f_sKMPKpM" dir="auto" style={{ "--framer-text-alignment": 'left' } as FramerStyle}>{"Click to copy"}</p>
-                </div>
-                <div className="framer-13k8iyh-container">
-                  <button type="button" id="HZFqOD7f_" aria-live="polite" aria-label=" bharathanand.mail@gmail.com" onClick={copyEmail} style={{ "fontFamily": '"Inter", sans-serif', "fontWeight": '500', "fontSize": '20px', "lineHeight": '1em', "display": 'inline-flex', "position": 'relative', "placeItems": 'center', "placeContent": 'center', "whiteSpace": 'nowrap', "backgroundColor": 'var(--token-20f29520-e0af-49d2-8cc2-01444e94a3fe, rgba(0, 0, 0, 0))', "color": 'var(--token-e354a3cd-fc10-4572-8441-4fe955f17d9e, rgb(0, 0, 0))', "padding": '0px', "cursor": 'pointer', "userSelect": 'none', "letterSpacing": '0em', "WebkitTapHighlightColor": 'rgba(0, 0, 0, 0)', "border": 'none', "outline": 'none', "fontStyle": 'normal', "textAlign": 'left', "borderRadius": '0px' } as FramerStyle}>
-                    <span aria-hidden="true" style={{ "position": 'absolute', "visibility": 'hidden', "whiteSpace": 'nowrap', "pointerEvents": 'none' } as FramerStyle}>{" bharathanand.mail@gmail.com"}</span>
-                    <span style={{ "position": 'relative', "display": 'grid', "placeItems": 'center' } as FramerStyle}>
-                      <span style={{ "gridArea": '1 / 1', "whiteSpace": 'nowrap', "opacity": '1' } as FramerStyle}>{" bharathanand.mail@gmail.com"}</span>
-                      <span aria-hidden="true" style={{ "gridArea": '1 / 1', "whiteSpace": 'nowrap', "opacity": '0' } as FramerStyle}>{"Copied!"}</span>
-                    </span>
-                  </button>
-                </div>
-              </div>
+              <FooterEmailBlock />
             </div>
           </div>
         </footer>

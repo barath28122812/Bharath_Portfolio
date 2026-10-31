@@ -972,6 +972,45 @@ html body {
    badge and a full-width Client Reviews stat card, so at these widths the grid
    looks uneven, text overlaps and content spills past the frame edge. */
 @media (min-width: 320px) and (max-width: 390px) {
+  /* Process section: keep the "PROCESS" heading static on small phones.
+     The sticky 100vh card wrappers cause the title row to shift on scroll. */
+  .framer-LRfZ0 .framer-17qyqbf {
+    position: relative !important;
+    top: auto !important;
+    transform: none !important;
+    will-change: auto !important;
+    padding: 18px 14px 14px !important;
+    gap: 8px !important;
+  }
+
+  .framer-LRfZ0 .framer-1dzukjq-container,
+  .framer-LRfZ0 .framer-p6ztjy-container,
+  .framer-LRfZ0 .framer-17uaksd-container {
+    position: relative !important;
+    top: auto !important;
+    height: auto !important;
+    min-height: auto !important;
+  }
+
+  .framer-LRfZ0 .framer-13ff6q9 {
+    position: relative !important;
+    height: auto !important;
+    min-height: auto !important;
+    padding: 24px 14px !important;
+  }
+
+  .framer-LRfZ0 .framer-802wdp {
+    position: relative !important;
+    top: auto !important;
+    height: auto !important;
+    min-height: auto !important;
+    padding: 24px 0 0 !important;
+  }
+
+  .framer-LRfZ0 .framer-1xic8yg {
+    margin-top: 0 !important;
+  }
+
   /* Pull the section closer to Projects and stop any sideways spill. */
   .home-page .framer-14q0wb {
     margin-top: 10px !important;
@@ -1642,7 +1681,7 @@ html body {
   }
 
   .more-work-copy {
-    gap: 12px !important;
+    gap: 16px !important;
     padding: 0 14px !important;
   }
 
@@ -2250,7 +2289,7 @@ a:hover .project-card-title {
 .framer-NKgCP .framer-j6c6bc .framer-13k8iyh-container button {
   max-width: 100%;
   min-width: 0;
-  font-size: clamp(10px, 6.5cqi, 20px) !important;
+  font-size: clamp(15px, 6.5cqi, 20px) !important;
   line-height: 1.25 !important;
   white-space: normal !important;
   overflow-wrap: anywhere;
@@ -2278,6 +2317,56 @@ a:hover .project-card-title {
 
 .framer-NKgCP .framer-j6c6bc .framer-13k8iyh-container button > span:last-child {
   justify-items: start;
+}
+
+/* The whole email block is tappable: the label delegates its click to the
+   copy button. Keep a visible focus ring for keyboard users (the button's
+   inline `outline: none` needs !important to be overridden). */
+.framer-NKgCP .footer-email-block {
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.framer-NKgCP .footer-email-block .footer-email-copy:focus-visible {
+  outline: 2px solid currentColor !important;
+  outline-offset: 3px !important;
+}
+
+/* Tablet/laptop: the last footer track holds the email address, which needs
+   more room than the other three columns. With equal tracks the address had
+   to shrink to ~13px on a 1280px laptop; this keeps it at the designed 20px.
+   The phone footer has its own 2-column grid, so only apply this from 810px.
+   Between 810px and ~840px the address needs the wider 1.85fr track, while
+   larger laptops already fit it at 1.6fr. */
+@media (min-width: 810px) and (max-width: 1199.98px) {
+  .framer-NKgCP .framer-xft4v1 {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(0, 1.85fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .framer-NKgCP .framer-xft4v1 {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(0, 1.6fr);
+  }
+}
+
+/* Phones (320–390px): bump the address to a readable minimum and keep the
+   footer gutters tight enough that the single line never clips. Vertical
+   padding only widens the tap target without stealing inline space from the
+   address (which would force it to shrink again). */
+@media (min-width: 320px) and (max-width: 390px) {
+  .framer-NKgCP.framer-v-123abt8 .framer-1s0pz8c {
+    padding-inline: 10px !important;
+  }
+
+  .framer-NKgCP .footer-email-block {
+    padding-block: 6px;
+  }
+
+  .framer-NKgCP .framer-j6c6bc .framer-13k8iyh-container button {
+    font-size: clamp(16px, 6.5cqi, 20px) !important;
+    letter-spacing: -0.01em !important;
+  }
 }
 
 /* Nav link labels (Home / About / Projects, navbar) — explicit so the
@@ -2335,6 +2424,35 @@ body p:not(.crunch-page p):not(.atbots-page p):not(.chat-response-text):not(.fra
 
 .framer-NKgCP .framer-1u1w4v3 > *:nth-child(n + 5) {
   display: none !important;
+}
+
+/* Footer "Socials" list: give LinkedIn / Behance / Upwork / Figma the same
+   hairline rule as the Home / About / Projects rows in the Pages column.
+   The rule lives on the item wrapper (not the anchor) so it spans the whole
+   column and stays put while the label's letter-roll hover animation runs.
+   Using a pseudo-element also keeps the footer height unchanged. */
+.framer-NKgCP .framer-1u1w4v3 > * {
+  position: relative;
+  width: 100% !important;
+}
+
+.framer-NKgCP .framer-1u1w4v3 > *::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -8px;
+  height: 1px;
+  background: rgb(240, 240, 240);
+}
+
+/* Phones (the footer variant used from 320px up to 809.98px) only keep a
+   4px gap between the social rows, so tuck the rule inside that gap instead
+   of letting it sit on top of the next label. */
+@media (max-width: 809.98px) {
+  .framer-NKgCP .framer-1u1w4v3 > *::after {
+    bottom: -3px;
+  }
 }
 
 /* ====== "More works" heading (MoreWorkMarquee) — 80px / 60px / 50px per
@@ -5047,6 +5165,33 @@ body #main .recent-works-chat-card .chat-response-text a,
   .site-frame :is(h1, h2, h3) {
     overflow-wrap: anywhere;
   }
+
+  /* The frame is flush with the viewport at phone widths, so the stars that
+     sit where each section hairline meets the left/right side frame lines
+     were sitting 5px outside the screen and got clipped in half. Nudge them
+     inside so the whole 4-point star shows. The corner stars were also being
+     stretched to 100% width by the shared `.site-frame > *` guardrail, which
+     moved them to the middle of the top/bottom lines; restore their 10px box.
+     Applies to every route (home, about, projects and project case studies)
+     at 320–390px only — larger phones, tablets and desktop stay untouched. */
+  .site-frame > .frame-star {
+    width: 10px !important;
+    height: 10px !important;
+  }
+
+  /* 2px rather than 0 because the spin rotates the 10px star, so its points
+     sweep about 2px past the box and would still nick the screen edge. */
+  .site-frame .frame-junction-star-left,
+  .site-frame > .frame-star-tl,
+  .site-frame > .frame-star-bl {
+    left: 2px;
+  }
+
+  .site-frame .frame-junction-star-right,
+  .site-frame > .frame-star-tr,
+  .site-frame > .frame-star-br {
+    right: 2px;
+  }
 }
 
 @media (max-width: 600px) {
@@ -6751,3 +6896,22 @@ body {
     padding-right: 12px !important;
   }
 }
+
+/* Projects index: reuse the work grid but keep its gutters aligned with the
+   page heading (16px phones / 24px tablet / 32px desktop). */
+.projects-index-main .work-grid-layout.projects-index-grid {
+  padding-inline: 16px !important;
+}
+
+@media (min-width: 600px) {
+  .projects-index-main .work-grid-layout.projects-index-grid {
+    padding-inline: 24px !important;
+  }
+}
+
+@media (min-width: 900px) {
+  .projects-index-main .work-grid-layout.projects-index-grid {
+    padding-inline: 32px !important;
+  }
+}
+

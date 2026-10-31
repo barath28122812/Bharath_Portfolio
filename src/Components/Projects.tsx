@@ -155,13 +155,13 @@ function Projects() {
             borderLeft: DIVIDER,
             borderRight: DIVIDER,
             display: 'flex',
-            flexDirection: { xs: 'column', lg: 'row' },
-            alignItems: { xs: 'flex-start', lg: 'center' },
+            flexDirection: { xs: 'column', sm: 'row' },
+            alignItems: { xs: 'flex-start', sm: 'center' },
             justifyContent: 'space-between',
-            gap: { xs: '12px', lg: 0 },
+            gap: { xs: '14px', sm: 0 },
             px: { xs: '12px', lg: '24px' },
             pt: { xs: '24px', sm: '32px', lg: '32px' },
-            pb: '12px',
+            pb: { xs: '16px', lg: '12px' },
           }}
         >
           <Box
@@ -185,24 +185,34 @@ function Projects() {
             sx={{
               display: 'inline-flex',
               alignItems: 'center',
+              justifyContent: 'center',
               gap: 1.5,
-              px: 2.5,
-              py: 1.5,
+              px: { xs: 2.25, sm: 2.5 },
+              py: 1.25,
+              minHeight: 44,
+              flexShrink: 0,
               borderRadius: 999,
               background: '#0b0b0b',
               color: '#fff',
               textDecoration: 'none',
               fontFamily: '"Inter", sans-serif',
-              fontSize: { xs: '13px', lg: '14px' },
+              fontSize: { xs: '14px', lg: '14px' },
               fontWeight: 600,
               letterSpacing: '-0.02em',
               lineHeight: 1,
+              whiteSpace: 'nowrap',
               boxShadow: '0 0 0 1px rgba(255,255,255,0.08) inset',
+              transition: 'opacity 0.2s ease, transform 0.15s ease',
               '&:hover': { opacity: 0.9 },
+              '&:active': { transform: 'scale(0.97)' },
+              '&:focus-visible': {
+                outline: '2px solid #0b0b0b',
+                outlineOffset: '3px',
+              },
             }}
           >
             View all projects
-            <Box component="span" sx={{ width: 12, height: 12, borderRadius: '50%', background: '#21d4ff', display: 'inline-block' }} />
+            <Box component="span" aria-hidden sx={{ width: 10, height: 10, borderRadius: '50%', background: '#21d4ff', display: 'inline-block', flexShrink: 0 }} />
           </Box>
         </Box>
 
