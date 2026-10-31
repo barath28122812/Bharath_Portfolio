@@ -1,9 +1,44 @@
 import Box from '@mui/material/Box'
+import { useEffect } from 'react'
 import { useChat } from './ChatContext'
 import type { FramerStyle } from './framer'
 
 function Process() {
   const { openChat } = useChat()
+
+  // Mobile only: the fixed navbar covers the "PROCESS" heading once the
+  // section scrolls. Publish the live navbar/title heights as CSS variables so
+  // the heading can stay pinned just below the navbar while the step cards
+  // stack underneath it. Desktop never reads these values.
+  useEffect(() => {
+    if (typeof window === 'undefined' || typeof ResizeObserver === 'undefined') return
+
+    const root = document.documentElement
+    const nav = document.querySelector<HTMLElement>('.framer-4zw9d1')
+    const title = document.querySelector<HTMLElement>('.framer-LRfZ0 .framer-17qyqbf')
+    if (!nav || !title) return
+
+    const sync = () => {
+      const navHeight = Math.round(nav.getBoundingClientRect().height)
+      const titleHeight = Math.round(title.getBoundingClientRect().height)
+      root.style.setProperty('--process-nav-h', `${navHeight}px`)
+      root.style.setProperty('--process-heading-h', `${titleHeight}px`)
+    }
+
+    sync()
+    const observer = new ResizeObserver(sync)
+    observer.observe(nav)
+    observer.observe(title)
+    window.addEventListener('resize', sync)
+
+    return () => {
+      observer.disconnect()
+      window.removeEventListener('resize', sync)
+      root.style.removeProperty('--process-nav-h')
+      root.style.removeProperty('--process-heading-h')
+    }
+  }, [])
+
   return (
   <Box className="framer-1isaao7" data-framer-name="Process" component="section">
     <div className="framer-y6y8ft" data-border="true" data-framer-name="Process">

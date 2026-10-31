@@ -809,9 +809,12 @@ html body {
     margin-bottom: 8px !important;
   }
 
-  /* Reset Framer's desktop margin-top: 110px on all main sections */
+  /* Reset Framer's desktop margin-top: 110px, then add 30px of breathing
+     room between the fixed mobile navbar and the hero's top hairline —
+     the "star line" that carries the frame-junction stars. The stars are
+     measured from this section's top, so they move down with the line. */
   .framer-LRfZ0 .framer-1e1vhhu {
-    margin-top: 0 !important;
+    margin-top: 30px !important;
     margin-bottom: 8px !important;
   }
 
@@ -972,11 +975,12 @@ html body {
    badge and a full-width Client Reviews stat card, so at these widths the grid
    looks uneven, text overlaps and content spills past the frame edge. */
 @media (min-width: 320px) and (max-width: 390px) {
-  /* Process section: keep the "PROCESS" heading static on small phones.
-     The sticky 100vh card wrappers cause the title row to shift on scroll. */
+  /* Process section title spacing on small phones. The heading itself is
+     pinned below the navbar by the mobile sticky rule further down; this
+     block only tightens its padding. */
   .framer-LRfZ0 .framer-17qyqbf {
-    position: relative !important;
-    top: auto !important;
+    position: sticky !important;
+    top: var(--process-nav-h, 70px) !important;
     transform: none !important;
     will-change: auto !important;
     padding: 18px 14px 14px !important;
@@ -3171,9 +3175,12 @@ body p:not(.crunch-page p):not(.atbots-page p):not(.chat-response-text):not(.fra
 }
 
 @media (max-width: 809.98px) {
-  /* Allow sticky children to escape the clipping context */
+  /* Allow sticky children to escape the clipping context.
+     Extra breathing room below the TESTIMONIAL section (mobile only):
+     base mobile margin-bottom is 8px + 30px + another 30px extra = 68px. */
   .framer-LRfZ0 .framer-159qakh {
     overflow: visible !important;
+    margin-bottom: 68px !important;
   }
 
   .testimonial-scroll-layout {
@@ -3185,8 +3192,10 @@ body p:not(.crunch-page p):not(.atbots-page p):not(.chat-response-text):not(.fra
   }
 
   .testimonial-scroll-layout > .framer-1yc1p7v {
-    position: relative;
-    top: auto;
+    position: sticky !important;
+    top: var(--testimonial-nav-h, 70px) !important;
+    z-index: 3 !important;
+    background: #fff !important;
     padding: 0;
     margin-bottom: 12px !important;
   }
@@ -3215,11 +3224,12 @@ body p:not(.crunch-page p):not(.atbots-page p):not(.chat-response-text):not(.fra
     overflow: visible !important;
   }
 
-  /* Full-viewport sticky panel for testimonial card */
+  /* Full-viewport sticky panel for testimonial card, offset below the pinned
+     TESTIMONIAL heading so the title never gets covered by the stacked cards. */
   .testimonial-scroll-step {
     position: sticky !important;
-    top: 70px !important;
-    height: calc(100vh - 70px) !important;
+    top: calc(var(--testimonial-nav-h, 70px) + var(--testimonial-heading-h, 44px)) !important;
+    height: calc(100vh - var(--testimonial-nav-h, 70px) - var(--testimonial-heading-h, 44px)) !important;
     min-height: 500px !important;
     display: flex !important;
     align-items: center !important;
@@ -3808,8 +3818,8 @@ body p:not(.crunch-page p):not(.atbots-page p):not(.chat-response-text):not(.fra
     position: absolute !important;
     left: 50% !important;
     right: auto !important;
-    transform: translateX(-50%) !important;
-    top: -16px !important;
+    transform: translate(-50%, -50%) !important;
+    top: -24.7px !important;
     width: max-content !important;
     max-width: calc(100vw - 28px) !important;
     white-space: nowrap !important;
@@ -3826,7 +3836,7 @@ body p:not(.crunch-page p):not(.atbots-page p):not(.chat-response-text):not(.fra
   .framer-LRfZ0 .framer-1r3iyda::before {
     content: '' !important;
     position: absolute !important;
-    top: -16px !important;
+    top: -24.7px !important;
     left: 0 !important;
     right: 0 !important;
     height: 0 !important;
@@ -3867,8 +3877,8 @@ body p:not(.crunch-page p):not(.atbots-page p):not(.chat-response-text):not(.fra
     position: absolute !important;
     left: 50% !important;
     right: auto !important;
-    transform: translateX(-50%) !important;
-    top: -16px !important;
+    transform: translate(-50%, -50%) !important;
+    top: -24.7px !important;
     width: max-content !important;
     max-width: calc(100vw - 24px) !important;
     white-space: nowrap !important;
@@ -3884,7 +3894,7 @@ body p:not(.crunch-page p):not(.atbots-page p):not(.chat-response-text):not(.fra
   .framer-LRfZ0 .framer-1r3iyda::before {
     content: '' !important;
     position: absolute !important;
-    top: -16px !important;
+    top: -24.7px !important;
     left: 0 !important;
     right: 0 !important;
     height: 0 !important;
@@ -3900,8 +3910,8 @@ body p:not(.crunch-page p):not(.atbots-page p):not(.chat-response-text):not(.fra
     position: absolute !important;
     left: 50% !important;
     right: auto !important;
-    transform: translateX(-50%) !important;
-    top: -14px !important;
+    transform: translate(-50%, -50%) !important;
+    top: -16.7px !important;
     width: max-content !important;
     max-width: calc(100vw - 18px) !important;
     white-space: nowrap !important;
@@ -3915,7 +3925,7 @@ body p:not(.crunch-page p):not(.atbots-page p):not(.chat-response-text):not(.fra
   }
 
   .framer-LRfZ0 .framer-1r3iyda::before {
-    top: -14px !important;
+    top: -16.7px !important;
   }
 
   .framer-LRfZ0 .framer-bqe6hw {
@@ -5237,6 +5247,17 @@ body #main .recent-works-chat-card .chat-response-text a,
     width: 100%;
   }
 
+  /* Hero pill + its crossing line sit on the section's top hairline (the
+     star line). Up to this width the gap above the hero card is 16px, so
+     the 391–425px range needs the same offset as the ≤390px block. */
+  .framer-LRfZ0 .framer-1m89qvr {
+    top: -16.7px !important;
+  }
+
+  .framer-LRfZ0 .framer-1r3iyda::before {
+    top: -16.7px !important;
+  }
+
   .ateats-page,
   .beuta-page,
   .crunch-page,
@@ -5357,13 +5378,14 @@ body #main .recent-works-chat-card .chat-response-text a,
     flex: 1 1 auto !important;
   }
 
-  /* Each step container: full-viewport sticky panel */
+  /* Each step container: full-viewport sticky panel, offset below the pinned
+     PROCESS heading so the title never gets covered by the stacked cards. */
   .framer-LRfZ0 .framer-1dzukjq-container,
   .framer-LRfZ0 .framer-p6ztjy-container,
   .framer-LRfZ0 .framer-17uaksd-container {
     position: sticky !important;
-    top: 70px !important;
-    height: calc(100vh - 70px) !important;
+    top: calc(var(--process-nav-h, 70px) + var(--process-heading-h, 54px)) !important;
+    height: calc(100vh - var(--process-nav-h, 70px) - var(--process-heading-h, 54px)) !important;
     min-height: 440px !important;
     display: flex !important;
     flex-direction: column !important;
@@ -5372,6 +5394,16 @@ body #main .recent-works-chat-card .chat-response-text a,
     box-sizing: border-box !important;
     padding: 10px 16px 20px !important;
     overflow: visible !important;
+  }
+
+  /* Keep the PROCESS heading visible while the section scrolls: pin it right
+     under the fixed navbar. The navbar/heading heights come from Process.tsx
+     so this follows the real mobile navbar instead of a hard-coded offset. */
+  .framer-LRfZ0 .framer-17qyqbf {
+    position: sticky !important;
+    top: var(--process-nav-h, 70px) !important;
+    z-index: 5 !important;
+    background-color: #fff !important;
   }
 
   .framer-LRfZ0 .framer-1dzukjq-container {
@@ -5587,8 +5619,8 @@ body #main .recent-works-chat-card .chat-response-text a,
   }
 
   .testimonial-scroll-step {
-    top: 66px !important;
-    height: calc(100vh - 66px) !important;
+    top: calc(var(--testimonial-nav-h, 66px) + var(--testimonial-heading-h, 30px)) !important;
+    height: calc(100vh - var(--testimonial-nav-h, 66px) - var(--testimonial-heading-h, 30px)) !important;
     min-height: 460px !important;
     padding: 6px 0 16px !important;
   }
@@ -6847,8 +6879,9 @@ body {
   }
 
   #main.home-page .framer-1isaao7 .framer-17qyqbf {
-    position: relative !important;
-    z-index: 4 !important;
+    position: sticky !important;
+    top: var(--process-nav-h, 70px) !important;
+    z-index: 5 !important;
     padding: clamp(12px, 3.6vw, 14px) clamp(12px, 4vw, 16px)
       clamp(8px, 2.6vw, 10px) !important;
     gap: 8px !important;

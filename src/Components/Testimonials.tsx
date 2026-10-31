@@ -79,6 +79,39 @@ function Testimonials() {
     }
   }, [])
 
+  // Mobile only: the fixed navbar covers the "TESTIMONIAL" heading once the
+  // section scrolls. Publish the live navbar/title heights as CSS variables so
+  // the heading can stay pinned just below the navbar while the testimonial
+  // and contact cards stack underneath it. Desktop never reads these values.
+  useEffect(() => {
+    if (typeof window === 'undefined' || typeof ResizeObserver === 'undefined') return
+
+    const root = document.documentElement
+    const nav = document.querySelector<HTMLElement>('.framer-4zw9d1')
+    const title = document.querySelector<HTMLElement>('.testimonial-scroll-layout > .framer-1yc1p7v')
+    if (!nav || !title) return
+
+    const sync = () => {
+      const navHeight = Math.round(nav.getBoundingClientRect().height)
+      const titleHeight = Math.round(title.getBoundingClientRect().height)
+      root.style.setProperty('--testimonial-nav-h', `${navHeight}px`)
+      root.style.setProperty('--testimonial-heading-h', `${titleHeight}px`)
+    }
+
+    sync()
+    const observer = new ResizeObserver(sync)
+    observer.observe(nav)
+    observer.observe(title)
+    window.addEventListener('resize', sync)
+
+    return () => {
+      observer.disconnect()
+      window.removeEventListener('resize', sync)
+      root.style.removeProperty('--testimonial-nav-h')
+      root.style.removeProperty('--testimonial-heading-h')
+    }
+  }, [])
+
   const goTo = (requestedIndex: number) => {
     const nextIndex = (requestedIndex + VISIBLE_TESTIMONIALS.length) % VISIBLE_TESTIMONIALS.length
     setIndex(nextIndex)
