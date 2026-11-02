@@ -221,13 +221,15 @@ function LatestInsights() {
 
         <Box className="latest-insights-grid">
           {LATESTINSIGHTS_CARD.map(card => (
-            <a key={card.id} href={card.URL} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: 'inherit' }}>
-              <Box component="article" style={{ borderRadius: 16, overflow: 'hidden' } as FramerStyle}>
-                <img className="latest-insight-image" src={card.img} alt={card.title} loading="lazy" style={{ width: '100%', height: 288, objectFit: 'cover', display: 'block', borderRadius: 16 } as FramerStyle} />
+            <a key={card.id} className="latest-insight-card" href={card.URL} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Box component="article" className="latest-insight-card-inner" style={{ borderRadius: 16, overflow: 'hidden' } as FramerStyle}>
+                <Box className="latest-insight-media">
+                  <img className="latest-insight-image" src={card.img} alt={card.title} loading="lazy" style={{ width: '100%', height: 288, objectFit: 'cover', display: 'block', borderRadius: 16 } as FramerStyle} />
+                </Box>
                 <Box className="latest-insight-meta" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 2px' } as FramerStyle}>
                   <Box className="latest-insight-text">
                     <h5 style={{ fontFamily: '"Inter", sans-serif', fontSize: 20, fontWeight: 600, margin: 0, color: '#000' } as FramerStyle}>
-                      {card.title}
+                      <span className="latest-insight-title">{card.title}</span>
                     </h5>
                     <p style={{ fontFamily: '"Inter", sans-serif', fontSize: 14, color: '#6B6B6B', margin: '4px 0 0' } as FramerStyle}>
                       {card.date}
@@ -358,6 +360,7 @@ function SomeFreelanceDesignSection() {
                 key={item.id}
                 component={item.path && item.path !== '#' ? 'a' : 'div'}
                 {...(item.path && item.path !== '#' ? { href: item.path, target: '_blank', rel: 'noopener noreferrer' } : {})}
+                className="freelance-half-card"
                 style={{
                   background: item.bgColor,
                   borderRadius: 24,
@@ -423,7 +426,7 @@ function SomeFreelanceDesignSection() {
           {/* Reference design cards below onboarding */}
           <Box className="freelance-halves-grid" style={{ order: 4 } as FramerStyle}>
             {referenceCards.map(item => (
-              <Box key={item.id} component="article" style={{ overflow: 'hidden', borderRadius: 24 } as FramerStyle}>
+              <Box key={item.id} component="article" className="freelance-reference-card" style={{ overflow: 'hidden', borderRadius: 24 } as FramerStyle}>
                 <img
                   src={item.image}
                   alt={`${item.tag.replace('  •  ', ' ')}: ${item.title}`}

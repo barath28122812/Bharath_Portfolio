@@ -26,10 +26,9 @@ const pageResponsiveCss = `
   }
   .ab-live { padding: 60px 0 80px; }
   .abl-tag { display: inline-block; background: rgba(124,58,237,0.1); color: #7C3AED; font-family: Inter, sans-serif; font-size: 11px; font-weight: 700; padding: 4px 14px; border-radius: 100px; margin-bottom: 16px; }
-  .abl-title { font-family: 'Inter', sans-serif; font-size: clamp(34px, 5vw, 60px); font-weight: 700; color: #111111; margin: 0 0 20px 0; letter-spacing: -0.02em; line-height: 1.1; }
-  .ab-main-heading { font-family: 'Inter', sans-serif; font-size: clamp(28px, 5vw, 52px); font-weight: 800; color: #111111; margin: 0 auto 20px; letter-spacing: -0.02em; line-height: 1.12; max-width: 920px; text-align: center; }
-  .ab-section p.ab-main-sub { font-family: 'Inter', sans-serif; font-size: clamp(15px, 2.4vw, 18px); line-height: 1.7; color: #666666; max-width: 720px; width: fit-content; margin: 0 auto 24px; text-align: center; }
-  .ab-hashtags { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 44px; }
+  .abl-title { font-family: 'Inter', sans-serif; font-size: clamp(48px, 9vw, 108px); font-weight: 700; color: #111111; margin: 0 0 20px 0; letter-spacing: -0.02em; line-height: 1; }
+  .ab-main-heading { font-family: 'Inter', sans-serif; font-size: clamp(28px, 5vw, 52px); font-weight: 800; color: #111111; margin: 0 0 20px; letter-spacing: -0.02em; line-height: 1.12; max-width: 920px; }
+  .ab-hashtags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 44px; }
   .ab-hashtag { display: inline-block; background: rgba(124,58,237,0.1); color: #7C3AED; font-family: Inter, sans-serif; font-size: 12px; font-weight: 600; padding: 6px 14px; border-radius: 100px; }
   .ab-section p.abl-desc { font-family: 'Inter', sans-serif; font-size: clamp(14px, 2.2vw, 15px); line-height: 1.7; color: #666666; max-width: 680px; margin: 0 auto 36px; text-align: center; }
   .abl-btn { display: inline-flex; align-items: center; gap: 10px; background: #7C3AED; color: #FFFFFF; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 700; padding: 12px 24px; border-radius: 100px; text-decoration: none; box-shadow: 0 8px 24px rgba(124, 58, 237, 0.3); transition: transform 0.2s ease, box-shadow 0.2s ease; }
@@ -168,7 +167,7 @@ function AtBotsPage() {
           <Box style={container}>
             <Box style={contentPad}>
               <h2 className="ab-main-heading">atBots</h2>
-              <p className="ab-main-sub">From Complex AI Configuration to a Simple No-Code Experience</p>
+                <p>From Complex AI Configuration to a Simple No-Code Experience</p>
               <div className="ab-hashtags">
                 <span className="ab-hashtag">#AgenticAI</span>
                 <span className="ab-hashtag">#AIUX</span>

@@ -112,24 +112,6 @@ function ProjectsIndex() {
               />
             ))}
           </Box>
-
-          <Box
-            component="p"
-            sx={{
-              maxWidth: 1400,
-              mx: 'auto',
-              mt: 3,
-              mb: 0,
-              px: { xs: 2, sm: 3, md: 4 },
-              boxSizing: 'border-box',
-              color: '#888',
-              fontFamily: '"Inter", sans-serif',
-              fontSize: 12,
-              lineHeight: 1.5,
-            }}
-          >
-            {WORKDATASECTION.length} selected works
-          </Box>
         </Box>
         <Footer />
       </Box>
