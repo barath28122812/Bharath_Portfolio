@@ -232,7 +232,7 @@ function StatsFactsSection() {
 
         <Box style={{ ...contentPad, marginTop: 36, display: 'flex', flexDirection: 'column', gap: 16 } as FramerStyle}>
           {ABOUT_STATS_FACTS.EXPERIENCE.map(exp => (
-            <Box key={`${exp.header}-${exp.company}`} className="about-experience-row" data-period={exp.period || undefined}>
+            <Box key={`${exp.header}-${exp.company}`} className="about-experience-row">
               <h2 style={{ fontFamily: '"Inter", sans-serif', fontSize: 26, lineHeight: 1.3, fontWeight: 600, color: '#000', margin: 0, flex: 1, minWidth: 200 } as FramerStyle}>
                 {exp.header}
               </h2>
