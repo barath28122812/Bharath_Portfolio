@@ -3207,8 +3207,8 @@ body p:not(.crunch-page p):not(.atbots-page p):not(.chat-response-text):not(.fra
     /* Match the PROCESS heading size on mobile. The wider mobile range keeps
        PROCESS at the preset's 58px floor, so TESTIMONIAL follows that size and
        uses tighter tracking to stay on one line on 391–425px phones. */
-    font-size: clamp(58px, 5.6vw, 120px) !important;
-    --framer-font-size: clamp(58px, 5.6vw, 120px) !important;
+    font-size: clamp(30px, 5.6vw, 120px) !important;
+    --framer-font-size: clamp(30px, 5.6vw, 120px) !important;
     line-height: 1.1 !important;
     --framer-line-height: 1.1em !important;
     letter-spacing: -0.05em !important;
