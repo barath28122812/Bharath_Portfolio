@@ -7440,3 +7440,255 @@ body {
     margin-top: 80px !important;
   }
 }
+
+/* ===========================================================================
+   Home — touch hover + press behaviour (small phones 320–390px)
+   ---------------------------------------------------------------------------
+   A phone keeps the last tapped element in its :hover state until something
+   else is tapped, which made the CTA pills, project cards, arrows and menu
+   links stay raised/recoloured after a tap. This block only matches coarse
+   pointers at phone widths, so it resets each Home hover effect back to its
+   resting value and adds a short, contained pressed state instead.
+
+   Desktop and tablet (≥391px) keep their existing hover rules exactly as they
+   are. Nothing here changes dimensions, spacing, colours, shadows, border
+   radii or keyframe animations in the resting design.
+   ========================================================================== */
+@media (min-width: 320px) and (max-width: 390px) and (hover: none) and (pointer: coarse) {
+  /* Remove the 300ms double-tap delay and the grey iOS tap flash. */
+  .home-page a,
+  .home-page button,
+  .home-page [role='button'],
+  .home-page .services-accordion-header,
+  .home-page .project-card-link,
+  .home-page .page-mobile-menu-close,
+  .home-page .page-mobile-menu-links a,
+  .home-page .page-mobile-menu-backdrop {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* --- CTA pills ("I Want to Chat" / "I'm Ready to Start") -------------- */
+  .home-page .framer-76p5jv:hover {
+    transform: none !important;
+  }
+
+  .home-page .framer-76p5jv:active {
+    transform: scale(0.98) !important;
+  }
+
+  /* The hero chat pill repaints its dot and label on hover. Put every piece
+     back to the resting design; keyboard focus keeps its original cue
+     because this override only targets :hover. */
+  .home-page .framer-LRfZ0 .framer-si04yb .framer-aVBx0.framer-v-1ag5vbt:hover .framer-vy3l00::before {
+    transform: scaleX(0) !important;
+  }
+
+  .home-page .framer-LRfZ0 .framer-si04yb .framer-aVBx0.framer-v-1ag5vbt:hover .framer-text {
+    color: rgb(0, 0, 0) !important;
+  }
+
+  .home-page .framer-LRfZ0 .framer-si04yb .framer-aVBx0.framer-v-1ag5vbt:hover .framer-13sif1n {
+    background-color: var(--token-37deb730-75ce-4979-91a3-bdf0765d2aa3, rgb(207, 249, 255)) !important;
+  }
+
+  .home-page .framer-LRfZ0 .framer-si04yb .framer-aVBx0.framer-v-1ag5vbt:hover .framer-jb7qng {
+    background-color: var(--token-0cf62797-c341-4cdd-86b9-49f64afc3f64, rgb(255, 255, 255)) !important;
+  }
+
+  .home-page .framer-LRfZ0 .framer-si04yb .framer-aVBx0.framer-v-1ag5vbt:hover .framer-1rwq289 {
+    border-color: transparent !important;
+    animation: none !important;
+  }
+
+  /* --- Navigation ------------------------------------------------------- */
+  .home-page .framer-v-x0lgeu:hover {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  .home-page .framer-v-x0lgeu:hover span {
+    color: #1d8bf1 !important;
+  }
+
+  .home-page .framer-1i96c6o:hover svg {
+    transform: none !important;
+  }
+
+  .home-page .nav-social-icon-btn:hover {
+    transform: none !important;
+    box-shadow: none !important;
+  }
+
+  .home-page .framer-1vviajj {
+    transition: opacity 0.15s ease;
+  }
+
+  .home-page .framer-1vviajj:active {
+    opacity: 0.6;
+  }
+
+  .home-page .framer-qjfp2z:active .framer-1i96c6o {
+    opacity: 0.8;
+  }
+
+  /* --- Project marquee / cards ----------------------------------------- */
+  .home-page .projects-home-marquee:hover,
+  .home-page .projects-home-marquee-wrap:hover .projects-home-marquee {
+    animation-play-state: running !important;
+  }
+
+  .home-page .framer-si04yb a[href='/projects']:hover {
+    opacity: 1 !important;
+  }
+
+  .home-page .project-card-link:hover .project-card-image {
+    transform: scale(1) !important;
+  }
+
+  .home-page .project-card-link:hover .project-card-title,
+  .home-page .project-card-title:hover,
+  .home-page a:hover .project-card-title {
+    color: rgb(0, 0, 0) !important;
+  }
+
+  .home-page .project-card-link:hover .project-card-arrow {
+    background-color: rgb(242, 242, 242) !important;
+  }
+
+  .home-page .project-card-link:hover .project-card-arrow-out {
+    left: 50% !important;
+    opacity: 1 !important;
+  }
+
+  .home-page .project-card-link:hover .project-card-arrow-in {
+    left: -50% !important;
+    opacity: 0 !important;
+  }
+
+  /* --- Services accordion ---------------------------------------------- */
+  .home-page .services-accordion-header:active {
+    background-color: rgba(0, 0, 0, 0.03) !important;
+  }
+
+  /* --- Process cards / CTA --------------------------------------------- */
+  /* ≤809.98px the step cards rest on this softer shadow (see the mobile
+     Process block earlier in the file), so the post-tap state must match it
+     rather than the desktop 112,112,112 shadow. */
+  .home-page .process-step-card:hover {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.14) !important;
+  }
+
+  .home-page .process-step-card.process-step-outer:hover {
+    box-shadow: none !important;
+  }
+
+  /* --- Testimonials ----------------------------------------------------- */
+  .home-page #dean-testimonial .testimonial-arrow:hover {
+    background-color: #fff !important;
+    transform: none !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+  }
+
+  .home-page #dean-testimonial .testimonial-arrow:hover svg {
+    stroke: #000 !important;
+  }
+
+  .home-page #dean-testimonial .testimonial-arrow:active {
+    transform: scale(0.95) !important;
+  }
+
+  .home-page .testimonial-panels .testimonial-contact-card a {
+    transition: color 0.2s ease, opacity 0.15s ease;
+  }
+
+  .home-page .testimonial-panels .testimonial-contact-card a:hover {
+    color: #575757 !important;
+    text-decoration: none !important;
+  }
+
+  .home-page .testimonial-panels .testimonial-contact-card a:active {
+    opacity: 0.72;
+  }
+
+  .home-page .testimonial-panels .testimonial-contact-booking button {
+    transition: transform 0.15s ease, opacity 0.15s ease;
+  }
+
+  .home-page .testimonial-panels .testimonial-contact-booking button:active {
+    transform: scale(0.98);
+    opacity: 0.85;
+  }
+
+  /* --- Mobile menu ------------------------------------------------------ */
+  .home-page-shell .page-mobile-menu-close {
+    transition: color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+  }
+
+  .home-page-shell .page-mobile-menu-close:hover {
+    color: #000 !important;
+    border-color: rgba(224, 224, 224, 0.63) !important;
+  }
+
+  .home-page-shell .page-mobile-menu-close:active {
+    transform: scale(0.94);
+  }
+
+  .home-page-shell .page-mobile-menu-links a {
+    transition: color 0.2s ease, opacity 0.15s ease;
+  }
+
+  .home-page-shell .page-mobile-menu-links a:hover {
+    color: #000 !important;
+  }
+
+  .home-page-shell .page-mobile-menu-links a:active {
+    opacity: 0.65;
+  }
+
+  /* --- Footer email copy ------------------------------------------------ */
+  .home-page .framer-NKgCP .footer-email-copy {
+    transition: opacity 0.15s ease;
+  }
+
+  .home-page .framer-NKgCP .footer-email-copy:active {
+    opacity: 0.7;
+  }
+}
+
+/* ===========================================================================
+   About — first bio section profile image
+   ---------------------------------------------------------------------------
+   The image previously pointed at a ~20 MB remote SVG, so the <img> stayed at
+   0×0 and the panel looked blank while (or if) it downloaded. The section now
+   uses the bundled 890×1302 JPEG. These rules keep the frame fluid, reserve
+   the aspect ratio before the bitmap decodes, and prevent the media from
+   being stretched, cropped or pushed past the page edge on phones.
+   Desktop keeps its existing three-column sizing because width:100%,
+   height:auto and object-fit:contain are unchanged.
+   ========================================================================== */
+.about-page-shell .about-bio-profile-column {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.about-page-shell .about-profile-media {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  margin-inline: auto;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.about-page-shell .about-profile-media img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto !important;
+  aspect-ratio: 890 / 1302;
+  object-fit: contain;
+  object-position: center;
+}

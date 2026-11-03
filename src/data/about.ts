@@ -108,7 +108,7 @@ export const BIOSECTION = {
   CHAT_RESPONSE_PROJECTS: 'I\u2019m working on bringing it here, meanwhile you can check out my',
   READ: 'Read',
   BEHANCE_URL: 'https://www.behance.net/bharathanand2812',
-  PROFILE_IMAGE: 'https://www.bharathanand.co.uk/assets/images/home/bioSection/bharath_profile.svg',
+  PROFILE_IMAGE: '/assets/images/about/bharath-profile.jpg',
   TECH_STACK: 'https://www.bharathanand.co.uk/assets/images/home/bioSection/tech_stack.svg',
 }
 

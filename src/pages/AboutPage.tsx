@@ -82,13 +82,17 @@ function BioSection() {
           } as FramerStyle}
           className="about-bio-grid"
         >
-          <Box style={{ display: 'flex', flexDirection: 'column', gap: 12 } as FramerStyle}>
-            <Box style={{ width: '100%', borderRadius: 12, overflow: 'hidden' } as FramerStyle}>
+          <Box className="about-bio-profile-column" style={{ display: 'flex', flexDirection: 'column', gap: 12 } as FramerStyle}>
+            <Box className="about-profile-media" style={{ width: '100%', borderRadius: 12, overflow: 'hidden' } as FramerStyle}>
               <img
                 src={BIOSECTION.PROFILE_IMAGE}
                 alt="Bharath A"
-                loading="lazy"
-                style={{ width: '100%', height: 'auto', objectFit: 'contain', display: 'block' } as FramerStyle}
+                width={890}
+                height={1302}
+                loading="eager"
+                fetchPriority="high"
+                decoding="async"
+                style={{ width: '100%', height: 'auto', aspectRatio: '890 / 1302', objectFit: 'contain', objectPosition: 'center', display: 'block' } as FramerStyle}
               />
             </Box>
             <Box style={{ ...card, marginTop: 16, padding: 16, flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' } as FramerStyle}>
