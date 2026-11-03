@@ -24,6 +24,7 @@ function ProjectCard({ title, category, image, to, external, fillBox, sx }: Proj
   return (
     <Box
       {...linkProps}
+      className="project-card-link"
       sx={{
         display: fillBox ? 'flex' : 'block',
         flexDirection: fillBox ? 'column' : undefined,
@@ -47,6 +48,7 @@ function ProjectCard({ title, category, image, to, external, fillBox, sx }: Proj
       }}
     >
       <Box
+        className="project-card-media"
         sx={{
           position: 'relative',
           overflow: 'hidden',

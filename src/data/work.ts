@@ -137,7 +137,7 @@ title: 'LMS Redesign',
     bgColor: '#A0E6DA',
     textColor: '#ffffff',
     size: 'half',
-    image: '/Dashboard.png',
+    image: '/t/Dashboard Link 2.png',
   },
   {
     id: 7,
@@ -147,7 +147,7 @@ title: 'LMS Redesign',
     bgColor: '#D28AE4',
     textColor: '#333333',
     size: 'half',
-    image: '/AI.png',
+    image: '/AI Link 1.png',
   },
 ]
 

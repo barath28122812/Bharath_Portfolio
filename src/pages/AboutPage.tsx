@@ -478,13 +478,15 @@ function LatestInsightsSection() {
 
         <Box className="about-insights-grid" style={{ ...contentPad, display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: 24, marginTop: 40 } as FramerStyle}>
           {LATESTINSIGHTS_CARD.map(card => (
-            <a key={card.id} href={card.URL} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: 'inherit' }}>
-              <Box component="article" style={{ borderRadius: 16, overflow: 'hidden' } as FramerStyle}>
-                <img src={card.img} alt={card.title} loading="lazy" style={{ width: '100%', height: 288, objectFit: 'cover', display: 'block', borderRadius: 16 } as FramerStyle} />
+            <a key={card.id} className="latest-insight-card" href={card.URL} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Box component="article" className="latest-insight-card-inner" style={{ borderRadius: 16, overflow: 'hidden' } as FramerStyle}>
+                <Box className="latest-insight-media">
+                  <img className="latest-insight-image" src={card.img} alt={card.title} loading="lazy" style={{ width: '100%', height: 288, objectFit: 'cover', display: 'block', borderRadius: 16 } as FramerStyle} />
+                </Box>
                 <Box className="latest-insight-meta" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, padding: '14px 2px', flexWrap: 'wrap' } as FramerStyle}>
                   <Box className="latest-insight-text" style={{ minWidth: 0, flex: '1 1 auto' } as FramerStyle}>
                     <h5 style={{ fontFamily: '"Inter", sans-serif', fontSize: 20, fontWeight: 600, margin: 0, color: '#000' } as FramerStyle}>
-                      {card.title}
+                      <span className="latest-insight-title">{card.title}</span>
                     </h5>
                     <p style={{ fontFamily: '"Inter", sans-serif', fontSize: 14, color: '#6B6B6B', margin: '4px 0 0' } as FramerStyle}>
                       {card.date}

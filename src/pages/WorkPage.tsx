@@ -426,7 +426,12 @@ function SomeFreelanceDesignSection() {
           {/* Reference design cards below onboarding */}
           <Box className="freelance-halves-grid" style={{ order: 4 } as FramerStyle}>
             {referenceCards.map(item => (
-              <Box key={item.id} component="article" className="freelance-reference-card" style={{ overflow: 'hidden', borderRadius: 24 } as FramerStyle}>
+              <Box
+                key={item.id}
+                component="article"
+                className={`freelance-reference-card${item.id === 7 ? ' freelance-reference-card--ai' : ''}`}
+                style={{ overflow: 'hidden', borderRadius: 24 } as FramerStyle}
+              >
                 <img
                   src={item.image}
                   alt={`${item.tag.replace('  •  ', ' ')}: ${item.title}`}

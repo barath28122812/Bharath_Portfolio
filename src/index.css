@@ -1479,6 +1479,28 @@ html body {
   gap: 20px;
 }
 
+/* Only the "AI for proofreaders" card (id: 7) is matched to the width/height
+   of the "Dashboard redesign" card (id: 6) beside it. The Dashboard card keeps
+   its natural image height, so the AI card takes that same aspect ratio and
+   its image fills the frame with object-fit. No other card is affected. */
+.freelance-reference-card--ai {
+  position: relative;
+  /* Same image ratio as the Dashboard card: /t/Dashboard Link 2.png (1312x1199). */
+  aspect-ratio: 1312 / 1199;
+}
+
+.freelance-halves-grid .freelance-reference-card--ai > img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  /* The site-wide mobile rule forces images to height:auto; this card needs
+     to fill its frame so it lines up with the Dashboard card exactly. */
+  height: 100% !important;
+  object-fit: cover;
+  object-position: center;
+}
+
 .latest-insights-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1509,8 +1531,12 @@ html body {
   transition: transform 0.3s ease;
 }
 
-.freelance-card-mockup-wrapper:hover {
-  transform: translateY(-3px);
+/* Only lift the inner mockup on devices with a real pointer. On touch the
+   :hover state used to stick after a tap and left the image raised. */
+@media (hover: hover) and (pointer: fine) {
+  .freelance-card-mockup-wrapper:hover {
+    transform: translateY(-3px);
+  }
 }
 
 .freelance-card-mockup-img {
@@ -5609,11 +5635,18 @@ body #main .recent-works-chat-card .chat-response-text a,
 
   /* Testimonials section 320px–390px mobile responsiveness */
   .testimonial-scroll-layout {
-    padding: 16px 12px 14px !important;
+    /* Extra breathing room above the TESTIMONIAL heading so it is clearly
+       separated from the previous section as the section scrolls in. */
+    padding: 24px 12px 14px !important;
   }
 
   .testimonial-scroll-layout > .framer-1yc1p7v {
-    margin-bottom: 10px !important;
+    /* This wrapper is sticky directly under the fixed navbar, so its own
+       padding supplies the visible gap above and below the heading. Padding
+       is used (not margin) because the sticky card step below is offset by
+       the measured heading height — the card stays clear of the title. */
+    padding: 14px 0 10px !important;
+    margin-bottom: 16px !important;
   }
 
   .framer-RYqUR .testimonial-scroll-layout .testimonial-heading.framer-styles-preset-sv70jv,
@@ -6487,7 +6520,7 @@ body {
     white-space: nowrap !important;
   }
 
-  .about-page-shell .about-insights-grid article > img {
+  .about-page-shell .about-insights-grid .latest-insight-media > img {
     width: 100% !important;
     height: auto !important;
     aspect-ratio: 1.5;
@@ -6958,3 +6991,452 @@ body {
   }
 }
 
+/* ==========================================================================
+   Projects (Work) + Latest Insights cards
+   Shared hover treatment, plus phone (320–390px) and laptop tuning.
+   The project card image frame and the insight card now behave the same on
+   hover: the media lifts slightly, the image zooms, and the accent colour
+   moves to the title / View Post pill.
+   ========================================================================== */
+
+/* --- Shared media frame ------------------------------------------------- */
+.project-card-media,
+.latest-insight-media {
+  position: relative;
+  overflow: hidden;
+  backface-visibility: hidden;
+  transition:
+    transform 320ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 320ms ease;
+}
+
+.latest-insight-media {
+  border-radius: 16px;
+  background: #f2f2f2;
+}
+
+.project-card-image,
+.latest-insight-image {
+  transform: scale(1);
+  transition: transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+/* --- Insight card shell ------------------------------------------------- */
+.latest-insight-card {
+  display: block;
+  border-radius: 16px;
+  color: inherit;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.latest-insight-card-inner {
+  overflow: hidden;
+  border-radius: 16px;
+  background: #fff;
+  transition:
+    transform 320ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 320ms ease;
+}
+
+.latest-insight-title {
+  display: inline;
+  transition: color 300ms ease;
+}
+
+.latest-insight-cta {
+  transition:
+    background-color 300ms ease,
+    color 300ms ease,
+    transform 300ms ease;
+}
+
+/* Hover only on devices that actually have a pointer. This keeps the new
+   effects off touch screens, where :hover would otherwise stick after a tap. */
+@media (hover: hover) and (pointer: fine) {
+  .project-card-link:hover .project-card-media {
+    transform: translateY(-4px);
+    box-shadow: 0 22px 46px rgba(0, 0, 0, 0.16);
+  }
+
+  .latest-insight-card:hover .latest-insight-card-inner {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 42px rgba(0, 0, 0, 0.14);
+  }
+
+  .latest-insight-card:hover .latest-insight-image {
+    transform: scale(1.06);
+  }
+
+  .latest-insight-card:hover .latest-insight-title {
+    color: rgb(255, 70, 46);
+  }
+
+  .latest-insight-card:hover .latest-insight-cta {
+    background: rgb(255, 70, 46) !important;
+    color: #fff !important;
+  }
+}
+
+/* Keyboard users get the same cue as mouse users. */
+.latest-insight-card:focus-visible {
+  outline: 3px solid rgb(255, 70, 46);
+  outline-offset: 4px;
+}
+
+/* Touch feedback instead of a sticky hover state. */
+@media (hover: none) {
+  .project-card-link:active .project-card-media,
+  .latest-insight-card:active .latest-insight-card-inner {
+    transform: scale(0.995);
+  }
+
+  .project-card-link:active .project-card-image,
+  .latest-insight-card:active .latest-insight-image {
+    transform: scale(1.02);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-card-media,
+  .project-card-image,
+  .latest-insight-media,
+  .latest-insight-image,
+  .latest-insight-card-inner,
+  .latest-insight-title,
+  .latest-insight-cta {
+    transition: none !important;
+  }
+
+  .project-card-link:hover .project-card-media,
+  .latest-insight-card:hover .latest-insight-card-inner,
+  .project-card-link:active .project-card-media,
+  .latest-insight-card:active .latest-insight-card-inner,
+  .project-card-link:active .project-card-image,
+  .latest-insight-card:active .latest-insight-image {
+    transform: none !important;
+  }
+}
+
+/* --- Tablet / small-laptop band (810px–1199px) --------------------------
+   Three insight columns were only ~220–290px wide here: the fixed 288px
+   image looked portrait and the meta row was squeezed. Two columns give
+   each card the same breathing room it has on a laptop/desktop.
+   Project titles also ran out of room before the arrow in this band, so
+   let them wrap to two lines instead of clipping the last word. */
+@media (min-width: 810px) and (max-width: 1199.98px) {
+  .latest-insights-grid,
+  .about-insights-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 24px !important;
+  }
+
+  .project-card-title {
+    display: -webkit-box !important;
+    overflow: hidden !important;
+    text-overflow: clip !important;
+    white-space: normal !important;
+    -webkit-box-orient: vertical !important;
+    -webkit-line-clamp: 2 !important;
+    font-size: clamp(17px, 1.9vw, 24px) !important;
+    line-height: 1.2 !important;
+  }
+
+  .project-card-category {
+    font-size: 12px !important;
+  }
+}
+
+/* --- Small phones (320px–390px) -----------------------------------------
+   Show the insight title on two lines instead of truncating it to a single
+   ellipsised line, and tighten the padding so the card, image and meta row
+   all fit comfortably inside a 320px viewport. */
+@media (min-width: 320px) and (max-width: 390px) {
+  /* The page-shell rules earlier in this file are more specific, so scope
+     these overrides to the same shells to keep the phone sizing. */
+  .work-page-shell .latest-insight-text h5,
+  .about-page-shell .latest-insight-text h5 {
+    display: -webkit-box !important;
+    overflow: hidden !important;
+    text-overflow: clip !important;
+    white-space: normal !important;
+    -webkit-box-orient: vertical !important;
+    -webkit-line-clamp: 2 !important;
+    font-size: 14px !important;
+    line-height: 1.3 !important;
+  }
+
+  .work-page-shell .latest-insight-meta,
+  .about-page-shell .latest-insight-meta {
+    gap: 8px 10px !important;
+    padding: 10px 0 14px !important;
+  }
+
+  .work-page-shell .latest-insight-cta,
+  .about-page-shell .latest-insight-cta {
+    font-size: 10.5px !important;
+    padding: 6px 11px !important;
+  }
+
+  .project-card-link {
+    padding-top: 32px !important;
+    padding-bottom: 24px !important;
+  }
+
+  .project-card-media {
+    border-radius: 16px !important;
+  }
+
+  .project-card-image {
+    border-radius: 16px !important;
+  }
+}
+
+/* ===========================================================================
+   Work page — "Some freelance design" cards
+   ("Syoping Solutions", "Beuta", "Take A Simple Idea", "LMS Redesign",
+   "Redesigning onboarding", "Dashboard redesign", "AI for proofreaders")
+   Same interaction language as the project cards and the Latest Insights
+   cards: the whole card lifts, the artwork zooms slightly and a soft shadow
+   appears. Hover is limited to real pointers so the state cannot stick after
+   a tap on phones; touch gets a short press feedback instead.
+   ========================================================================== */
+
+.freelance-featured-card,
+.freelance-half-card,
+.freelance-reference-card {
+  backface-visibility: hidden;
+  transition:
+    transform 320ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 320ms ease;
+}
+
+.freelance-featured-image img,
+.freelance-card-mockup-img,
+.freelance-reference-card > img {
+  transform: scale(1);
+  transform-origin: center;
+  transition: transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .freelance-featured-card:hover,
+  .freelance-half-card:hover,
+  .freelance-reference-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 22px 46px rgba(0, 0, 0, 0.16);
+  }
+
+  .freelance-featured-card:hover .freelance-featured-image img,
+  .freelance-half-card:hover .freelance-card-mockup-img,
+  .freelance-reference-card:hover > img {
+    transform: scale(1.04);
+  }
+}
+
+/* Keyboard users get the same cue on the link cards. */
+.freelance-featured-card:focus-visible,
+.freelance-half-card:focus-visible {
+  outline: 3px solid rgb(255, 70, 46);
+  outline-offset: 4px;
+}
+
+/* Touch feedback instead of a sticky hover state on phones / tablets. */
+@media (hover: none) {
+  .freelance-featured-card:active,
+  .freelance-half-card:active,
+  .freelance-reference-card:active {
+    transform: scale(0.995);
+  }
+
+  .freelance-featured-card:active .freelance-featured-image img,
+  .freelance-half-card:active .freelance-card-mockup-img,
+  .freelance-reference-card:active > img {
+    transform: scale(1.02);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .freelance-featured-card,
+  .freelance-half-card,
+  .freelance-reference-card,
+  .freelance-featured-image img,
+  .freelance-card-mockup-img,
+  .freelance-reference-card > img,
+  .freelance-card-mockup-wrapper {
+    transition: none !important;
+  }
+
+  .freelance-featured-card:hover,
+  .freelance-half-card:hover,
+  .freelance-reference-card:hover,
+  .freelance-featured-card:active,
+  .freelance-half-card:active,
+  .freelance-reference-card:active {
+    transform: none !important;
+  }
+
+  .freelance-featured-card:hover .freelance-featured-image img,
+  .freelance-half-card:hover .freelance-card-mockup-img,
+  .freelance-reference-card:hover > img,
+  .freelance-featured-card:active .freelance-featured-image img,
+  .freelance-half-card:active .freelance-card-mockup-img,
+  .freelance-reference-card:active > img {
+    transform: none !important;
+  }
+}
+
+/* Phone / tablet: the insights grid carried its own inline padding (12px,
+   then 10px below 376px), so its cards were 4–6px wider than every other
+   card on the page. Use the same 16px content gutter as the freelance boxes. */
+@media (max-width: 809.98px) {
+  .work-page-shell .latest-insights-grid {
+    padding-inline: 16px !important;
+  }
+}
+
+/* Small phones (320–390px): a long tag must wrap inside the card instead of
+   forcing it wider, and the stacked titles get a slightly airier line so they
+   never collide with the artwork below. */
+@media (min-width: 320px) and (max-width: 390px) {
+  .work-page-shell .freelance-featured-card span {
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  .work-page-shell .freelance-card-title {
+    margin-bottom: 12px !important;
+    line-height: 1.05 !important;
+  }
+}
+
+/* ===========================================================================
+   Navigation bar — small phones (320–390px)
+   ---------------------------------------------------------------------------
+   The generated Framer nav reserves an 80px row and pins the centre badge
+   inside a fixed 77px frame, then the mobile variant adds 4px of link padding
+   plus a column gap. The empty space under the 40px badge therefore pushed
+   the "Home" label ~25px away from the icon, while the hamburger / Projects /
+   About items sat a few pixels lower than the badge.
+
+   This block compacts the row onto one shared 58px line (the dotted orbit is
+   54px, so the ring still fits), centres every item on the badge axis and
+   pairs the label tightly with the icon. Tablet (≥391px) and desktop keep the
+   original navigation untouched.
+   ========================================================================== */
+@media (min-width: 320px) and (max-width: 390px) {
+  /* Row: drop the extra gap and surplus padding — height becomes content-led,
+     keeping only a 4px baseline so the label never touches the bar edge. */
+  .framer-G6c65.framer-v-1v126tf .framer-1mea593 {
+    align-items: flex-start !important;
+    gap: 0 !important;
+    padding: 0 0 4px !important;
+  }
+
+  /* Hamburger + Projects (left) and About (right): one 58px line that matches
+     the badge, so all four items share the same vertical centre. */
+  .framer-G6c65.framer-v-1v126tf .framer-1d01ydm,
+  .framer-G6c65.framer-v-1v126tf .framer-1mfvgyc {
+    height: 58px !important;
+    min-height: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    align-items: center !important;
+    align-content: center !important;
+    justify-content: center !important;
+  }
+
+  .framer-G6c65.framer-v-1v126tf .framer-1d01ydm {
+    padding-left: 6px !important;
+  }
+
+  .framer-G6c65.framer-v-1v126tf .framer-1mfvgyc {
+    padding-right: 6px !important;
+  }
+
+  /* "About" carried a 10px top margin from the generated layout, which left it
+     ~5px below the other three items. Remove it so all four share one axis. */
+  .framer-G6c65.framer-v-1v126tf .framer-r31ivx-container {
+    margin-top: 0 !important;
+  }
+
+  /* Centre badge frame: hug the 54px dotted orbit instead of the 77px box. */
+  .framer-G6c65.framer-v-1v126tf .nav-center-mark {
+    height: 58px !important;
+    min-height: 0 !important;
+  }
+
+  .framer-G6c65.framer-v-1v126tf .framer-qjfp2z {
+    height: 58px !important;
+    padding: 0 !important;
+  }
+
+  /* Icon → label: 18.5px dead space + 4px link padding + 3px column gap
+     (25.5px) becomes a tight 2px. */
+  .framer-G6c65.framer-v-1v126tf .framer-o9kej6 {
+    gap: 2px !important;
+  }
+
+  .framer-G6c65.framer-v-1v126tf .framer-18wnfum-container {
+    margin-top: 0 !important;
+  }
+
+  /* The fixed bar is now ~83px tall, so trim the page's top clearance by the
+     same amount. Content keeps the original ~10px breathing room under the
+     bar instead of gaining a new empty band. */
+  .framer-hTG3P.framer-emw559 {
+    padding-top: 87px !important;
+  }
+}
+
+/* ===========================================================================
+   Footer page links — small phones (320–390px)
+   ---------------------------------------------------------------------------
+   Each footer row (Home / About / Projects) is 28px tall with an 8px gap on
+   phones. They are visible and clickable, but 28px is a cramped touch target.
+   Extend every row's hit area vertically into the surrounding gap (28 + 8 + 8
+   = 44px) with a transparent pseudo-element. The generated row heights, gaps,
+   typography, colours, borders and letter-roll animation stay exactly as they
+   are — only the tappable area grows. Tablet (≥391px) and desktop are
+   untouched.
+   ========================================================================== */
+@media (min-width: 320px) and (max-width: 390px) {
+  .framer-NKgCP .framer-owzuq6 > div {
+    position: relative;
+  }
+
+  .framer-NKgCP .framer-owzuq6 > div > a {
+    position: relative;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .framer-NKgCP .framer-owzuq6 > div > a::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -8px;
+    bottom: -8px;
+    background: transparent;
+  }
+}
+
+/* ===========================================================================
+   Home — "START A PROJECT" ticker spacing (small phones 320–390px)
+   ---------------------------------------------------------------------------
+   The contact card above the footer overflows its own wrapper into the
+   footer's 40px top margin, so only ~27px separates the card from the ticker.
+   Give the Home footer a larger top margin on small phones so the ticker
+   starts as a clearly separated section. Only the Home footer's top margin
+   changes; the ticker bar, its text, animations and everything below stay
+   exactly as they are. Tablet (≥391px) and desktop are untouched.
+   ========================================================================== */
+@media (min-width: 320px) and (max-width: 390px) {
+  .home-page .framer-dojrqz-container > .framer-NKgCP.framer-k0nykd {
+    margin-top: 80px !important;
+  }
+}

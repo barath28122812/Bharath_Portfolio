@@ -1,6 +1,7 @@
 import Box from '@mui/material/Box'
 import { useEffect, useRef, useState } from 'react'
 import type { MouseEvent } from 'react'
+import { Link } from 'react-router-dom'
 import type { FramerStyle } from './framer'
 
 const FOOTER_EMAIL = 'bharathanand.mail@gmail.com'
@@ -234,7 +235,7 @@ function Footer() {
               </div>
               <div className="framer-owzuq6" data-border="true" data-framer-name="Pages" data-hide-scrollbars="true" style={{ "--border-bottom-width": '0px', "--border-color": 'var(--token-5d23e02d-37c1-4334-b3aa-070b54ae1264, rgba(224, 224, 224, 0.63))', "--border-left-width": '1px', "--border-right-width": '1px', "--border-style": 'solid', "--border-top-width": '0px' } as FramerStyle}>
                 <div className="framer-10r4v06-container">
-                  <a className="framer-zmhX8 framer-bql5i6 framer-v-bql5i6 framer-awo8jv" data-border="true" data-framer-name="Desktop" href="/" data-framer-page-link-current="true" tabIndex={0} style={{ "--border-bottom-width": '1px', "--border-color": 'var(--token-5d23e02d-37c1-4334-b3aa-070b54ae1264, rgb(240, 240, 240))', "--border-left-width": '0px', "--border-right-width": '0px', "--border-style": 'solid', "--border-top-width": '0px', "width": '100%' } as FramerStyle}>
+                  <Link className="framer-zmhX8 framer-bql5i6 framer-v-bql5i6 framer-awo8jv" data-border="true" data-framer-name="Desktop" to="/" data-framer-page-link-current="true" tabIndex={0} style={{ "--border-bottom-width": '1px', "--border-color": 'var(--token-5d23e02d-37c1-4334-b3aa-070b54ae1264, rgb(240, 240, 240))', "--border-left-width": '0px', "--border-right-width": '0px', "--border-style": 'solid', "--border-top-width": '0px', "width": '100%' } as FramerStyle}>
                     <div className="framer-1had3l9" data-border="true" data-framer-name="Icon" style={{ "--border-bottom-width": '2px', "--border-color": 'var(--token-6a6d1eb8-2687-4444-ba52-f31754121a4e, rgb(6, 186, 6))', "--border-left-width": '2px', "--border-right-width": '2px', "--border-style": 'solid', "--border-top-width": '2px', "backgroundColor": 'var(--token-6a6d1eb8-2687-4444-ba52-f31754121a4e, rgb(6, 186, 6))', "borderBottomLeftRadius": '100px', "borderBottomRightRadius": '100px', "borderTopLeftRadius": '100px', "borderTopRightRadius": '100px' } as FramerStyle}>
                       <div className="framer-1q5tc2k" data-border="true" data-framer-name="Icon" style={{ "--border-bottom-width": '2px', "--border-color": 'var(--token-20f29520-e0af-49d2-8cc2-01444e94a3fe, rgba(0, 0, 0, 0))', "--border-left-width": '2px', "--border-right-width": '2px', "--border-style": 'solid', "--border-top-width": '2px', "willChange": 'transform', "borderBottomLeftRadius": '100px', "borderBottomRightRadius": '100px', "borderTopLeftRadius": '100px', "borderTopRightRadius": '100px', "opacity": '1', "transform": 'none' } as FramerStyle} />
                     </div>
@@ -292,10 +293,10 @@ function Footer() {
                         </div>
                       </div>
                     </div>
-                  </a>
+                  </Link>
                 </div>
                 <div className="framer-e9k5ud-container">
-                  <a className="framer-zmhX8 framer-bql5i6 framer-v-bql5i6 framer-awo8jv" data-border="true" data-framer-name="Desktop" href="/about" tabIndex={0} style={{ "--border-bottom-width": '1px', "--border-color": 'var(--token-5d23e02d-37c1-4334-b3aa-070b54ae1264, rgb(240, 240, 240))', "--border-left-width": '0px', "--border-right-width": '0px', "--border-style": 'solid', "--border-top-width": '0px', "width": '100%' } as FramerStyle}>
+                  <Link className="framer-zmhX8 framer-bql5i6 framer-v-bql5i6 framer-awo8jv" data-border="true" data-framer-name="Desktop" to="/about" tabIndex={0} style={{ "--border-bottom-width": '1px', "--border-color": 'var(--token-5d23e02d-37c1-4334-b3aa-070b54ae1264, rgb(240, 240, 240))', "--border-left-width": '0px', "--border-right-width": '0px', "--border-style": 'solid', "--border-top-width": '0px', "width": '100%' } as FramerStyle}>
                     <div className="framer-1had3l9" data-border="true" data-framer-name="Icon" style={{ "--border-bottom-width": '2px', "--border-color": 'var(--token-6a6d1eb8-2687-4444-ba52-f31754121a4e, rgb(6, 186, 6))', "--border-left-width": '2px', "--border-right-width": '2px', "--border-style": 'solid', "--border-top-width": '2px', "backgroundColor": 'var(--token-6a6d1eb8-2687-4444-ba52-f31754121a4e, rgb(6, 186, 6))', "borderBottomLeftRadius": '100px', "borderBottomRightRadius": '100px', "borderTopLeftRadius": '100px', "borderTopRightRadius": '100px' } as FramerStyle}>
                       <div className="framer-1q5tc2k" data-border="true" data-framer-name="Icon" style={{ "--border-bottom-width": '2px', "--border-color": 'var(--token-20f29520-e0af-49d2-8cc2-01444e94a3fe, rgba(0, 0, 0, 0))', "--border-left-width": '2px', "--border-right-width": '2px', "--border-style": 'solid', "--border-top-width": '2px', "willChange": 'transform', "borderBottomLeftRadius": '100px', "borderBottomRightRadius": '100px', "borderTopLeftRadius": '100px', "borderTopRightRadius": '100px', "opacity": '1', "transform": 'none' } as FramerStyle} />
                     </div>
@@ -365,10 +366,10 @@ function Footer() {
                         </div>
                       </div>
                     </div>
-                  </a>
+                  </Link>
                 </div>
                 <div className="framer-m8f58f-container">
-                  <a className="framer-zmhX8 framer-bql5i6 framer-v-bql5i6 framer-awo8jv" data-border="true" data-framer-name="Desktop" href="/projects" tabIndex={0} style={{ "--border-bottom-width": '1px', "--border-color": 'var(--token-5d23e02d-37c1-4334-b3aa-070b54ae1264, rgb(240, 240, 240))', "--border-left-width": '0px', "--border-right-width": '0px', "--border-style": 'solid', "--border-top-width": '0px', "width": '100%' } as FramerStyle}>
+                  <Link className="framer-zmhX8 framer-bql5i6 framer-v-bql5i6 framer-awo8jv" data-border="true" data-framer-name="Desktop" to="/work" tabIndex={0} style={{ "--border-bottom-width": '1px', "--border-color": 'var(--token-5d23e02d-37c1-4334-b3aa-070b54ae1264, rgb(240, 240, 240))', "--border-left-width": '0px', "--border-right-width": '0px', "--border-style": 'solid', "--border-top-width": '0px', "width": '100%' } as FramerStyle}>
                     <div className="framer-1had3l9" data-border="true" data-framer-name="Icon" style={{ "--border-bottom-width": '2px', "--border-color": 'var(--token-6a6d1eb8-2687-4444-ba52-f31754121a4e, rgb(6, 186, 6))', "--border-left-width": '2px', "--border-right-width": '2px', "--border-style": 'solid', "--border-top-width": '2px', "backgroundColor": 'var(--token-6a6d1eb8-2687-4444-ba52-f31754121a4e, rgb(6, 186, 6))', "borderBottomLeftRadius": '100px', "borderBottomRightRadius": '100px', "borderTopLeftRadius": '100px', "borderTopRightRadius": '100px' } as FramerStyle}>
                       <div className="framer-1q5tc2k" data-border="true" data-framer-name="Icon" style={{ "--border-bottom-width": '2px', "--border-color": 'var(--token-20f29520-e0af-49d2-8cc2-01444e94a3fe, rgba(0, 0, 0, 0))', "--border-left-width": '2px', "--border-right-width": '2px', "--border-style": 'solid', "--border-top-width": '2px', "willChange": 'transform', "borderBottomLeftRadius": '100px', "borderBottomRightRadius": '100px', "borderTopLeftRadius": '100px', "borderTopRightRadius": '100px', "opacity": '1', "transform": 'none' } as FramerStyle} />
                     </div>
@@ -474,7 +475,7 @@ function Footer() {
                         </div>
                       </div>
                     </div>
-                  </a>
+                  </Link>
                 </div>
                 <div className="framer-6jxsg9-container" style={{ "opacity": '1' } as FramerStyle}>
                   <a className="framer-zmhX8 framer-bql5i6 framer-v-bql5i6 framer-awo8jv" data-border="true" data-framer-name="Desktop" href="/404" tabIndex={0} style={{ "--border-bottom-width": '1px', "--border-color": 'var(--token-5d23e02d-37c1-4334-b3aa-070b54ae1264, rgb(240, 240, 240))', "--border-left-width": '0px', "--border-right-width": '0px', "--border-style": 'solid', "--border-top-width": '0px', "width": '100%' } as FramerStyle}>
@@ -1133,7 +1134,7 @@ function Footer() {
               </div>
               <div className="framer-owzuq6" data-border="true" data-framer-name="Pages" data-hide-scrollbars="true" style={{ "--border-bottom-width": '0px', "--border-color": 'var(--token-5d23e02d-37c1-4334-b3aa-070b54ae1264, rgba(224, 224, 224, 0.63))', "--border-left-width": '1px', "--border-right-width": '1px', "--border-style": 'solid', "--border-top-width": '0px' } as FramerStyle}>
                 <div className="framer-10r4v06-container">
-                  <a className="framer-zmhX8 framer-bql5i6 framer-v-1hpz90y framer-awo8jv" data-border="true" data-framer-name="Mobile" href="/" data-framer-page-link-current="true" style={{ "--border-bottom-width": '1px', "--border-color": 'var(--token-5d23e02d-37c1-4334-b3aa-070b54ae1264, rgb(240, 240, 240))', "--border-left-width": '0px', "--border-right-width": '0px', "--border-style": 'solid', "--border-top-width": '0px', "width": '100%' } as FramerStyle}>
+                  <Link className="framer-zmhX8 framer-bql5i6 framer-v-1hpz90y framer-awo8jv" data-border="true" data-framer-name="Mobile" to="/" data-framer-page-link-current="true" style={{ "--border-bottom-width": '1px', "--border-color": 'var(--token-5d23e02d-37c1-4334-b3aa-070b54ae1264, rgb(240, 240, 240))', "--border-left-width": '0px', "--border-right-width": '0px', "--border-style": 'solid', "--border-top-width": '0px', "width": '100%' } as FramerStyle}>
                     <div className="framer-1had3l9" data-border="true" data-framer-name="Icon" style={{ "--border-bottom-width": '2px', "--border-color": 'var(--token-6a6d1eb8-2687-4444-ba52-f31754121a4e, rgb(6, 186, 6))', "--border-left-width": '2px', "--border-right-width": '2px', "--border-style": 'solid', "--border-top-width": '2px', "backgroundColor": 'var(--token-6a6d1eb8-2687-4444-ba52-f31754121a4e, rgb(6, 186, 6))', "borderBottomLeftRadius": '100px', "borderBottomRightRadius": '100px', "borderTopLeftRadius": '100px', "borderTopRightRadius": '100px' } as FramerStyle}>
                       <div className="framer-1q5tc2k" data-border="true" data-framer-name="Icon" style={{ "--border-bottom-width": '2px', "--border-color": 'var(--token-20f29520-e0af-49d2-8cc2-01444e94a3fe, rgba(0, 0, 0, 0))', "--border-left-width": '2px', "--border-right-width": '2px', "--border-style": 'solid', "--border-top-width": '2px', "willChange": 'transform', "borderBottomLeftRadius": '100px', "borderBottomRightRadius": '100px', "borderTopLeftRadius": '100px', "borderTopRightRadius": '100px', "opacity": '1', "transform": 'none' } as FramerStyle} />
                     </div>
@@ -1191,10 +1192,10 @@ function Footer() {
                         </div>
                       </div>
                     </div>
-                  </a>
+                  </Link>
                 </div>
                 <div className="framer-e9k5ud-container">
-                  <a className="framer-zmhX8 framer-bql5i6 framer-v-1hpz90y framer-awo8jv" data-border="true" data-framer-name="Mobile" href="/about" style={{ "--border-bottom-width": '1px', "--border-color": 'var(--token-5d23e02d-37c1-4334-b3aa-070b54ae1264, rgb(240, 240, 240))', "--border-left-width": '0px', "--border-right-width": '0px', "--border-style": 'solid', "--border-top-width": '0px', "width": '100%' } as FramerStyle}>
+                  <Link className="framer-zmhX8 framer-bql5i6 framer-v-1hpz90y framer-awo8jv" data-border="true" data-framer-name="Mobile" to="/about" style={{ "--border-bottom-width": '1px', "--border-color": 'var(--token-5d23e02d-37c1-4334-b3aa-070b54ae1264, rgb(240, 240, 240))', "--border-left-width": '0px', "--border-right-width": '0px', "--border-style": 'solid', "--border-top-width": '0px', "width": '100%' } as FramerStyle}>
                     <div className="framer-1had3l9" data-border="true" data-framer-name="Icon" style={{ "--border-bottom-width": '2px', "--border-color": 'var(--token-6a6d1eb8-2687-4444-ba52-f31754121a4e, rgb(6, 186, 6))', "--border-left-width": '2px', "--border-right-width": '2px', "--border-style": 'solid', "--border-top-width": '2px', "backgroundColor": 'var(--token-6a6d1eb8-2687-4444-ba52-f31754121a4e, rgb(6, 186, 6))', "borderBottomLeftRadius": '100px', "borderBottomRightRadius": '100px', "borderTopLeftRadius": '100px', "borderTopRightRadius": '100px' } as FramerStyle}>
                       <div className="framer-1q5tc2k" data-border="true" data-framer-name="Icon" style={{ "--border-bottom-width": '2px', "--border-color": 'var(--token-20f29520-e0af-49d2-8cc2-01444e94a3fe, rgba(0, 0, 0, 0))', "--border-left-width": '2px', "--border-right-width": '2px', "--border-style": 'solid', "--border-top-width": '2px', "willChange": 'transform', "borderBottomLeftRadius": '100px', "borderBottomRightRadius": '100px', "borderTopLeftRadius": '100px', "borderTopRightRadius": '100px', "opacity": '1', "transform": 'none' } as FramerStyle} />
                     </div>
@@ -1264,10 +1265,10 @@ function Footer() {
                         </div>
                       </div>
                     </div>
-                  </a>
+                  </Link>
                 </div>
                 <div className="framer-m8f58f-container">
-                  <a className="framer-zmhX8 framer-bql5i6 framer-v-1hpz90y framer-awo8jv" data-border="true" data-framer-name="Mobile" href="/projects" style={{ "--border-bottom-width": '1px', "--border-color": 'var(--token-5d23e02d-37c1-4334-b3aa-070b54ae1264, rgb(240, 240, 240))', "--border-left-width": '0px', "--border-right-width": '0px', "--border-style": 'solid', "--border-top-width": '0px', "width": '100%' } as FramerStyle}>
+                  <Link className="framer-zmhX8 framer-bql5i6 framer-v-1hpz90y framer-awo8jv" data-border="true" data-framer-name="Mobile" to="/work" style={{ "--border-bottom-width": '1px', "--border-color": 'var(--token-5d23e02d-37c1-4334-b3aa-070b54ae1264, rgb(240, 240, 240))', "--border-left-width": '0px', "--border-right-width": '0px', "--border-style": 'solid', "--border-top-width": '0px', "width": '100%' } as FramerStyle}>
                     <div className="framer-1had3l9" data-border="true" data-framer-name="Icon" style={{ "--border-bottom-width": '2px', "--border-color": 'var(--token-6a6d1eb8-2687-4444-ba52-f31754121a4e, rgb(6, 186, 6))', "--border-left-width": '2px', "--border-right-width": '2px', "--border-style": 'solid', "--border-top-width": '2px', "backgroundColor": 'var(--token-6a6d1eb8-2687-4444-ba52-f31754121a4e, rgb(6, 186, 6))', "borderBottomLeftRadius": '100px', "borderBottomRightRadius": '100px', "borderTopLeftRadius": '100px', "borderTopRightRadius": '100px' } as FramerStyle}>
                       <div className="framer-1q5tc2k" data-border="true" data-framer-name="Icon" style={{ "--border-bottom-width": '2px', "--border-color": 'var(--token-20f29520-e0af-49d2-8cc2-01444e94a3fe, rgba(0, 0, 0, 0))', "--border-left-width": '2px', "--border-right-width": '2px', "--border-style": 'solid', "--border-top-width": '2px', "willChange": 'transform', "borderBottomLeftRadius": '100px', "borderBottomRightRadius": '100px', "borderTopLeftRadius": '100px', "borderTopRightRadius": '100px', "opacity": '1', "transform": 'none' } as FramerStyle} />
                     </div>
@@ -1373,7 +1374,7 @@ function Footer() {
                         </div>
                       </div>
                     </div>
-                  </a>
+                  </Link>
                 </div>
                 <div className="framer-6jxsg9-container" style={{ "opacity": '1' } as FramerStyle}>
                   <a className="framer-zmhX8 framer-bql5i6 framer-v-1hpz90y framer-awo8jv" data-border="true" data-framer-name="Mobile" href="/404" style={{ "--border-bottom-width": '1px', "--border-color": 'var(--token-5d23e02d-37c1-4334-b3aa-070b54ae1264, rgb(240, 240, 240))', "--border-left-width": '0px', "--border-right-width": '0px', "--border-style": 'solid', "--border-top-width": '0px', "width": '100%' } as FramerStyle}>
@@ -2032,7 +2033,7 @@ function Footer() {
               </div>
               <div className="framer-owzuq6" data-border="true" data-framer-name="Pages" data-hide-scrollbars="true" style={{ "--border-bottom-width": '1px', "--border-color": 'var(--token-5d23e02d-37c1-4334-b3aa-070b54ae1264, rgba(224, 224, 224, 0.63))', "--border-left-width": '1px', "--border-right-width": '1px', "--border-style": 'solid', "--border-top-width": '0px' } as FramerStyle}>
                 <div className="framer-10r4v06-container">
-                  <a className="framer-zmhX8 framer-bql5i6 framer-v-1hpz90y framer-awo8jv" data-border="true" data-framer-name="Mobile" href="/" data-framer-page-link-current="true" style={{ "--border-bottom-width": '1px', "--border-color": 'var(--token-5d23e02d-37c1-4334-b3aa-070b54ae1264, rgb(240, 240, 240))', "--border-left-width": '0px', "--border-right-width": '0px', "--border-style": 'solid', "--border-top-width": '0px', "width": '100%' } as FramerStyle}>
+                  <Link className="framer-zmhX8 framer-bql5i6 framer-v-1hpz90y framer-awo8jv" data-border="true" data-framer-name="Mobile" to="/" data-framer-page-link-current="true" style={{ "--border-bottom-width": '1px', "--border-color": 'var(--token-5d23e02d-37c1-4334-b3aa-070b54ae1264, rgb(240, 240, 240))', "--border-left-width": '0px', "--border-right-width": '0px', "--border-style": 'solid', "--border-top-width": '0px', "width": '100%' } as FramerStyle}>
                     <div className="framer-1had3l9" data-border="true" data-framer-name="Icon" style={{ "--border-bottom-width": '2px', "--border-color": 'var(--token-6a6d1eb8-2687-4444-ba52-f31754121a4e, rgb(6, 186, 6))', "--border-left-width": '2px', "--border-right-width": '2px', "--border-style": 'solid', "--border-top-width": '2px', "backgroundColor": 'var(--token-6a6d1eb8-2687-4444-ba52-f31754121a4e, rgb(6, 186, 6))', "borderBottomLeftRadius": '100px', "borderBottomRightRadius": '100px', "borderTopLeftRadius": '100px', "borderTopRightRadius": '100px' } as FramerStyle}>
                       <div className="framer-1q5tc2k" data-border="true" data-framer-name="Icon" style={{ "--border-bottom-width": '2px', "--border-color": 'var(--token-20f29520-e0af-49d2-8cc2-01444e94a3fe, rgba(0, 0, 0, 0))', "--border-left-width": '2px', "--border-right-width": '2px', "--border-style": 'solid', "--border-top-width": '2px', "willChange": 'transform', "borderBottomLeftRadius": '100px', "borderBottomRightRadius": '100px', "borderTopLeftRadius": '100px', "borderTopRightRadius": '100px', "opacity": '1', "transform": 'none' } as FramerStyle} />
                     </div>
@@ -2090,10 +2091,10 @@ function Footer() {
                         </div>
                       </div>
                     </div>
-                  </a>
+                  </Link>
                 </div>
                 <div className="framer-e9k5ud-container">
-                  <a className="framer-zmhX8 framer-bql5i6 framer-v-1hpz90y framer-awo8jv" data-border="true" data-framer-name="Mobile" href="/about" style={{ "--border-bottom-width": '1px', "--border-color": 'var(--token-5d23e02d-37c1-4334-b3aa-070b54ae1264, rgb(240, 240, 240))', "--border-left-width": '0px', "--border-right-width": '0px', "--border-style": 'solid', "--border-top-width": '0px', "width": '100%' } as FramerStyle}>
+                  <Link className="framer-zmhX8 framer-bql5i6 framer-v-1hpz90y framer-awo8jv" data-border="true" data-framer-name="Mobile" to="/about" style={{ "--border-bottom-width": '1px', "--border-color": 'var(--token-5d23e02d-37c1-4334-b3aa-070b54ae1264, rgb(240, 240, 240))', "--border-left-width": '0px', "--border-right-width": '0px', "--border-style": 'solid', "--border-top-width": '0px', "width": '100%' } as FramerStyle}>
                     <div className="framer-1had3l9" data-border="true" data-framer-name="Icon" style={{ "--border-bottom-width": '2px', "--border-color": 'var(--token-6a6d1eb8-2687-4444-ba52-f31754121a4e, rgb(6, 186, 6))', "--border-left-width": '2px', "--border-right-width": '2px', "--border-style": 'solid', "--border-top-width": '2px', "backgroundColor": 'var(--token-6a6d1eb8-2687-4444-ba52-f31754121a4e, rgb(6, 186, 6))', "borderBottomLeftRadius": '100px', "borderBottomRightRadius": '100px', "borderTopLeftRadius": '100px', "borderTopRightRadius": '100px' } as FramerStyle}>
                       <div className="framer-1q5tc2k" data-border="true" data-framer-name="Icon" style={{ "--border-bottom-width": '2px', "--border-color": 'var(--token-20f29520-e0af-49d2-8cc2-01444e94a3fe, rgba(0, 0, 0, 0))', "--border-left-width": '2px', "--border-right-width": '2px', "--border-style": 'solid', "--border-top-width": '2px', "willChange": 'transform', "borderBottomLeftRadius": '100px', "borderBottomRightRadius": '100px', "borderTopLeftRadius": '100px', "borderTopRightRadius": '100px', "opacity": '1', "transform": 'none' } as FramerStyle} />
                     </div>
@@ -2163,10 +2164,10 @@ function Footer() {
                         </div>
                       </div>
                     </div>
-                  </a>
+                  </Link>
                 </div>
                 <div className="framer-m8f58f-container">
-                  <a className="framer-zmhX8 framer-bql5i6 framer-v-1hpz90y framer-awo8jv" data-border="true" data-framer-name="Mobile" href="/projects" style={{ "--border-bottom-width": '1px', "--border-color": 'var(--token-5d23e02d-37c1-4334-b3aa-070b54ae1264, rgb(240, 240, 240))', "--border-left-width": '0px', "--border-right-width": '0px', "--border-style": 'solid', "--border-top-width": '0px', "width": '100%' } as FramerStyle}>
+                  <Link className="framer-zmhX8 framer-bql5i6 framer-v-1hpz90y framer-awo8jv" data-border="true" data-framer-name="Mobile" to="/work" style={{ "--border-bottom-width": '1px', "--border-color": 'var(--token-5d23e02d-37c1-4334-b3aa-070b54ae1264, rgb(240, 240, 240))', "--border-left-width": '0px', "--border-right-width": '0px', "--border-style": 'solid', "--border-top-width": '0px', "width": '100%' } as FramerStyle}>
                     <div className="framer-1had3l9" data-border="true" data-framer-name="Icon" style={{ "--border-bottom-width": '2px', "--border-color": 'var(--token-6a6d1eb8-2687-4444-ba52-f31754121a4e, rgb(6, 186, 6))', "--border-left-width": '2px', "--border-right-width": '2px', "--border-style": 'solid', "--border-top-width": '2px', "backgroundColor": 'var(--token-6a6d1eb8-2687-4444-ba52-f31754121a4e, rgb(6, 186, 6))', "borderBottomLeftRadius": '100px', "borderBottomRightRadius": '100px', "borderTopLeftRadius": '100px', "borderTopRightRadius": '100px' } as FramerStyle}>
                       <div className="framer-1q5tc2k" data-border="true" data-framer-name="Icon" style={{ "--border-bottom-width": '2px', "--border-color": 'var(--token-20f29520-e0af-49d2-8cc2-01444e94a3fe, rgba(0, 0, 0, 0))', "--border-left-width": '2px', "--border-right-width": '2px', "--border-style": 'solid', "--border-top-width": '2px', "willChange": 'transform', "borderBottomLeftRadius": '100px', "borderBottomRightRadius": '100px', "borderTopLeftRadius": '100px', "borderTopRightRadius": '100px', "opacity": '1', "transform": 'none' } as FramerStyle} />
                     </div>
@@ -2272,7 +2273,7 @@ function Footer() {
                         </div>
                       </div>
                     </div>
-                  </a>
+                  </Link>
                 </div>
                 <div className="framer-6jxsg9-container" style={{ "opacity": '1' } as FramerStyle}>
                   <a className="framer-zmhX8 framer-bql5i6 framer-v-1hpz90y framer-awo8jv" data-border="true" data-framer-name="Mobile" href="/404" style={{ "--border-bottom-width": '0px', "--border-color": 'var(--token-5d23e02d-37c1-4334-b3aa-070b54ae1264, rgb(240, 240, 240))', "--border-left-width": '0px', "--border-right-width": '0px', "--border-style": 'solid', "--border-top-width": '0px', "width": '100%' } as FramerStyle}>
