@@ -256,7 +256,7 @@ function SomeFreelanceDesignSection() {
   return (
     <Box component="section" style={{ width: '100%', padding: '32px 0 24px', background: '#fff' } as FramerStyle}>
       <Box style={container}>
-        <Box style={{ ...contentPad, display: 'flex', flexDirection: 'column', gap: 12 } as FramerStyle}>
+        <Box className="freelance-stack" style={{ ...contentPad, display: 'flex', flexDirection: 'column', gap: 12 } as FramerStyle}>
           {/* Featured cards */}
           {featuredItems.map(featured => (
             <Box

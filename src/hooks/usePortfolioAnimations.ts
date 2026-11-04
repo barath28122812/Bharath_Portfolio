@@ -136,7 +136,32 @@ export function usePortfolioAnimations() {
     setupTicker('[data-framer-name="Ticker"]', '.framer-1232xio', 50)
 
     // --- 3. Full-page smooth scroll (Lenis-like wheel smoothing) ---
+    // Only the marketing pages (Home / About / Projects) get wheel smoothing.
+    // Project case-study pages keep their plain, native scrolling.
     const setupSmoothScroll = (): (() => void) => {
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
+
+      // Same routes the navbar treats as the Projects section.
+      const isEnabledRoute = () => {
+        const path = window.location.pathname
+        return (
+          path === '/' ||
+          path === '/about' ||
+          path === '/work' ||
+          path === '/projects' ||
+          path.startsWith('/projects/')
+        )
+      }
+
+      // Tuning (was: raw delta, 0.16 lerp — too fast).
+      // WHEEL_SCALE trims the distance travelled per notch/flick;
+      // GLIDE_PER_FRAME is the fraction of the remaining distance covered each
+      // 16.67ms frame. Lower = slower, softer glide. MAX_EVENT_STEP stops a
+      // single accelerated wheel event from flinging the page.
+      const WHEEL_SCALE = 0.72
+      const GLIDE_PER_FRAME = 0.08
+      const MAX_EVENT_STEP = 120
+
       let current = window.scrollY
       let target = window.scrollY
       let rafId = 0
@@ -153,32 +178,52 @@ export function usePortfolioAnimations() {
         return false
       }
 
+      // Wheel deltas arrive in pixels, lines (Firefox) or pages; convert so a
+      // notch moves a predictable amount in every browser.
+      const normaliseDelta = (e: WheelEvent): number => {
+        let delta =
+          Math.abs(e.deltaY) >= Math.abs(e.deltaX)
+            ? e.deltaY
+            : e.deltaX * 0.6
+        if (!Number.isFinite(delta)) return 0
+        if (e.deltaMode === 1) delta *= 16
+        else if (e.deltaMode === 2) delta *= window.innerHeight
+        return Math.max(-MAX_EVENT_STEP, Math.min(MAX_EVENT_STEP, delta))
+      }
+
       const onWheel = (e: WheelEvent) => {
-        if (e.ctrlKey || e.metaKey) return
+        // Reduced motion: stay on the browser's native scrolling.
+        if (reduceMotion.matches) return
+        if (!isEnabledRoute()) return
+        if (e.ctrlKey || e.metaKey || e.defaultPrevented) return
         const el = e.target as HTMLElement | null
         if (!el) return
         const tag = el.tagName
         if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return
         if (isScrollableAncestor(el)) return
         e.preventDefault()
-        const delta =
-          Math.abs(e.deltaY) >= Math.abs(e.deltaX)
-            ? e.deltaY
-            : e.deltaX * 0.6
-        const max = document.documentElement.scrollHeight - window.innerHeight
-        target = Math.min(max, Math.max(0, target + delta))
+        // Re-sync with the real position first: the page may have moved by
+        // keyboard, scrollbar drag or an anchor since the last wheel glide.
+        // Without this a stale `target` makes the next notch jump.
         if (!running) {
-          current = window.scrollY
+          current = target = window.scrollY
           lastTime = performance.now()
           running = true
           rafId = requestAnimationFrame(loop)
         }
+        const max = document.documentElement.scrollHeight - window.innerHeight
+        target = Math.min(max, Math.max(0, target + normaliseDelta(e) * WHEEL_SCALE))
       }
 
       const loop = (now: number) => {
+        if (reduceMotion.matches) {
+          running = false
+          current = target = window.scrollY
+          return
+        }
         const dt = Math.min(50, now - lastTime)
         lastTime = now
-        const k = Math.min(1, 0.16 * (dt / 16.67))
+        const k = Math.min(1, GLIDE_PER_FRAME * (dt / 16.667))
         current += (target - current) * k
         if (Math.abs(target - current) < 0.5) {
           current = target
@@ -190,19 +235,27 @@ export function usePortfolioAnimations() {
         rafId = requestAnimationFrame(loop)
       }
 
-      const onScroll = () => {
-        if (running && Math.abs(window.scrollY - current) > 2) {
-          current = window.scrollY
-          target = current
-          running = false
+      // A wheel glide must not fight native scrolls (keyboard, scrollbar drag,
+      // anchor jump, touch on hybrid devices).
+      const stopGlide = () => {
+        running = false
+        current = target = window.scrollY
+        if (rafId) {
+          cancelAnimationFrame(rafId)
+          rafId = 0
         }
+      }
+      const onScroll = () => {
+        if (running && Math.abs(window.scrollY - current) > 2) stopGlide()
       }
 
       window.addEventListener('wheel', onWheel, { passive: false })
       window.addEventListener('scroll', onScroll, { passive: true })
+      window.addEventListener('touchstart', stopGlide, { passive: true })
       return () => {
         window.removeEventListener('wheel', onWheel)
         window.removeEventListener('scroll', onScroll)
+        window.removeEventListener('touchstart', stopGlide)
         if (rafId) cancelAnimationFrame(rafId)
       }
     }

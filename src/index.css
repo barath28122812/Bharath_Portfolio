@@ -5642,10 +5642,12 @@ body #main .recent-works-chat-card .chat-response-text a,
 
   .testimonial-scroll-layout > .framer-1yc1p7v {
     /* This wrapper is sticky directly under the fixed navbar, so its own
-       padding supplies the visible gap above and below the heading. Padding
-       is used (not margin) because the sticky card step below is offset by
-       the measured heading height — the card stays clear of the title. */
-    padding: 14px 0 10px !important;
+       padding supplies the visible gap above and below the heading. It needs
+       enough breathing room to keep the title clear of the navbar above and
+       the stacked testimonial cards below. Padding is used (not margin)
+       because the sticky card step is offset by the measured heading height —
+       the card follows the padding and stays clear of the title. */
+    padding: 24px 0 22px !important;
     margin-bottom: 16px !important;
   }
 
@@ -6554,6 +6556,44 @@ body {
 }
 
 /* ===========================================================================
+   About — LINKS social icon grid (small phones 320–390px)
+   ---------------------------------------------------------------------------
+   The LINKS column was keeping three fixed 72px tracks aligned to the start,
+   so on a phone the six cards stayed small and crowded against the left edge
+   while a wide empty band remained on the right. Use the full width of the
+   LINKS column with three equal tracks, slightly larger gaps and square cards
+   that grow with the available space. Icons stay centred and contained; the
+   card background, radius, shadow, colours and hover behaviour are inherited
+   unchanged. Tablet (≥391px) and desktop are untouched.
+   ========================================================================== */
+@media (min-width: 320px) and (max-width: 390px) {
+  #main .about-page-shell .about-social-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 18px !important;
+    justify-content: stretch !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  #main .about-page-shell .about-social-grid > a.about-social-card {
+    width: 100% !important;
+    height: auto !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    aspect-ratio: 1 / 1;
+    box-sizing: border-box !important;
+  }
+
+  #main .about-page-shell .about-social-grid > a.about-social-card img {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    object-fit: contain !important;
+  }
+}
+
+/* ===========================================================================
    Home/About/Projects mobile navbar menu
    The shared Navbar is used by every route, so these rules intentionally use
    only the requested page shells and apply below the mobile breakpoint.
@@ -7316,31 +7356,33 @@ body {
 /* ===========================================================================
    Navigation bar — small phones (320–390px)
    ---------------------------------------------------------------------------
-   The generated Framer nav reserves an 80px row and pins the centre badge
-   inside a fixed 77px frame, then the mobile variant adds 4px of link padding
-   plus a column gap. The empty space under the 40px badge therefore pushed
-   the "Home" label ~25px away from the icon, while the hamburger / Projects /
-   About items sat a few pixels lower than the badge.
+   The generated Framer centre item is a 77px frame containing the 40px badge,
+   which centers the badge and leaves an empty band above the icon and below
+   the "Home" label. The mobile variant then adds link padding and a column
+   gap on top of that, pushing the label even further from the icon.
 
-   This block compacts the row onto one shared 58px line (the dotted orbit is
-   54px, so the ring still fits), centres every item on the badge axis and
-   pairs the label tightly with the icon. Tablet (≥391px) and desktop keep the
-   original navigation untouched.
+   On phones the dotted orbit is 54px, so the frame can hug the orbit exactly:
+   the badge centers at 27px and the label starts immediately after the 54px
+   frame. The leftover space is moved below the label, so the bar keeps a
+   compact height while the label gets a comfortable bottom margin. The
+   hamburger / Projects / About columns use the same 54px height, keeping all
+   four items on the badge's horizontal axis. Tablet (≥391px) and desktop keep
+   the original navigation untouched.
    ========================================================================== */
 @media (min-width: 320px) and (max-width: 390px) {
-  /* Row: drop the extra gap and surplus padding — height becomes content-led,
-     keeping only a 4px baseline so the label never touches the bar edge. */
+  /* Row: no column gap; the bottom padding is the breathing room under the
+     label (the centre column itself is the tallest item in the row). */
   .framer-G6c65.framer-v-1v126tf .framer-1mea593 {
     align-items: flex-start !important;
     gap: 0 !important;
-    padding: 0 0 4px !important;
+    padding: 0 0 7px !important;
   }
 
-  /* Hamburger + Projects (left) and About (right): one 58px line that matches
-     the badge, so all four items share the same vertical centre. */
+  /* Hamburger + Projects (left) and About (right): one 54px line matching the
+     badge frame, so all four items share the same vertical centre. */
   .framer-G6c65.framer-v-1v126tf .framer-1d01ydm,
   .framer-G6c65.framer-v-1v126tf .framer-1mfvgyc {
-    height: 58px !important;
+    height: 54px !important;
     min-height: 0 !important;
     padding-top: 0 !important;
     padding-bottom: 0 !important;
@@ -7363,32 +7405,33 @@ body {
     margin-top: 0 !important;
   }
 
-  /* Centre badge frame: hug the 54px dotted orbit instead of the 77px box. */
+  /* Centre badge frame: hug the 54px dotted orbit instead of the 77px box.
+     The badge is vertically centered in this frame (7px above / below). */
   .framer-G6c65.framer-v-1v126tf .nav-center-mark {
-    height: 58px !important;
+    height: 54px !important;
     min-height: 0 !important;
   }
 
   .framer-G6c65.framer-v-1v126tf .framer-qjfp2z {
-    height: 58px !important;
+    height: 54px !important;
     padding: 0 !important;
   }
 
-  /* Icon → label: 18.5px dead space + 4px link padding + 3px column gap
-     (25.5px) becomes a tight 2px. */
+  /* Icon → label: the frame already ends where the orbit ends, so no column
+     gap is needed. The label's line box starts directly under the orbit and
+     its glyphs sit ~3px lower, giving the small, consistent visual gap. */
   .framer-G6c65.framer-v-1v126tf .framer-o9kej6 {
-    gap: 2px !important;
+    gap: 0 !important;
   }
 
   .framer-G6c65.framer-v-1v126tf .framer-18wnfum-container {
     margin-top: 0 !important;
   }
 
-  /* The fixed bar is now ~83px tall, so trim the page's top clearance by the
-     same amount. Content keeps the original ~10px breathing room under the
-     bar instead of gaining a new empty band. */
+  /* The fixed bar is now ~80px tall, so keep the page's original clearance
+     under it instead of leaving a new empty band. */
   .framer-hTG3P.framer-emw559 {
-    padding-top: 87px !important;
+    padding-top: 84px !important;
   }
 }
 
@@ -7428,16 +7471,18 @@ body {
 /* ===========================================================================
    Home — "START A PROJECT" ticker spacing (small phones 320–390px)
    ---------------------------------------------------------------------------
-   The contact card above the footer overflows its own wrapper into the
-   footer's 40px top margin, so only ~27px separates the card from the ticker.
-   Give the Home footer a larger top margin on small phones so the ticker
-   starts as a clearly separated section. Only the Home footer's top margin
-   changes; the ticker bar, its text, animations and everything below stay
-   exactly as they are. Tablet (≥391px) and desktop are untouched.
+   The contact card above the footer scroll-reveals with a downward offset
+   (up to 36px) while the footer comes into view, which eats into the gap and
+   leaves the card's bottom edge sitting right above the ticker. Keep the
+   original layout gap plus that offset so the ticker always starts as a
+   clearly separated section with ~40px of clean whitespace above it. Only the
+   Home footer's top margin changes; the ticker bar, its text, animations and
+   everything below stay exactly as they are. Tablet (≥391px) and desktop are
+   untouched.
    ========================================================================== */
 @media (min-width: 320px) and (max-width: 390px) {
   .home-page .framer-dojrqz-container > .framer-NKgCP.framer-k0nykd {
-    margin-top: 80px !important;
+    margin-top: 112px !important;
   }
 }
 
@@ -7518,6 +7563,10 @@ body {
   .home-page .nav-social-icon-btn:hover {
     transform: none !important;
     box-shadow: none !important;
+  }
+
+  .home-page .nav-social-icon-btn:active {
+    transform: scale(0.92) !important;
   }
 
   .home-page .framer-1vviajj {
@@ -7691,4 +7740,96 @@ body {
   aspect-ratio: 890 / 1302;
   object-fit: contain;
   object-position: center;
+}
+/* ===========================================================================
+   Work page - 3rd section ("Some freelance design") spacing + interaction
+   ---------------------------------------------------------------------------
+   The section's groups (two featured boxes, two half cards and two reference
+   cards) sit in a flex column whose inline `gap: 12px` did not match the gap
+   used inside the card grids (16px on phones, 20px on laptop/desktop). That left
+   an uneven rhythm between the boxes. Match the column gap to the grids so every
+   box in the section is evenly spaced - scoped to small phones (320-390px) and
+   laptop/desktop widths. Tablet keeps its existing spacing.
+   ========================================================================== */
+@media (min-width: 320px) and (max-width: 390px) {
+  .work-page-shell .freelance-stack {
+    gap: 16px !important;
+  }
+
+  /* Touch cue: these cards otherwise only react to hover, which phones never
+     trigger. Lift + shadow + artwork zoom while the card is pressed; the state
+     ends with the press so nothing sticks after navigation. */
+  .work-page-shell .freelance-featured-card:active,
+  .work-page-shell .freelance-half-card:active,
+  .work-page-shell .freelance-reference-card:active {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 34px rgba(0, 0, 0, 0.16);
+  }
+
+  .work-page-shell .freelance-featured-card:active .freelance-featured-image img,
+  .work-page-shell .freelance-half-card:active .freelance-card-mockup-img,
+  .work-page-shell .freelance-reference-card:active > img {
+    transform: scale(1.03);
+  }
+}
+
+@media (min-width: 1024px) {
+  .work-page-shell .freelance-stack {
+    gap: 20px !important;
+  }
+}
+
+/* Hover lift for any hover-capable device, including hybrid laptops whose
+   primary pointer is reported as coarse. Same motion/values as the existing
+   card hover, scoped to the Work page. */
+@media (hover: hover) {
+  .work-page-shell .freelance-featured-card:hover,
+  .work-page-shell .freelance-half-card:hover,
+  .work-page-shell .freelance-reference-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 22px 46px rgba(0, 0, 0, 0.16);
+  }
+
+  .work-page-shell .freelance-featured-card:hover .freelance-featured-image img,
+  .work-page-shell .freelance-half-card:hover .freelance-card-mockup-img,
+  .work-page-shell .freelance-reference-card:hover > img {
+    transform: scale(1.04);
+  }
+}
+
+/* ===========================================================================
+   Work page - "AI for proofreaders" card on small phones (320-390px)
+   ---------------------------------------------------------------------------
+   The card frame was using the Dashboard artwork ratio (1312 / 1199), while the
+   AI artwork is naturally 1358 x 1159. With object-fit: cover the mismatch
+   cropped roughly 9px from each side of the image. On phones the two cards are
+   stacked one per row, so the frame can safely follow the AI image's own ratio
+   instead: the artwork then fills the rounded card exactly, with no stretch,
+   distortion or crop. Tablet and desktop keep the original 1312 / 1199 frame.
+   Scoped to the AI card only.
+
+   Sizing: on phones the card was only as wide as the page gutter allowed
+   (~254-356px), which reads too small. Below it is sized from the viewport
+   (93vw) and centred, so it keeps equal side margins at every phone width
+   while staying inside the 90-95% target. The shell's horizontal overflow is
+   left visible so the wider card can use the gutter instead of being clipped.
+   Tablet and desktop (391px+) are untouched.
+   ========================================================================== */
+@media (min-width: 320px) and (max-width: 390px) {
+  .work-page-shell {
+    overflow-x: visible !important;
+  }
+
+  .work-page-shell .freelance-reference-card--ai {
+    width: 93vw;
+    max-width: 93vw;
+    aspect-ratio: 1358 / 1159;
+    justify-self: center;
+    align-self: start;
+  }
+
+  .work-page-shell .freelance-halves-grid .freelance-reference-card--ai > img {
+    object-fit: contain;
+    object-position: center;
+  }
 }
