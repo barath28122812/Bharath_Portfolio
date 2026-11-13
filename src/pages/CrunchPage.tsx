@@ -1802,7 +1802,7 @@ function IconographyGridSection() {
           <h2 className="ico-title">Iconography</h2>
           <div className="ico-orange-line" />
 
-          <img src='./assets/crunch/crunch11.png' alt='Iconography' style={{ width: '100%', height: 'auto' }} />
+          <img src='/assets/crunch/crunch11.png' alt='Iconography' style={{ width: '100%', height: 'auto' }} />
 
 
           {/* ── Grid System ── */}

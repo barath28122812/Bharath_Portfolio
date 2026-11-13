@@ -867,7 +867,7 @@ function BeutaInsightsAndPersonasSection() {
             {/* Left Column */}
             <div className="bi-left-col">
               <div className="bi-image-box">
-                <img src="./assets/beuta/beuta23.jpg" alt="Gautam Rathore" />
+                <img src="/assets/beuta/beuta23.jpg" alt="Gautam Rathore" />
               </div>
               <div className="bi-info-box">
                 <div className="bi-info-row">
@@ -934,7 +934,7 @@ function BeutaInsightsAndPersonasSection() {
             {/* Left Column */}
             <div className="bi-left-col">
               <div className="bi-image-box">
-                <img src="./assets/beuta/beuta24.jpg" alt="Ria Kanna" />
+                <img src="/assets/beuta/beuta24.jpg" alt="Ria Kanna" />
               </div>
               <div className="bi-info-box">
                 <div className="bi-info-row">

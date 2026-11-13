@@ -55,7 +55,7 @@ export const BIOSECTION = {
   JOURNEY:
     'My journey in the world of design began 3 years ago with a fascination for the digital realm. From my early days of curiosity to today\u2019s expertise. I\u2019ve honed the art of transforming ideas into captivating design, mastering the art of creating design solution that bridges the gap between aesthetics and functionality. lets craft something remarkable together.',
   SKILLS: 'Skills',
-  STAR_ICON: 'https://www.bharathanand.co.uk/assets/images/home/bioSection/star-cross-1.png',
+  STAR_ICON: '/assets/images/about/star-cross-1.png',
   SKILL_SET: [
     'UX Design',
     'XR Design',
@@ -71,27 +71,27 @@ export const BIOSECTION = {
   STACK: 'STACK',
   SOCIALLINKS: [
     {
-      icon: 'https://www.bharathanand.co.uk/assets/images/home/bioSection/LIN KS_.svg',
+      icon: '/assets/images/about/social-dribbble.svg',
       href: '',
     },
     {
-      icon: 'https://www.bharathanand.co.uk/assets/images/home/bioSection/behance_icon.svg',
+      icon: '/assets/images/about/social-behance.svg',
       href: 'https://www.behance.net/bharathanand2812',
     },
     {
-      icon: 'https://www.bharathanand.co.uk/assets/images/home/bioSection/image 99.svg',
+      icon: '/assets/images/about/social-upwork.svg',
       href: 'https://www.upwork.com/freelancers/~0120b4affdbbb36df1',
     },
     {
-      icon: 'https://www.bharathanand.co.uk/assets/images/home/bioSection/insta-icon.svg',
+      icon: '/assets/images/about/social-instagram.svg',
       href: 'https://www.instagram.com/barath_anand___/',
     },
     {
-      icon: 'https://www.bharathanand.co.uk/assets/images/home/bioSection/linkedin-icon.svg',
+      icon: '/assets/images/about/social-linkedin.svg',
       href: 'https://www.linkedin.com/in/bharath-anan/',
     },
     {
-      icon: 'https://www.bharathanand.co.uk/assets/images/home/bioSection/fb-icon.svg',
+      icon: '/assets/images/about/social-facebook.svg',
       href: 'https://www.facebook.com/people/Bharath-Anand/pfbid0VEizGHbjgao8YzEHmk2YYEkUp6HkRFiMgELYBvC9h9V2MyewWLivBncb2ox6uFHil/',
     },
   ],
@@ -109,7 +109,7 @@ export const BIOSECTION = {
   READ: 'Read',
   BEHANCE_URL: 'https://www.behance.net/bharathanand2812',
   PROFILE_IMAGE: '/assets/images/about/bharath-profile.jpg',
-  TECH_STACK: 'https://www.bharathanand.co.uk/assets/images/home/bioSection/tech_stack.svg',
+  TECH_STACK: '/assets/images/about/tech-stack.png',
 }
 
 export const ABOUT_GOOD_AT = {
@@ -210,5 +210,5 @@ export const PHOTOGRAPHY = {
 }
 
 export const STACKS = {
-  IMAGE: 'https://www.bharathanand.co.uk/assets/images/about/stacks/stackImages.svg',
+  IMAGE: '/assets/images/about/stack-images.png',
 }

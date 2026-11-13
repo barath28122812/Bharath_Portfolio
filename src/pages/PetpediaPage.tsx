@@ -245,7 +245,7 @@ function DesignProcessSection() {
           </div>
 
           <div className="petdesign-image-container">
-            <img src="./assets/petpedia/man.png" alt="Design process" />
+            <img src="/assets/petpedia/man.png" alt="Design process" />
           </div>
         </Box>
       </Box>
@@ -834,14 +834,14 @@ function ProductThinkingSection() {
                 </p>
               </div>
               <div className="petproduct-image-card">
-                <img src="./assets/petpedia/petpedia17.png" alt="Cute kitten looking up" />
+                <img src="/assets/petpedia/petpedia17.png" alt="Cute kitten looking up" />
               </div>
             </div>
 
             {/* Column 2 */}
             <div className="petproduct-col">
               <div className="petproduct-image-card">
-                <img src="./assets/petpedia/petpedia19.png" alt="Cute smiling puppy" />
+                <img src="/assets/petpedia/petpedia19.png" alt="Cute smiling puppy" />
               </div>
               <div className="petproduct-card light">
                 <div className="petproduct-card-header">
@@ -879,7 +879,7 @@ function ProductThinkingSection() {
             {/* Column 4 */}
             <div className="petproduct-col">
               <div className="petproduct-image-card">
-                <img src="./assets/petpedia/petpedia18.png" alt="Dog and cat portrait selfie" />
+                <img src="/assets/petpedia/petpedia18.png" alt="Dog and cat portrait selfie" />
               </div>
               <div className="petproduct-card light">
                 <div className="petproduct-card-header">
@@ -1168,7 +1168,7 @@ function DesignSystemSection() {
             <span className="petca-label">Competitive analysis</span>
           </div>
 
-          <img src="../petbox1.png" alt="" />
+          <img src="/petbox1.png" alt="" />
         </Box>
       </Box>
     </Box>
@@ -1366,7 +1366,7 @@ function DesignsSection() {
             {/* Center Image */}
             <div className="petempathy-center-img-wrap">
               <img
-                src="./assets/petpedia/petpedia15.jpg"
+                src="/assets/petpedia/petpedia15.jpg"
                 alt="Empathy target audience holding puppy"
                 className="petempathy-center-img"
               />
@@ -1604,7 +1604,7 @@ function LearningSection() {
           {/* Top Banner with Overlay Cards */}
           <div className="petbiz-banner-wrap">
             <img
-              src="./assets/petpedia/petpedia14.png"
+              src="/assets/petpedia/petpedia14.png"
               alt="Petpedia Target Audience Collaboration"
               className="petbiz-banner-img"
             />
@@ -2138,7 +2138,7 @@ function TypographyButtonSystemSection() {
 
           <div className="petbtn-table-wrap">
             <img
-              src="/ateats 2/button1.png"
+              src="/ateats%202/button1.png"
               alt="Button system"
               style={{ width: '100%', maxWidth: '1000px', height: 'auto', display: 'block' }}
             />
