@@ -7819,27 +7819,22 @@ body {
    left visible so the wider card can use the gutter instead of being clipped.
    Tablet and desktop (391px+) are untouched.
    ========================================================================== */
-@media (min-width: 320px) and (max-width: 390px) {
-  .work-page-shell {
-    overflow-x: visible !important;
-  }
+.work-page-shell .freelance-halves-grid
+.freelance-reference-card--ai > img {
+  object-fit: contain;
+  object-position: center;
+}
 
-  .work-page-shell .freelance-reference-card--ai {
-    width: 93vw;
-    max-width: 93vw;
-    aspect-ratio: 1358 / 1159;
-    justify-self: center;
-=======
-   ========================================================================== */
-@media (min-width: 320px) and (max-width: 390px) {
-  .work-page-shell .freelance-reference-card--ai {
-    aspect-ratio: 1358 / 1159;
->>>>>>> ee2cf8f (14/11 my new work)
-    align-self: start;
-  }
+ .work-page-shell .freelance-reference-card--ai {
+  width: 93vw;
+  max-width: 93vw;
+  aspect-ratio: 1358 / 1159;
+  justify-self: center;
+  align-self: start;
+}
 
-  .work-page-shell .freelance-halves-grid .freelance-reference-card--ai > img {
-    object-fit: contain;
-    object-position: center;
-  }
+.work-page-shell .freelance-halves-grid
+.freelance-reference-card--ai > img {
+  object-fit: contain;
+  object-position: center;
 }
