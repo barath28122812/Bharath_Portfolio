@@ -7800,41 +7800,23 @@ body {
   }
 }
 
-/* ===========================================================================
-   Work page - "AI for proofreaders" card on small phones (320-390px)
-   ---------------------------------------------------------------------------
-   The card frame was using the Dashboard artwork ratio (1312 / 1199), while the
-   AI artwork is naturally 1358 x 1159. With object-fit: cover the mismatch
-   cropped roughly 9px from each side of the image. On phones the two cards are
-   stacked one per row, so the frame can safely follow the AI image's own ratio
-   instead: the artwork then fills the rounded card exactly, with no stretch,
-   distortion or crop. Tablet and desktop keep the original 1312 / 1199 frame.
-   Scoped to the AI card only.
-<<<<<<< HEAD
-
-   Sizing: on phones the card was only as wide as the page gutter allowed
-   (~254-356px), which reads too small. Below it is sized from the viewport
-   (93vw) and centred, so it keeps equal side margins at every phone width
-   while staying inside the 90-95% target. The shell's horizontal overflow is
-   left visible so the wider card can use the gutter instead of being clipped.
-   Tablet and desktop (391px+) are untouched.
-   ========================================================================== */
-.work-page-shell .freelance-halves-grid
-.freelance-reference-card--ai > img {
-  object-fit: contain;
-  object-position: center;
+/* Keep the AI card inside its half-width grid track at every breakpoint. */
+.work-page-shell .freelance-reference-card--ai {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+  aspect-ratio: 1312 / 1199;
+  justify-self: stretch;
 }
 
- .work-page-shell .freelance-reference-card--ai {
-  width: 93vw;
-  max-width: 93vw;
-  aspect-ratio: 1358 / 1159;
-  justify-self: center;
-  align-self: start;
-}
+@media (max-width: 390px) {
+  .work-page-shell .freelance-reference-card--ai {
+    aspect-ratio: 1358 / 1159;
+  }
 
-.work-page-shell .freelance-halves-grid
-.freelance-reference-card--ai > img {
-  object-fit: contain;
-  object-position: center;
+  .work-page-shell .freelance-reference-card--ai > img {
+    object-fit: contain;
+    object-position: center;
+  }
 }
