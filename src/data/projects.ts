@@ -20,7 +20,7 @@ export const projects: Project[] = [
     role: 'Product Designer',
     client: 'Crunch',
     stack: 'Figma, React Native',
-    image: '/assets/crunch/crunch1.png',
+    image: '/assets/Crunch.png',
     link: 'https://www.bharathanand.co.uk',
     description:
       'Crunch is a mindful eating app designed to help people slow down and build healthier habits around food. From gentle nudges to glanceable meal tracking, every screen is built for calm and consistency.',
