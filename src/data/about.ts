@@ -16,30 +16,35 @@ export const ABOUT_STATS_FACTS = {
     {
       header: 'Product Designer',
       company: 'Aaludra Technologies Private Limited',
+      date: 'Mar 2021 - Present',
       description:
         'We craft stunning, high-performance websites that blend creativity with functionality. From sleek portfolios to powerful business sites, our designs ensure a seamless user experience.',
     },
     {
       header: 'Product Designer',
       company: 'Sparkpolo',
+      date: 'Jan 2026 - Oct 2026',
       description:
         'Created high-fidelity UI designs, interactive prototypes and scalable Figma design systems and component libraries, translating complex ERP workflows and client requirements into accessible, brand-coherent digital experiences.',
     },
     {
       header: 'UX Designer',
       company: 'CYOS',
+      date: 'May 2025 - Feb 2026',
       description:
         'Strategic and visually compelling brand design that tells your story, builds trust, and sets you apart. From logos to full identity systems, we craft brands that leave a lasting impact.',
     },
     {
       header: 'UX designer & Visual Artist',
       company: 'Delhivery',
+      date: 'Jul 2020 - Mar 2021',
       description:
         'Blending creativity with functionality, we craft intuitive and visually stunning product designs that enhance user experience and drive engagement.',
     },
     {
       header: 'UX Designer',
       company: 'Upwork',
+      date: 'Mar 2020 - Jul 2020',
       description:
         'Blending creativity with functionality, we craft intuitive and visually stunning product designs that enhance user experience and drive engagement.',
     },

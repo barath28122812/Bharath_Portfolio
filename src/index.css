@@ -4888,7 +4888,10 @@ body #main .recent-works-chat-card .chat-response-text a,
 
   .bio-stack-card img {
     max-width: 100% !important;
-    height: 48px !important;
+    /* Keep the 48px target height where the card is wide enough, but let the
+       image shrink proportionally at 320px instead of squashing the artwork. */
+    height: auto !important;
+    max-height: 48px;
   }
 
   .about-social-grid {
@@ -7807,6 +7810,7 @@ body {
    instead: the artwork then fills the rounded card exactly, with no stretch,
    distortion or crop. Tablet and desktop keep the original 1312 / 1199 frame.
    Scoped to the AI card only.
+<<<<<<< HEAD
 
    Sizing: on phones the card was only as wide as the page gutter allowed
    (~254-356px), which reads too small. Below it is sized from the viewport
@@ -7825,6 +7829,12 @@ body {
     max-width: 93vw;
     aspect-ratio: 1358 / 1159;
     justify-self: center;
+=======
+   ========================================================================== */
+@media (min-width: 320px) and (max-width: 390px) {
+  .work-page-shell .freelance-reference-card--ai {
+    aspect-ratio: 1358 / 1159;
+>>>>>>> ee2cf8f (14/11 my new work)
     align-self: start;
   }
 
