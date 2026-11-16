@@ -1811,7 +1811,7 @@ function AtBooksPage() {
             <ChallengeAndSolutionSection />
             <KeyFeaturesSection />
             <DesignSection />
-            <MoreWorkMarquee currentPath="/atbooks" />
+            <MoreWorkMarquee currentPath="/atBooks" />
           </Box>
         </Box>
         <div className="framer-15qpk7a" />

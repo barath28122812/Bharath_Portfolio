@@ -13,11 +13,11 @@ const PROJECT_ROUTES = new Set([
   '/crunch',
   '/xr-design',
   '/petpedia',
-  '/atbooks',
+  '/atBooks',
   '/ateats',
   '/beuta',
   '/emergency-alert',
-  '/atbots',
+  '/atBots',
   '/cyos',
 ])
 

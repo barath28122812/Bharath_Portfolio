@@ -108,7 +108,7 @@ function ProjectsIndex() {
                 image={item.image}
                 to={item.path}
                 external={isExternal(item.path)}
-                sx={{ width: '100%', p: '0 0 32px' }}
+                sx={{ width: '100%', minWidth: 0, p: { xs: '0 0 20px', sm: '0 0 28px', lg: '0 0 32px' } }}
               />
             ))}
           </Box>

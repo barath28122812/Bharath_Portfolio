@@ -185,7 +185,7 @@ function PortfolioCard({ item }: { item: (typeof WORKDATASECTION)[number] }) {
       image={item.image}
       to={item.path}
       external={isExternal(item.path)}
-      sx={{ width: '100%', p: '0 0 32px' }}
+      sx={{ width: '100%', p: 0 }}
     />
   )
 }

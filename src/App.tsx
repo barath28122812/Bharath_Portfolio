@@ -188,7 +188,7 @@ function App() {
               <Route path="/crunch" element={<CrunchPage />} />
               <Route path="/xr-design" element={<XrDesignPage />} />
               <Route path="/petpedia" element={<PetpediaPage />} />
-              <Route path="/atbooks" element={<AtBooksPage />} />
+              <Route path="/atBooks" element={<AtBooksPage />} />
               <Route path="/ateats" element={<AteatsPage />} />
               <Route path="/beuta" element={<BeutaPage />} />
               <Route path="/emergency-alert" element={<EmergencyAlertPage />} />

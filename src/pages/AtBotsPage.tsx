@@ -153,7 +153,7 @@ function AtBotsPage() {
               <p className="abl-desc">
                 Curious to see this project in action? Explore the live atBots platform and see the conversational flows come to life.
               </p>
-              <a href="https://syopingsolutions.com/eats/" target="_blank" rel="noopener noreferrer" className="abl-btn">
+              <a href="https://aaludra.com/products/atbots/" target="_blank" rel="noopener noreferrer" className="abl-btn">
                 <span>●</span> Take me to atBots →
               </a>
             </Box>

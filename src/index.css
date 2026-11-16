@@ -1460,6 +1460,10 @@ html body {
   box-sizing: border-box;
 }
 
+.work-page-shell #work-grid .work-grid-layout {
+  gap: 24px;
+}
+
 .freelance-featured-card {
   display: flex;
   align-items: center;
@@ -6207,28 +6211,51 @@ body {
     padding: 6px 12px !important;
   }
 
-  /* More-work carousel: the track may remain wider for animation, but each
-     card and its text must fit inside the clipped viewport. */
+  /* Keep the Work-page cards aligned to the same container gutters. */
   .work-page-shell .more-work-marquee-wrap {
     width: 100% !important;
     max-width: 100% !important;
     overflow: hidden !important;
   }
 
+  .work-page-shell section[aria-label='My works'] .projects-home-marquee.more-work-marquee {
+    display: block !important;
+    width: 100% !important;
+    padding: 0 16px 20px !important;
+    animation: none !important;
+    transform: none !important;
+    box-sizing: border-box !important;
+  }
+
   .work-page-shell .more-work-title {
-    padding-inline: 14px !important;
+    padding-inline: 16px !important;
     font-size: clamp(30px, 10vw, 42px) !important;
   }
 
-  .work-page-shell .more-work-copy {
-    gap: 16px !important;
-    padding-inline: 14px !important;
+  .work-page-shell section[aria-label='My works'] .more-work-copy {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    width: 100% !important;
+    gap: 20px !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
   }
 
-  .work-page-shell .more-work-item > a {
-    width: min(86vw, 360px) !important;
-    min-width: min(86vw, 360px) !important;
-    max-width: 360px !important;
+  .work-page-shell section[aria-label='My works'] .more-work-copy:nth-child(2) {
+    display: none !important;
+  }
+
+  .work-page-shell section[aria-label='My works'] .more-work-item,
+  .work-page-shell section[aria-label='My works'] .more-work-item > a {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+
+  .work-page-shell section[aria-label='My works'] .project-card-image {
+    height: 100% !important;
+    object-fit: contain !important;
   }
 
   .work-page-shell .more-work-item .project-card-title {
@@ -6273,6 +6300,13 @@ body {
 
   .work-page-shell .latest-insight-text h5 {
     font-size: 15px !important;
+  }
+}
+
+@media (min-width: 600px) {
+  .work-page-shell section[aria-label='My works'] .more-work-copy {
+    gap: 24px !important;
+    padding-inline: clamp(24px, 2.4vw, 32px) !important;
   }
 }
 
@@ -7017,20 +7051,60 @@ body {
 }
 
 /* Projects index: reuse the work grid but keep its gutters aligned with the
-   page heading (16px phones / 24px tablet / 32px desktop). */
+   page heading and give project cards consistent breathing room across
+   small phones (320-390px), larger mobiles/tablets, and laptops/desktops. */
 .projects-index-main .work-grid-layout.projects-index-grid {
+  margin-top: 24px;
   padding-inline: 16px !important;
+  gap: 20px;
+  align-items: start;
+}
+
+.projects-index-main .work-grid-layout.projects-index-grid > * {
+  min-width: 0;
+}
+
+.projects-index-main .work-grid-layout.projects-index-grid .project-card-link {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (min-width: 390.02px) and (max-width: 599.98px) {
+  .projects-index-main .work-grid-layout.projects-index-grid {
+    margin-top: 28px;
+    padding-inline: 16px !important;
+    gap: 22px !important;
+  }
 }
 
 @media (min-width: 600px) {
   .projects-index-main .work-grid-layout.projects-index-grid {
+    margin-top: 32px;
     padding-inline: 24px !important;
+    gap: 24px;
   }
 }
 
 @media (min-width: 900px) {
   .projects-index-main .work-grid-layout.projects-index-grid {
+    margin-top: 40px;
     padding-inline: 32px !important;
+    gap: 28px;
+  }
+}
+
+@media (min-width: 1200px) and (max-width: 1440px) {
+  .projects-index-main .work-grid-layout.projects-index-grid {
+    padding-inline: 28px !important;
+    gap: 24px;
+  }
+}
+
+@media (max-width: 390px) {
+  .projects-index-main .work-grid-layout.projects-index-grid {
+    margin-top: 20px;
+    padding-inline: 12px !important;
+    gap: 16px !important;
   }
 }
 

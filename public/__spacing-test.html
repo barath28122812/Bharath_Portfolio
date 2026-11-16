@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>spacing harness</title>
+<style>
+  body { margin: 0; background: #ddd; font: 12px monospace; }
+  .case { margin: 8px; background: #fff; }
+  .case h2 { font: 14px monospace; margin: 4px; }
+  iframe { border: 0; display: block; background: #fff; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+  const widths = [1440, 1280, 1024, 900, 810, 768, 390, 375, 360, 340, 320];
+  const pages = ['/work', '/projects'];
+  const root = document.getElementById('root');
+  for (const page of pages) {
+    for (const w of widths) {
+      const holder = document.createElement('div');
+      holder.className = 'case';
+      holder.dataset.page = page;
+      holder.dataset.width = String(w);
+      holder.innerHTML = `<h2>${page} @ ${w}</h2><iframe src="${page}" width="${w}" height="900" loading="eager"></iframe>`;
+      root.appendChild(holder);
+    }
+  }
+</script>
+</body>
+</html>

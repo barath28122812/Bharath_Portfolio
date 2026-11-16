@@ -10,9 +10,9 @@ export interface WorkItem {
 const INSIGHTS = '/assets/images/home/latestinsights'
 
 export const WORKDATASECTION: WorkItem[] = [
-  { image: 'https://erepublic.brightspotcdn.com/dims4/default/b0f92ed/2147483647/strip/true/crop/5824x3037+0+0/resize/840x438!/quality/90/?url=http%3A%2F%2Ferepublic-brightspot.s3.us-west-2.amazonaws.com%2F87%2F92%2F94429af140178513138d2aae52b4%2Fadobestock-1284427313.jpeg', title: 'Atbots', year: '2025', activeDots: 3, tags: ['AI', 'Chatbot'], path: '/atbots' },
+  { image: 'https://erepublic.brightspotcdn.com/dims4/default/b0f92ed/2147483647/strip/true/crop/5824x3037+0+0/resize/840x438!/quality/90/?url=http%3A%2F%2Ferepublic-brightspot.s3.us-west-2.amazonaws.com%2F87%2F92%2F94429af140178513138d2aae52b4%2Fadobestock-1284427313.jpeg', title: 'AtBots', year: '2025', activeDots: 3, tags: ['AI', 'Chatbot'], path: '/atbots' },
   { image: '/assets/Eats.png', title: 'Eats', year: '2025', activeDots: 1, tags: ['SaaS'], path: '/ateats' },
-  { image: '/atbooks-cover.png', title: 'Atbook', year: '2025', activeDots: 4, tags: ['ERP'], path: '/atbooks' },
+  { image: '/atbooks-cover.png', title: 'AtBook', year: '2025', activeDots: 4, tags: ['ERP'], path: '/atbooks' },
   { image: '/assets/Petpedia.png', title: 'Petpedia', year: '2025', activeDots: 1, tags: ['Saas'], path: '/petpedia' },
   { image: '/assets/beuta/cyos.png', title: 'CYSO', year: '2025', activeDots: 2, tags: ['Marketplace'], path: '/cyos' },
   { image: '/assets/Crunch.png', title: 'Crunch', year: '2025', activeDots: 5, tags: ['Mindful Eating app'], path: '/crunch' },
@@ -25,7 +25,7 @@ export const WORKDATASECTION: WorkItem[] = [
     path: 'https://drive.google.com/file/d/1sjGd2IsnQORbR5yuk_OPEoGw-9e5e6Zr/view',
   },
   { image: '/assets/Sail%20safe.png', title: 'Sail safe', year: '2025', activeDots: 6, tags: ['Ship', 'VR Navigation'], path: '/xr-design' },
-  { image: '/assets/Emergency.png', title: 'Emergency AI', year: '2025', activeDots: 6, tags: ['Business', 'Pitch website'], path: '/emergency-alert' },
+  { image: '/assets/Emergency.png', title: 'EAS', year: '2025', activeDots: 6, tags: ['Government funding feature'], path: '/emergency-alert' },
 ]
 
 export interface InsightCard {
